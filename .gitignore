@@ -1,2 +1,5 @@
 node_modules/
 meteor-build/
+
+# Host-side dev tooling output (Playwright screenshot helper)
+screenshots-dev/

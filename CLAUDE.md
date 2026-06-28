@@ -122,6 +122,25 @@ gated inside `server/methods.js` with `Roles.userIsInRole(..., 'super-admin')`. 
 - **Mobile**: originally a Cordova/Android build (`mobile-config.js`, README build steps).
   The Docker image builds `--server-only`; there is no Android SDK in the container.
 
+## Frontend & web design
+
+For any UI / styling / web-design task, follow the dedicated docs:
+
+- **[`docs/WEBDESIGN.md`](docs/WEBDESIGN.md)** — the *how-to-work* layer: invoke the
+  `frontend-design` skill first, run the stack on `http://localhost:3000`, and use the
+  Playwright screenshot helper (`scripts/screenshot.js`, run via `npm run screenshot`) to
+  capture and compare your output.
+- **[`docs/DESIGN.md`](docs/DESIGN.md)** — the design-system single source of truth: color
+  tokens, typography, layout, and the INSPINIA component patterns (`ibox`, `pageHeading`),
+  reverse-engineered from `src/app/client/stylesheets/`. Read it before touching styles.
+
+The UI is **Bootstrap 3 + the INSPINIA theme**, styled in **LESS** under
+`src/app/client/stylesheets/` (compiled via `style.less`) plus per-template `.css` files.
+Stay within those tokens and components — do not introduce a new CSS framework.
+
+The repo-root `package.json` exists only for **host-side dev tooling** (Playwright); it is
+**not** the Meteor app (that is `src/app/package.json`, pinned to Node 4 and built in Docker).
+
 ## Conventions specific to this codebase
 
 - **No build/lint/test tooling** — there are no tests, no linter, no `npm` scripts beyond a
