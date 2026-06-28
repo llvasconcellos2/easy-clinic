@@ -11,3 +11,7 @@ users_lastNamePlaceholder: Ingrese los Apellidos
 users_emailPlaceholder: Ingrese el E-mail
 users_passwordPlaceholder: Ingrese la contraseña
 users_changepassword: Cambiar la contraseña
+users_doctors: Médicos
+users_super-admin: Super Admin
+users_group: Grupo
+users_language: Idioma

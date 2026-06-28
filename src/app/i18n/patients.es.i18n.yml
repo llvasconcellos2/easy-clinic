@@ -1,7 +1,11 @@
+patients_data: Datos del Paciente
+patients_records: Ficha del Paciente
 patients_patients: Pacientes
+patients_patient: Paciente
 patients_create-form-title: Actualice Informaciones del Paciente
 patients_newpatient: Nuevo Paciente
 patients_list: Listar Pacientes
+patients_add-to-records: Agregar a la Ficha del Paciente
 patients_add-form: Agregar Formulario
 patients_add-prescription: Agregar Receta
 patients_add-certificate: Agregar Certificado Médico
@@ -9,6 +13,18 @@ patients_add-exam-request: Agregar Solicitud de Examen
 patients_records-empty-title: Aún no hay registros
 patients_records-empty-text: Este paciente todavía no tiene nada en su ficha. Comience agregando el primer registro.
 patients_records-empty-hint: 'Toque el botón verde en la esquina inferior derecha y elija lo que desea agregar:'
+patient_document: Documento
+patient_records-validation-error: Por favor revise el formulario por errores.
+patient_records-item: Ítem
+patients_start-appointment: Iniciar Consulta
+patients_finish-appointment: Finalizar Consulta
+patients_full-patient-register: Registro Completo
+patient_appointment-leave-confirmation: Debe detener la consulta antes de salir de esta página.
+patient_appointment-doctor: Médico(a)
+patient_appt-status-re-scheduled: Reagendada
+patient_appt-status-in_progress: En progreso
+patient_appt-status-completed: Completada
+patient_appt-status-no_show: No asistió
 schemas:
   patients:
     name:

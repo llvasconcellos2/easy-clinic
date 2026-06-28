@@ -48,4 +48,17 @@ common_disabled: Inactivo
 common_deleteConfirmation: "Estás seguro de que deseas eliminar al registro %s?"
 common_icd: ICD-10
 common_manage_icd: International Statistical Classification of Diseases and Related Health Problems
+common_copy: Copiar contenido de la tabla al portapapeles
+common_csv: Exportar datos de la tabla a csv (excel)
+common_print: Imprimir contenido de la tabla
+common_notAllowed: No Permitido
+common_medical-certificate: Certificado Médico
+common_prescription: Receta
+common_exam-request: Solicitud de Examen
+common_date: Fecha
+common_back: Volver
+common_yes: Sí
+common_no: No
+common_field-required: Este campo es obligatorio
+common_notification: Notificación
 common_language: Idioma

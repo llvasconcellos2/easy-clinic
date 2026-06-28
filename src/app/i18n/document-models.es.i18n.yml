@@ -1,0 +1,10 @@
+document-models_document-models: Modelos de Documento
+document-models_document-model: Modelo de Documento
+document-models_type: Tipo
+document-models_manage: Gestionar Modelos de Documento
+document-models_new: Nuevo Modelo de Documento
+document-models_model-placeholder: Cree modelos para agilizar el llenado de documentos durante las consultas. Vea las instrucciones a continuación.
+document-models_help: "Puede agilizar la edición de documentos usando los siguientes atajos:"
+document-models_help-patient-info: "<b class=\"label label-primary\">escriba #</b> para seleccionar información del paciente."
+document-models_help-icd10: "<b class=\"label label-success\">escriba @</b> seguido de algunas letras de una enfermedad CIE-10 y selecciónela en la lista."
+document-models_help-drug: "<b class=\"label label-danger\">escriba $</b> seguido de algunas letras de un medicamento y selecciónelo en la lista."

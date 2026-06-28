@@ -1,0 +1,8 @@
+settings_settings: Configuraciones
+settings_general: General
+settings_manage: Gestionar Configuraciones de la Aplicación
+settings_clinic-address: Dirección de la Clínica
+settings_clinic-workhours-start: Hora de Apertura de la Clínica
+settings_clinic-workhours-end: Hora de Cierre de la Clínica
+settings_clinic-notifications: SMS/Email - Tiempo Antes de las Notificaciones
+settings_clinic-notifications-placeholder: "En minutos, separados por coma. Por defecto: 120,1440,2880 (es decir 2 horas, 1 día, 2 días)"
