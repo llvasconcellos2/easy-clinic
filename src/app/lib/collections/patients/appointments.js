@@ -1,4 +1,4 @@
-Encounters = new Mongo.Collection('encounters');
+Appointments = new Mongo.Collection('appointments');
 
 var schema = {
   'patient._id': {
@@ -23,13 +23,18 @@ var schema = {
   'user.name': {
     type: String,
     trim: true
+  },
+  status: {
+    type: String,
+    allowedValues: ['re-scheduled', 'in_progress', 'completed', 'no_show'],
+    optional: true
   }
 };
 
-Encounters.attachSchema(new SimpleSchema(schema));
+Appointments.attachSchema(new SimpleSchema(schema));
 
 if (Meteor.isServer) {
-  Encounters.allow({
+  Appointments.allow({
     insert: function (userId, doc) {
       return true;
     },

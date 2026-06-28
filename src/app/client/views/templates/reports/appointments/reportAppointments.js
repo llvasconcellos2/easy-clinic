@@ -1,9 +1,9 @@
-Template.reportEncounters.events({});
+Template.reportAppointments.events({});
 
-Template.reportEncounters.helpers({
+Template.reportAppointments.helpers({
 	reactiveDataFunction: function () {
 		return function () {
-			return Encounters.find().fetch();
+			return Appointments.find().fetch();
 		};
 	},
 	optionsObject: {
@@ -36,14 +36,28 @@ Template.reportEncounters.helpers({
 					//return .humanize();
 				}
 			}
+		},{
+			title: T9n.get('status'),
+			data: 'status',
+			render: function(cellData, renderType, currentRow) {
+				var statusMap = {
+					're-scheduled': { key: 'apptRescheduled', cls: 'warning' },
+					'in_progress':  { key: 'apptInProgress',  cls: 'info' },
+					'completed':    { key: 'apptCompleted',   cls: 'primary' },
+					'no_show':      { key: 'apptNoShow',       cls: 'danger' }
+				};
+				var s = statusMap[cellData];
+				if(!s){ return ''; }
+				return '<span class="label label-' + s.cls + '">' + T9n.get(s.key) + '</span>';
+			}
 		}]
 	}
 });
 
-Template.reportEncounters.onCreated(function () {});
+Template.reportAppointments.onCreated(function () {});
 
-Template.reportEncounters.onRendered(function () {
+Template.reportAppointments.onRendered(function () {
 	//$(document).ready(function(){});
 });
 
-Template.reportEncounters.onDestroyed(function () {});
+Template.reportAppointments.onDestroyed(function () {});

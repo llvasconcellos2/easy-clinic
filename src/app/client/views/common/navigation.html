@@ -66,15 +66,15 @@
                     </li>
                 {{/if}}
                 {{#if isInRole 'super-admin,administration'}}
-                    <li class="{{isActivePath regex='reportEncounters'}}">
-                        <a href="{{pathFor route='reportEncounters'}}">
+                    <li class="{{isActivePath regex='reportAppointments'}}">
+                        <a href="{{pathFor route='reportAppointments'}}">
                             <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                             <span class="nav-label">{{_ 'reports_reports'}}</span>
                             <span class="fa arrow"></span>
                         </a>
-                        <ul class="nav nav-second-level collapse {{isActivePath regex='reportEncounters' className='in'}}">
-                            <li class="{{isActivePath regex='reportEncounters'}}">
-                                <a href="{{pathFor route='reportEncounters'}}" class="hide-on-phone"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="nav-label">{{_ 'reports_encounters'}}</span></a>
+                        <ul class="nav nav-second-level collapse {{isActivePath regex='reportAppointments' className='in'}}">
+                            <li class="{{isActivePath regex='reportAppointments'}}">
+                                <a href="{{pathFor route='reportAppointments'}}" class="hide-on-phone"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="nav-label">{{_ 'reports_appointments'}}</span></a>
                             </li>
                         </ul>
                     </li>

@@ -24,6 +24,7 @@ Run in numeric order on a freshly seeded database:
 | 08 | `08-fill-obs.js` | Writes a brief, fake doctor-style observation (pt-BR) into each patient's `obs`, tailored to age band and gender. Overwrites existing obs. |
 | 09 | `09-create-doctors.js` | Creates 9 extra doctors (Brazilian names) with distinct staggered shifts across the clinic's 05:00-23:00 window, random specialties, and calendar colors. They reuse the owner's password hash. Idempotent (keyed by email). |
 | 10 | `10-seed-doctor-photos.sh` | Gives every doctor a gender-matched real portrait reused from the `07` portrait pool (`.seed-pool/portraits`), writes the `Images` doc and sets `profile.picture`. Only photographs doctors that lack one, so it is safe to re-run. |
+| 11 | `11-fill-phones.js` | Fills patients that have no phone with a fake Brazilian mobile number, e.g. `(11) 97852-8596`. Only touches missing/null/empty phones; existing ones are left as-is. |
 
 ## How to run
 
@@ -37,6 +38,7 @@ docker compose exec -T mongo mongo --quiet meteor < scripts/04-anonymize-patient
 docker compose exec -T mongo mongo --quiet meteor < scripts/06-fix-ages.js
 docker compose exec -T mongo mongo --quiet meteor < scripts/08-fill-obs.js
 docker compose exec -T mongo mongo --quiet meteor < scripts/09-create-doctors.js
+docker compose exec -T mongo mongo --quiet meteor < scripts/11-fill-phones.js
 
 # image repair / seeding (bash + docker compose)
 bash scripts/03-fix-images.sh

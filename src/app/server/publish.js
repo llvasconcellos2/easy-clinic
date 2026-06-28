@@ -36,12 +36,12 @@ Meteor.publish('importPatients', function () {
   return ImportPatients.find();
 });
 
-Meteor.publish('patient-encounters', function (patientId) {
-  return Encounters.find({'patient._id': patientId});
+Meteor.publish('patient-appointments', function (patientId) {
+  return Appointments.find({'patient._id': patientId});
 });
 
-Meteor.publish('encounters', function () {
-  return Encounters.find();
+Meteor.publish('appointments', function () {
+  return Appointments.find();
 });
 
 Meteor.publish('specialties', function () {

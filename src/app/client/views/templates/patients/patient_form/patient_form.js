@@ -6,7 +6,7 @@ import '/imports/client/datepicker/datepicker3.css';
 Template['datePickerOverride'].replaces('afBootstrapDatepicker');
 
 var eventId = null;
-var encounter = null;
+var appointment = null;
 
 var toggleStartBtnState = function(){
 	var btn = $('.start-appointment');
@@ -30,9 +30,9 @@ Template.patientForm.events({
 		var btn = $(event.currentTarget);
 		var text = btn.find('strong').text();
 		if(text.trim() == TAPi18n.__('patients_start-appointment')){
-			startEncounter(template);
+			startAppointment(template);
 		} else {
-			stopEncounter(template);
+			stopAppointment(template);
 		}
 		toggleStartBtnState();
 	}
@@ -55,13 +55,13 @@ Template.patientForm.helpers({
 
 var setAlertBeforeLeavePage = function(){
 	$(window).on('beforeunload', function(){
-	  return TAPi18n.__('patient_encounter-leave-confirmation');
+	  return TAPi18n.__('patient_appointment-leave-confirmation');
 	});
 
 	Session.set('unsavedChanges', true);
 	preventRouteChange = function(targetContext) {
 		if (Session.get('unsavedChanges')) {
-			alert(TAPi18n.__('patient_encounter-leave-confirmation'));
+			alert(TAPi18n.__('patient_appointment-leave-confirmation'));
 			return true;
 		}
 		return false;
@@ -70,15 +70,16 @@ var setAlertBeforeLeavePage = function(){
 
 var data = {};
 
-var startEncounter = function(){
+var startAppointment = function(){
 	eventId = FlowRouter.current().queryParams.eventId;
 
-	Encounters.insert({
+	Appointments.insert({
 		patient: {
 			_id: data.patient._id,
 			name: data.patient.name
 		},
 		start: new Date(),
+		status: 'in_progress',
 		user: {
 			_id: Meteor.userId(),
 			name: Meteor.user().profile.firstName + ' ' + Meteor.user().profile.lastName
@@ -88,7 +89,7 @@ var startEncounter = function(){
 			toastr['error'](error.message, TAPi18n.__('common_error'));
 		}
 		if(result){
-			encounter = result;
+			appointment = result;
 			var btn = $('.start-appointment');
 			var text = btn.find('strong').text();
 			if(text.trim() == TAPi18n.__('patients_start-appointment')){
@@ -100,7 +101,7 @@ var startEncounter = function(){
 					toastr['error'](error.message, TAPi18n.__('common_error'));
 				}
 				if(result){
-					FlowRouter.setQueryParams({start_encounter: null, eventId: null});
+					FlowRouter.setQueryParams({start_appointment: null, eventId: null});
 					setAlertBeforeLeavePage();
 				}
 			});
@@ -108,9 +109,10 @@ var startEncounter = function(){
 	});
 };
 
-var stopEncounter = function(){
-	Encounters.update(encounter, {$set: {
+var stopAppointment = function(){
+	Appointments.update(appointment, {$set: {
 		end: new Date(),
+		status: 'completed',
 	}}, function(error, result){
 		if (error) {
 			toastr['error'](error.message, TAPi18n.__('common_error'));
@@ -146,8 +148,8 @@ Template.patientForm.onCreated(function () {
 					createdAt.html(`${TAPi18n.__('schemas.patients.createdAt.label')}: ${moment(data.patient.createdAt).format('DD/MM/YYYY')}`);
 				}
 			}
-			if(FlowRouter.current().queryParams.start_encounter){
-				startEncounter(this);
+			if(FlowRouter.current().queryParams.start_appointment){
+				startAppointment(this);
 			}
 		}, 1000);
 	});

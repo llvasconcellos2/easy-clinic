@@ -9,8 +9,8 @@ AccountsTemplates.configure({
   positiveValidation: true,
   positiveFeedback: true,
   showValidating: true,
-  privacyUrl: 'privacy',
-  termsUrl: 'terms-of-use',
+  privacyUrl: "privacy",
+  termsUrl: "terms-of-use",
   enablePasswordChange: true,
   sendVerificationEmail: true,
   enforceEmailVerification: true,
@@ -18,15 +18,15 @@ AccountsTemplates.configure({
   forbidClientAccountCreation: true,
 
   // meteor-useraccounts/flow-routing
-  defaultLayoutType: 'blaze',
-  defaultTemplate: 'login',
-  defaultLayout: 'blankLayout',
+  defaultLayoutType: "blaze",
+  defaultTemplate: "login",
+  defaultLayout: "blankLayout",
   defaultLayoutRegions: {},
-  defaultContentRegion: 'content',
-  defaultState: 'signIn',
+  defaultContentRegion: "content",
+  defaultState: "signIn",
 
   // Redirects
-  homeRoutePath: '/',
+  homeRoutePath: "/",
   redirectTimeout: 4000,
 
   // Hooks
@@ -35,107 +35,118 @@ AccountsTemplates.configure({
   preSignUpHook: function (password, info) {
     info.profile.language = TAPi18n.getLanguage();
   },
-  postSignUpHook: function(userId, info) {
-    Roles.addUsersToRoles(userId, ['default', info.profile.group]);
+  postSignUpHook: function (userId, info) {
+    Roles.addUsersToRoles(userId, ["default", info.profile.group]);
     Meteor.users.update(userId, {
       $set: {
-        isUserEnabled: false
-      }
+        isUserEnabled: false,
+      },
     });
-  }
+  },
 });
 
 // meteor-useraccounts/flow-routing
-AccountsTemplates.configureRoute('signIn', {
-  name: 'signIn',
-  path: '/',
-  redirect: '/dashboard',
+AccountsTemplates.configureRoute("signIn", {
+  name: "signIn",
+  path: "/",
+  redirect: "/dashboard",
 });
-/*AccountsTemplates.configureRoute('signUp', {
-  name: 'signUp',
-  path: '/sign-up'
-});*/
-AccountsTemplates.configureRoute('forgotPwd', {
-  name: 'forgotPwd',
-  path: '/forgot-password'
+// AccountsTemplates.configureRoute('signUp', {
+//   name: 'signUp',
+//   path: '/sign-up'
+// });
+AccountsTemplates.configureRoute("forgotPwd", {
+  name: "forgotPwd",
+  path: "/forgot-password",
 });
-AccountsTemplates.configureRoute('changePwd', {
-  name: 'changePwd',
-  path: '/change-password'
+AccountsTemplates.configureRoute("changePwd", {
+  name: "changePwd",
+  path: "/change-password",
 });
-AccountsTemplates.configureRoute('resetPwd', {
-  name: 'resetPwd',
-  path: '/reset-password'
+AccountsTemplates.configureRoute("resetPwd", {
+  name: "resetPwd",
+  path: "/reset-password",
 });
-AccountsTemplates.configureRoute('verifyEmail', {
-  name: 'verifyEmail',
-  path: '/verify-email'
+AccountsTemplates.configureRoute("verifyEmail", {
+  name: "verifyEmail",
+  path: "/verify-email",
 });
-AccountsTemplates.configureRoute('enrollAccount', {
-  name: 'enrollAccount',
-  path: '/enroll-account'
+AccountsTemplates.configureRoute("enrollAccount", {
+  name: "enrollAccount",
+  path: "/enroll-account",
 });
-AccountsTemplates.configureRoute('resendVerificationEmail', {
-  name: 'resendVerificationEmail',
-  path: '/send-again'
+AccountsTemplates.configureRoute("resendVerificationEmail", {
+  name: "resendVerificationEmail",
+  path: "/send-again",
 });
-
 
 if (Meteor.isClient) {
-  Template['atSelectInputOverride'].replaces('atSelectInput');
-  Template['atPwdFormBtnOverride'].replaces('atPwdFormBtn');
-  Accounts.onLogout(function(){
-    FlowRouter.redirect(FlowRouter.path('signIn'));
+  Template["atSelectInputOverride"].replaces("atSelectInput");
+  Template["atPwdFormBtnOverride"].replaces("atPwdFormBtn");
+  Accounts.onLogout(function () {
+    FlowRouter.redirect(FlowRouter.path("signIn"));
   });
   // Accounts.onLogin(function(){
   //   Meteor.logoutOtherClients();
   // });
 }
 
-var password = AccountsTemplates.removeField('password');
-var email = AccountsTemplates.removeField('email');
+var password = AccountsTemplates.removeField("password");
+var email = AccountsTemplates.removeField("email");
 
-AccountsTemplates.addFields([{
-  _id: 'firstName',
-  type: 'text',
-  displayName: "firstName",
-  placeholder: {
-    signUp: "firstName"
+AccountsTemplates.addFields([
+  {
+    _id: "firstName",
+    type: "text",
+    displayName: "firstName",
+    placeholder: {
+      signUp: "firstName",
+    },
+    required: true,
+    minLength: 1,
   },
-  required: true,
-  minLength: 1
-},{
-  _id: 'lastName',
-  type: 'text',
-  displayName: "lastName",
-  placeholder: {
-    signUp: "lastName"
+  {
+    _id: "lastName",
+    type: "text",
+    displayName: "lastName",
+    placeholder: {
+      signUp: "lastName",
+    },
+    required: true,
+    minLength: 1,
   },
-  required: true,
-  minLength: 1
-},{
- _id: "group",
-  type: "select",
-  showLabels: false,
-  displayName: T9n.get('group'),
-  required: true,
-  select: [{
-    text: T9n.get('group'),
-    value: ""
-  },{
-    text: T9n.get('groupMD'),
-    value: "medical_doctor"
-  },{
-    text: T9n.get('groupNurse'),
-    value: "nurse"
-  },{
-    text: T9n.get('groupReception'),
-    value: "recepcionist"
-  },{
-    text: T9n.get('groupAdmin'),
-    value: "administration"
-  }]
-}, email, password]);
+  {
+    _id: "group",
+    type: "select",
+    showLabels: false,
+    displayName: T9n.get("group"),
+    required: true,
+    select: [
+      {
+        text: T9n.get("group"),
+        value: "",
+      },
+      {
+        text: T9n.get("groupMD"),
+        value: "medical_doctor",
+      },
+      {
+        text: T9n.get("groupNurse"),
+        value: "nurse",
+      },
+      {
+        text: T9n.get("groupReception"),
+        value: "recepcionist",
+      },
+      {
+        text: T9n.get("groupAdmin"),
+        value: "administration",
+      },
+    ],
+  },
+  email,
+  password,
+]);
 
 /*
 ,{
@@ -158,9 +169,9 @@ AccountsTemplates.addFields([{
 }*/
 
 if (Meteor.isServer) {
-  Accounts.validateLoginAttempt(function(loginInfo){
-    if(loginInfo.allowed){
-      if(!loginInfo.user.isUserEnabled){
+  Accounts.validateLoginAttempt(function (loginInfo) {
+    if (loginInfo.allowed) {
+      if (!loginInfo.user.isUserEnabled) {
         return false;
       } else {
         return true;

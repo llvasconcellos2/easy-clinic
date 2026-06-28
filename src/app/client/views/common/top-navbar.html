@@ -31,7 +31,7 @@
                         {{#each events}}
                         <li>
                             {{#if isInRole 'medical_doctor'}}
-                                <a href="{{pathFor route='patientEdit' _id=patient query='start_encounter=true&eventId='}}{{_id}}" title="{{_ 'patients_start-appointment'}}">
+                                <a href="{{pathFor route='patientEdit' _id=patient query='start_appointment=true&eventId='}}{{_id}}" title="{{_ 'patients_start-appointment'}}">
                                     <div>
                                         <span class="patient-gender-icon"><i class="fa fa-male"></i><i class="fa fa-female"></i></span> {{title}}
                                         <span class="btn btn-sm btn-primary pull-right">

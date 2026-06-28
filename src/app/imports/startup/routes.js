@@ -90,8 +90,8 @@ FlowRouter.route('/patients/:_id', {
     this.register('document-models', Meteor.subscribe('documentModels'));
     this.register('patient-records', Meteor.subscribe('patientRecords', params._id));
     this.register('settings', Meteor.subscribe('settings'));
-    this.register('patient-encounters', Meteor.subscribe('patient-encounters', params._id));
-    this.register('patient-schedule', Meteor.subscribe('patient-encounters', params._id));
+    this.register('patient-appointments', Meteor.subscribe('patient-appointments', params._id));
+    this.register('patient-schedule', Meteor.subscribe('patient-appointments', params._id));
   },
   action: function(params, queryParams) {
     BlazeLayout.render("mainLayout", {content: "patientForm"});
@@ -103,13 +103,13 @@ var reportRoutes = FlowRouter.group({
   name: 'reports'
 });
 
-reportRoutes.route('/encounters', {
-  name: 'reportEncounters',
+reportRoutes.route('/appointments', {
+  name: 'reportAppointments',
   subscriptions: function(params) {
-    this.register('encounters', Meteor.subscribe('encounters'));
+    this.register('appointments', Meteor.subscribe('appointments'));
   },
   action: function() {
-    BlazeLayout.render('mainLayout', {content: 'reportEncounters'});
+    BlazeLayout.render('mainLayout', {content: 'reportAppointments'});
   }
 });
 
