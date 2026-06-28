@@ -25,6 +25,7 @@ textarea[name="obs"] {
   flex-direction: column;
   align-content: center;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .patient-tabs h4 {
