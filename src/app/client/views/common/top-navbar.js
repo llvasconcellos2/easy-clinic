@@ -1,21 +1,41 @@
 Template.topNavbar.onCreated(function () {
-    if (Roles.userIsInRole(Meteor.userId(), ['medical_doctor'])) {
-        Meteor.subscribe('doctor-schedule', Meteor.userId());
-    } else if (Roles.userIsInRole(Meteor.userId(), ['nurse'])) {
-        Meteor.subscribe('schedule');
-    }
-    
     var templateInstance = this;
+    templateInstance.scheduleSub = null;
+
+    if (Roles.userIsInRole(Meteor.userId(), ['medical_doctor'])) {
+        templateInstance.scheduleSub = Meteor.subscribe('doctor-schedule', Meteor.userId());
+    } else if (Roles.userIsInRole(Meteor.userId(), ['nurse'])) {
+        templateInstance.scheduleSub = Meteor.subscribe('schedule');
+    }
+
+    // null until the first ready run so we don't toast for patients already waiting at login
+    templateInstance.prevWaitingCount = null;
+
     this.autorun(function() {
+        // Wait until the subscription has finished loading. Otherwise the count
+        // jumps 0 -> N as data streams in and looks like a wave of new arrivals.
+        if (templateInstance.scheduleSub && !templateInstance.scheduleSub.ready()) {
+            return;
+        }
+
         if (Roles.userIsInRole(Meteor.userId(), ['medical_doctor'])) {
             templateInstance.events = Schedule.find({status: 'waiting', resourceId: Meteor.userId()}).fetch();
         } else if (Roles.userIsInRole(Meteor.userId(), ['nurse'])) {
             templateInstance.events = Schedule.find({status: 'waiting'}).fetch();
         }
 
-         if(templateInstance.events && (templateInstance.events.length > 0)){
-            toastr['info'](TAPi18n.__('schedule_patient-has-arrived'), TAPi18n.__('common_notification'));
-         }
+        var count = (templateInstance.events && templateInstance.events.length) || 0;
+
+        // Only notify when a patient *newly* arrives (count goes up). Skipping the
+        // initial run avoids toasting on login, and reading the i18n strings via
+        // Tracker.nonreactive keeps a language change from re-running this autorun.
+        if (templateInstance.prevWaitingCount !== null && count > templateInstance.prevWaitingCount) {
+            Tracker.nonreactive(function () {
+                toastr['info'](TAPi18n.__('schedule_patient-has-arrived'), TAPi18n.__('common_notification'));
+            });
+        }
+
+        templateInstance.prevWaitingCount = count;
     });
 });
 
