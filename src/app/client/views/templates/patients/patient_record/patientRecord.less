@@ -1,6 +1,87 @@
- #records-tab .panel-body {
+#records-tab .panel-body {
   background-color: #f8f8f8;
- }
+}
+
+.records-empty-state {
+  // margin: 60px auto;
+  // padding: 30px 20px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.records-empty-state .records-empty-icon {
+  font-size: 64px;
+  color: #d1dade;
+  margin-bottom: 10px;
+}
+
+.records-empty-state h3 {
+  margin-top: 0;
+  font-weight: 600;
+  color: #676a6c;
+}
+
+.records-empty-tutorial {
+  max-width: 520px;
+  margin: 25px auto;
+  padding: 20px 25px;
+  background-color: #f8f8f8;
+  border: 1px solid #e7eaec;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.records-empty-hint {
+  margin-bottom: 18px;
+  color: #676a6c;
+}
+
+.records-empty-fab {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #1c84c6; // btn-primary
+  color: #fff;
+  margin-left: 4px;
+  vertical-align: middle;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 2px 6px;
+}
+
+.records-empty-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.records-empty-options li {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.records-empty-options li + li {
+  border-top: 1px solid #e7eaec;
+}
+
+.records-empty-options .btn-circle {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  line-height: 34px;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 14px;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+.records-empty-option-label {
+  color: #676a6c;
+}
 
 .timeline-appointment {
   border-left: 3px solid #1ab394;
@@ -27,14 +108,14 @@
 }
 
 .floating-action-button .dropdown-menu {
-	background: transparent;
-	border: none;
-	box-shadow: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .floating-action-button .dropdown-menu button {
-    display: block;
-    margin-bottom: 6px;
+  display: block;
+  margin-bottom: 6px;
 }
 
 .dropdown-menu.animated {
@@ -47,32 +128,43 @@
 
 .btn-raised {
   // shadow depth 1
-    /*-webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12),
+  /*-webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12),
   0 1px 2px 0 rgba(0, 0, 0, .24);
     -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12),
   0 1px 2px 0 rgba(0, 0, 0, .24); 
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12),
   0 1px 2px 0 rgba(0, 0, 0, .24); */
 
-  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
-   
-  &:active, &.active, &:active:focus, &.active:focus {
+  box-shadow:
+    rgba(0, 0, 0, 0.156863) 0px 3px 10px,
+    rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+
+  &:active,
+  &.active,
+  &:active:focus,
+  &.active:focus {
     // shadow depth 2
-    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, .16),
-  0 3px 6px rgba(0, 0, 0, .23); 
-    -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, .16),
-  0 3px 6px rgba(0, 0, 0, .23); 
-    box-shadow: 0 3px 6px rgba(0, 0, 0, .16),
-  0 3px 6px rgba(0, 0, 0, .23);
+    -webkit-box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
   }
 
   &:focus {
     // shadow depth 2
-    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, .16),
-  0 3px 6px rgba(0, 0, 0, .23); 
-    -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, .16),
-  0 3px 6px rgba(0, 0, 0, .23); 
-    box-shadow: 0 3px 6px rgba(0, 0, 0, .16),
-  0 3px 6px rgba(0, 0, 0, .23);
+    -webkit-box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
   }
 }

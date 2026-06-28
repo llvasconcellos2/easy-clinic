@@ -10,6 +10,9 @@ patients_add-form: Add Form
 patients_add-prescription: Add Prescription
 patients_add-certificate: Add Medical Certificate
 patients_add-exam-request: Add Exam Request
+patients_records-empty-title: No records yet
+patients_records-empty-text: This patient has nothing in their record yet. Get started by adding the first entry.
+patients_records-empty-hint: 'Tap the blue button in the bottom-right corner and choose what you want to add:'
 patient_document: Document
 patient_records-validation-error: Please check the form for errors.
 patient_records-item: Item

@@ -21,6 +21,39 @@
 	</div>
 	{{#with entries}}
 		{{> patientTimeLine}}
+	{{else}}
+		<div class="records-empty-state">
+			<div class="records-empty-icon">
+				<i class="fa fa-folder-open-o"></i>
+			</div>
+			<h3>{{_ 'patients_records-empty-title'}}</h3>
+			<p class="text-muted">{{_ 'patients_records-empty-text'}}</p>
+
+			<div class="records-empty-tutorial">
+				<p class="records-empty-hint">
+					{{_ 'patients_records-empty-hint'}}
+					<span class="records-empty-fab"><i class="fa fa-plus"></i></span>
+				</p>
+				<ul class="records-empty-options">
+					<li>
+						<span class="btn btn-success btn-circle"><i class="fa fa-id-card"></i></span>
+						<span class="records-empty-option-label">{{_ 'patients_add-form'}}</span>
+					</li>
+					<li>
+						<span class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></span>
+						<span class="records-empty-option-label">{{_ 'patients_add-prescription'}}</span>
+					</li>
+					<li>
+						<span class="btn btn-warning btn-circle"><i class="fa fa-file-text-o"></i></span>
+						<span class="records-empty-option-label">{{_ 'patients_add-certificate'}}</span>
+					</li>
+					<li>
+						<span class="btn btn-danger btn-circle"><i class="fa fa-eye"></i></span>
+						<span class="records-empty-option-label">{{_ 'patients_add-exam-request'}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
 	{{/with}}
 
 	<!--  MODAL WINDOW  -->
