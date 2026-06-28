@@ -55,6 +55,13 @@ Template.formModelsForm.onRendered(function () {
 
 		var formBuilder = $('#record-builder').formBuilder(options).data('formBuilder');
 
+		// Chrome starts a native HTML5 drag on the field's <a> buttons / label text, which fires
+		// dragend instead of mouseup and strands jQuery UI sortable's internal mouseHandled flag,
+		// making fields intermittently undraggable. Cancel native drag (sortable is mouse-based).
+		$('#record-builder').on('dragstart', function (e) {
+			e.preventDefault();
+		});
+
 		$('.record-builder-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 			$('#record-render').formRender({
 				dataType: 'json',
