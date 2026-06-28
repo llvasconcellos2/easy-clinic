@@ -1,5 +1,10 @@
 var getUserLanguage = function () {
 //$.TAPi18next.detectLanguage()
+  // prefer a language the user picked previously (see top-navbar.js switcher)
+  try {
+    var stored = localStorage.getItem('language');
+    if (stored) return stored;
+  } catch (e) {}
   var language = window.navigator.language.substr(0, 2);
   if (language == 'en') return language;
   else return window.navigator.language;

@@ -31,6 +31,10 @@ Template.topNavbar.helpers({
     },
     eventsCount: function(events){
         return events.length;
+    },
+    langActive: function(lang){
+        // reactive: re-renders the active flag when the language changes
+        return TAPi18n.getLanguage() === lang ? 'active' : '';
     }
 });
 
@@ -75,8 +79,15 @@ Template.topNavbar.events({
         }
     },
 
-    'click img[data-lang]': (event)=> { // #TODO: improve language selection
-        TAPi18n.setLanguage($(event.target).data('lang'));
+    'click .lang-flag': function (event) {
+        event.preventDefault();
+        var lang = $(event.currentTarget).data('lang');
+        if (!lang) return;
+        TAPi18n.setLanguage(lang);
+        if (typeof T9n !== 'undefined') { T9n.setLanguage(lang); }
+        if (typeof moment !== 'undefined') { moment.locale(lang); }
+        // persist so the choice survives a reload (see imports/startup/i18n-setup.js)
+        try { localStorage.setItem('language', lang); } catch (e) {}
     },
 
 });

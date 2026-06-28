@@ -68,10 +68,22 @@
 }
 .fc-resource-area .fc-cell-text {
   line-height: 16px;
-  height: 35px;
+  min-height: 35px;
   padding: 2px;
   margin-left: 42px;
   font-weight: bold;
+  /* let long doctor names wrap onto extra lines (at spaces) instead of being
+     clipped by the narrow "Médicos" column (worst on phones). overflow-wrap
+     only breaks a word when it truly can't fit (e.g. one-word specialties like
+     "Anestesiologia"), so normal names keep clean word breaks. */
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+/* the package clips resource cells with overflow:hidden + nowrap — undo that
+   for the doctor column so the wrapped name/specialty stays visible */
+.fc-resource-area .fc-cell-content {
+  overflow: visible;
+  white-space: normal;
 }
 .fc-resource-area .fc-cell-text small {
   font-weight: normal;

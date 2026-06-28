@@ -205,6 +205,9 @@ Template.schedule.onRendered(function () {
     //scrollTime: '00:00', // undo default 6am scrollTime
     editable: true,
     resourceLabelText: TAPi18n.__("users_doctors"),
+    // widen the doctor column so names have room to wrap cleanly instead of
+    // breaking mid-word in the cramped default width (the time grid scrolls)
+    resourceAreaWidth: 220,
     header: {
       left: "today prev,datePicker,next",
       center: "title",

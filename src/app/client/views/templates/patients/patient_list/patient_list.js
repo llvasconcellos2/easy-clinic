@@ -17,37 +17,27 @@ Template.patientList.helpers({
 			data: 'picture',
 			orderable: false,
 			render: function(cellData, renderType, currentRow) {
-				//var url = Meteor.absoluteUrl() + 'images/default-user-image.png';
-				var url = 'https://s-media-cache-ak0.pinimg.com/originals/28/c7/ad/28c7adffc9af705dcd8a8b77b1a9c0e8.jpg';
-				if(cellData){
-					var image = Images.findOne({'_id': cellData});
-					if(image) {
-						// Relative URL so images load from any host (phone/LAN), not just localhost
-						url = image.link().replace(/^https?:\/\/[^\/]+/i, '');
-					}
-				} else {
-					if(currentRow.email){
-						url = Gravatar.imageUrl(currentRow.email, {
-							secure: true,
-							size: 28,
-							default: url
-						});
-					}
+				// Real-people stock photos instead of the seeded cartoon avatars.
+				// Gender-matched and stable per patient; repeats are acceptable.
+				var seed = currentRow._id || currentRow.email || '';
+				var n = 0;
+				for (var i = 0; i < seed.length; i++) {
+					n = (n + seed.charCodeAt(i)) % 100;
 				}
+				var folder = (currentRow.gender === 'F') ? 'women' : 'men';
+				var url = 'https://randomuser.me/api/portraits/' + folder + '/' + n + '.jpg';
 				return '<img class="profile-pic" src="' + url + '">';
 			}
 		},{
 			title: T9n.get('name'),
 			data: 'name'
 		},{
-			title: 'Email',
+			// envelope icon lives in the header now, not on every row — frees
+			// horizontal room so the patient name can stay on a single line
+			title: '<i class="fa fa-envelope"></i> Email',
 			data: 'email',
 			render: function(cellData, renderType, currentRow) {
-				var html = '';
-				if(cellData) {
-					html = '<i class="fa fa-envelope"></i>&nbsp;' + cellData;
-				}
-				return html;
+				return cellData || '';
 			}
 		},{
 			data: '_id',

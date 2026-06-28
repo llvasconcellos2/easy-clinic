@@ -83,3 +83,190 @@ table.dataTable a.btn {
 .note-popover.popover {
     z-index: 99999;
 }
+
+/* ==========================================================================
+   Top navbar — vertical alignment of the right-hand items (lang / bell / logout)
+   The default theme lays these out as inline-block <li>s that align on their
+   text baseline, so a 32px flag, an icon and a text link sit at uneven heights.
+   Flex with align-items:center puts them on one clean, centered line.
+   ========================================================================== */
+ul.navbar-top-links.navbar-right {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    /* Bootstrap 3 only floats .navbar-right at >=768px, so on phones the group
+       drifted left next to the hamburger. Keep it pinned to the right edge at
+       every width — the menu icon stays left, everything else sits right. */
+    float: right;
+}
+ul.navbar-top-links > li {
+    display: flex;
+    align-items: center;
+    float: none;
+}
+ul.navbar-top-links > li > a {
+    display: flex;
+    align-items: center;
+}
+
+/* ==========================================================================
+   Language switcher — all three locales visible, one tap, clear active state
+   instead of a flag hidden behind a dropdown. The current language is shown
+   in brand green (#1ab394 / @navy); the others are dimmed and desaturated.
+   ========================================================================== */
+.lang-switch-item {
+    padding: 0 6px;
+}
+.lang-switch {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    padding: 2px;
+}
+ul.navbar-top-links .lang-switch .lang-flag {
+    display: block;
+    padding: 3px 5px;
+    min-height: 0;
+    border-radius: 3px;
+    line-height: 0;
+    opacity: 0.4;
+    filter: grayscale(70%);
+    -webkit-filter: grayscale(70%);
+    transition: opacity 0.2s ease, filter 0.2s ease, background-color 0.2s ease;
+}
+.lang-switch .lang-flag img {
+    display: block;
+    width: 22px;
+    height: auto;
+}
+.lang-switch .lang-flag:hover,
+.lang-switch .lang-flag:focus {
+    opacity: 0.85;
+    filter: none;
+    -webkit-filter: none;
+    outline: none;
+}
+.lang-switch .lang-flag.active {
+    opacity: 1;
+    filter: none;
+    -webkit-filter: none;
+    background-color: #1ab394; /* @navy — brand green */
+    cursor: default;
+}
+
+/* ==========================================================================
+   Patients menu — keep the male+female icon pair side by side.
+   On the narrow mobile sidebar the two inline icons used to wrap onto separate
+   lines; the wrapper holds them together as a single glyph pair.
+   ========================================================================== */
+.patient-gender-icon {
+    display: inline-block;
+    white-space: nowrap;
+}
+.patient-gender-icon .fa {
+    margin-right: 1px;
+}
+.patient-gender-icon .fa + .fa {
+    margin-right: 6px;
+}
+/* In a collapsed (mini) sidebar the theme hides every <span> inside a nav link
+   to drop the text labels — but the patient icon pair lives in a span too, so
+   it would vanish. Keep just that one visible. */
+body.mini-navbar .navbar-default .nav li a span.patient-gender-icon {
+    display: inline-block !important;
+}
+
+/* ==========================================================================
+   Mobile experience (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* The phone drawer: open the sidebar to its full width WITH labels instead
+       of the cryptic 70px icon-only rail. Reuses the desktop full-sidebar look
+       so menu items read as words, not guesswork. */
+    body.body-small.mini-navbar .navbar-static-side {
+        width: 220px;
+        /* fill the rest of the screen so the dark drawer reaches the bottom
+           instead of stopping under the last menu item */
+        min-height: 100vh;
+    }
+    /* Push the content over by the full drawer width (animated, via the theme's
+       .pace-done #page-wrapper transition) instead of letting the 220px drawer
+       overlap content that was only shifted by the old 70px rail width. */
+    body.body-small.mini-navbar #page-wrapper {
+        margin-left: 220px;
+    }
+    body.body-small.mini-navbar .profile-element {
+        display: block;
+    }
+    body.body-small.mini-navbar .logo-element {
+        display: none;
+    }
+    body.body-small.mini-navbar .nav-header {
+        padding: 33px 25px;
+        background-color: #2f4050; /* @nav-bg */
+    }
+    body.body-small.mini-navbar .nav-label,
+    body.body-small.mini-navbar .navbar-default .nav li a span {
+        display: inline;
+    }
+    body.body-small.mini-navbar .navbar-default .nav li a span.patient-gender-icon {
+        display: inline-block;
+    }
+    /* Submenus expand inline (tap to open) rather than as a hover fly-out,
+       which is unreachable on touch. */
+    body.body-small.mini-navbar .nav-second-level,
+    body.body-small.mini-navbar li.active .nav-second-level {
+        position: relative;
+        /* kill the desktop flyout's 65–70px left offset so the submenu aligns to
+           the drawer's left edge instead of being shoved off the right side.
+           The active-li variant is listed explicitly to outrank the theme's
+           `.mini-navbar li.active .nav-second-level { left: 65px }`. */
+        left: 0;
+        top: auto;
+        padding: 0;
+        min-width: 0;
+        background: transparent;
+    }
+    body.body-small.mini-navbar .nav-second-level.collapse {
+        display: none;
+    }
+    body.body-small.mini-navbar .nav-second-level.collapse.in {
+        display: block;
+    }
+    /* Trim the deep 52px submenu indent so long items like "Modelos de
+       Documento/Formulário" fit inside the 220px drawer instead of running off
+       the edge. Still slightly indented past the parent (25px) to read as nested. */
+    body.body-small.mini-navbar .nav-second-level li a {
+        padding-left: 20px;
+    }
+
+    /* The body is the dark slate rail behind the (transparent) desktop sidebar.
+       On phones the sidebar is hidden, so that dark colour only showed as an
+       ugly band under short pages. Give the canvas the light content colour and
+       paint the collapsible sidebar its own dark colour so it still reads. */
+    body.body-small {
+        background-color: #f3f3f4; /* @gray */
+    }
+    body.body-small .navbar-static-side {
+        background-color: #2f4050; /* @nav-bg */
+    }
+
+    /* Keep the right-hand links from overflowing / clipping "Sair" off-screen. */
+    ul.navbar-top-links.navbar-right {
+        flex-wrap: nowrap;
+    }
+    ul.navbar-top-links > li:last-child {
+        margin-right: 8px;
+    }
+    ul.navbar-top-links > li > a {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .lang-switch-item {
+        padding: 0 4px;
+    }
+    .lang-switch .lang-flag img {
+        width: 20px;
+    }
+}

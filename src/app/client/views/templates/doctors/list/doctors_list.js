@@ -37,10 +37,12 @@ Template.doctorList.helpers({
 				return currentRow.profile.firstName + ' ' + currentRow.profile.lastName;
 			}
 		},{
-			title: 'Email',
+			// envelope icon lives in the header now, not on every row — frees
+			// horizontal room so the doctor name can stay on a single line
+			title: '<i class="fa fa-envelope"></i> Email',
 			data: 'emails[0].address',
 			render: function(cellData, renderType, currentRow) {
-				return '<i class="fa fa-envelope"></i>&nbsp;' + currentRow.emails[0].address;
+				return currentRow.emails[0].address;
 			}
 		},{
 			title: T9n.get('enabled'),

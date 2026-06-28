@@ -47,19 +47,19 @@
                 {{#if isInRole 'super-admin,administration,recepcionist,medical_doctor,nurse'}}
                     <li class="{{isActivePath regex='patientCreate|patientEdit|patientList'}}">
                         <a href="{{pathFor route='patientCreate'}}">
-                            <i class="fa fa-male"></i><i class="fa fa-female"></i>
+                            <span class="patient-gender-icon"><i class="fa fa-male"></i><i class="fa fa-female"></i></span>
                             <span class="nav-label">{{_ 'common_patients'}}</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level collapse {{isActivePath regex='patientCreate|patientList' className='in'}}">
                             {{#if isInRole 'super-admin,administration,recepcionist,medical_doctor,nurse'}}
                                 <li class="{{isActivePath regex='patientCreate|patientEdit'}}">
-                                    <a href="{{pathFor route='patientCreate'}}" class="hide-on-phone">{{_ 'patients_newpatient'}}</a>
+                                    <a href="{{pathFor route='patientCreate'}}" class="hide-on-phone"><i class="fa fa-user-plus" aria-hidden="true"></i> <span class="nav-label">{{_ 'patients_newpatient'}}</span></a>
                                 </li>
                             {{/if}}
                              {{#if isInRole 'super-admin,administration,recepcionist,nurse'}}
                                 <li class="{{isActivePath regex='patientList'}}">
-                                    <a href="{{pathFor route='patientList'}}" class="hide-on-phone">{{_ 'patients_list'}}</a>
+                                    <a href="{{pathFor route='patientList'}}" class="hide-on-phone"><i class="fa fa-list-ul" aria-hidden="true"></i> <span class="nav-label">{{_ 'patients_list'}}</span></a>
                                 </li>
                             {{/if}}
                         </ul>
@@ -74,7 +74,7 @@
                         </a>
                         <ul class="nav nav-second-level collapse {{isActivePath regex='reportEncounters' className='in'}}">
                             <li class="{{isActivePath regex='reportEncounters'}}">
-                                <a href="{{pathFor route='reportEncounters'}}" class="hide-on-phone">{{_ 'reports_encounters'}}</a>
+                                <a href="{{pathFor route='reportEncounters'}}" class="hide-on-phone"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="nav-label">{{_ 'reports_encounters'}}</span></a>
                             </li>
                         </ul>
                     </li>

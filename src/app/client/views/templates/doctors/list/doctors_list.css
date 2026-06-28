@@ -1,18 +1,16 @@
 /*****************************************************************************/
-/* PatientList: Style */
+/* DoctorList: Style */
 /*****************************************************************************/
-.patient-list {
-}
 
-/* Keep every record on a single line so the patient name reads cleanly instead
+/* Keep every record on a single line so the doctor name reads cleanly instead
    of wrapping onto 2–3 lines (worst on phones). If the columns together are
    wider than the screen, the table scrolls sideways rather than wrapping. */
-#patients-table td,
-#patients-table th {
+#doctors-table td,
+#doctors-table th {
     white-space: nowrap;
     vertical-align: middle;
 }
-#patients-table_wrapper {
+#doctors-table_wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
