@@ -249,6 +249,23 @@ Template.patientForm.onRendered(function () {
 				$('input[name=state]').val(data.uf);
 			});
 		});
+
+		// Deep-link from the appointments report: open the records tab and, when
+		// provided, select the timeline point matching the appointment's date.
+		if(FlowRouter.getQueryParam('tab') === 'records'){
+			setTimeout(function(){
+				$('a[href="#records-tab"]').tab('show');
+				var date = FlowRouter.getQueryParam('date');
+				if(date){
+					setTimeout(function(){
+						var event = $('.cd-horizontal-timeline .events a[data-date="' + date + '"]');
+						if(event.length){
+							event.trigger('click');
+						}
+					}, 700);
+				}
+			}, 1200);
+		}
 	});
 });
 

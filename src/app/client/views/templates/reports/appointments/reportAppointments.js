@@ -12,7 +12,12 @@ Template.reportAppointments.helpers({
 			data: 'user.name'
 		},{
 			title: T9n.get('patient'),
-			data: 'patient.name'
+			data: 'patient.name',
+			render: function(cellData, renderType, currentRow) {
+				var id = currentRow.patient && currentRow.patient._id;
+				if(!id){ return cellData || ''; }
+				return '<a href="' + FlowRouter.path('patientEdit', {_id: id}) + '">' + (cellData || '') + '</a>';
+			}
 		},{
 			title: T9n.get('start'),
 			data: 'start',
@@ -49,6 +54,17 @@ Template.reportAppointments.helpers({
 				var s = statusMap[cellData];
 				if(!s){ return ''; }
 				return '<span class="label label-' + s.cls + '">' + T9n.get(s.key) + '</span>';
+			}
+		},{
+			title: T9n.get('records'),
+			data: 'patient._id',
+			orderable: false,
+			render: function(cellData, renderType, currentRow) {
+				if(!cellData){ return ''; }
+				var date = moment(currentRow.start).format('DD/MM/YYYY');
+				var href = FlowRouter.path('patientEdit', {_id: cellData}, {tab: 'records', date: date});
+				return '<a class="btn btn-xs btn-info" href="' + href + '" title="' + date + '">' +
+					'<i class="fa fa-stethoscope" aria-hidden="true"></i> ' + date + '</a>';
 			}
 		}]
 	}

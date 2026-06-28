@@ -42,30 +42,73 @@ Template.patientRecord.helpers({
         return DocumentModels.find({type: 'exam_request'});
     },
     entries: function() {
-		var recordsCollection = PatientRecords.find({patientId: FlowRouter.getParam('_id')}, {sort: {date: -1}}).fetch();
+		var patientId = FlowRouter.getParam('_id');
+		var recordsCollection = PatientRecords.find({patientId: patientId}, {sort: {date: -1}}).fetch();
+		var appointmentsCollection = Appointments.find({'patient._id': patientId}, {sort: {start: -1}}).fetch();
 
-		var compareDates = function(item, index, array){
-			return moment(this.date).isSame(item.date);
+		var entries = [];
+
+		// group records and appointments together by calendar day so a single
+		// timeline point shows everything that happened on that date
+		var findByDay = function(date){
+			return entries.find(function(entry){
+				return moment(entry.date).isSame(date, 'day');
+			});
 		};
 
-		var records = [];
-		recordsCollection.forEach(function(item, index, array){
-			var arr = records.find(compareDates, item);
-			
-			if(!arr){
-				records.push({
+		recordsCollection.forEach(function(item){
+			var entry = findByDay(item.date);
+			if(!entry){
+				entries.push({
 					_id: item._id,
 					date: item.date,
 					patientId: item.patientId,
-					records: [item.record]
+					records: [item.record],
+					appointments: []
 				});
 			} else {
-				arr.records.push(item.record);
+				entry.records.push(item.record);
 			}
 		});
 
-		Template.instance().data.records = records;
-		return records;
+		appointmentsCollection.forEach(function(appointment){
+			var entry = findByDay(appointment.start);
+			if(!entry){
+				entries.push({
+					_id: appointment._id,
+					date: appointment.start,
+					patientId: patientId,
+					records: [],
+					appointments: [appointment]
+				});
+			} else {
+				entry.appointments.push(appointment);
+			}
+		});
+
+		entries.sort(function(a, b){
+			return new Date(b.date) - new Date(a.date);
+		});
+
+		Template.instance().data.records = entries;
+		return entries;
+	},
+	apptTime: function(date){
+		return moment(date).format('HH:mm');
+	},
+	apptStatusBadge: function(status){
+		var map = {
+			're-scheduled': { icon: 'fa-hourglass-o',  cls: 'warning', key: 'patient_appt-status-re-scheduled' },
+			'in_progress':  { icon: 'fa-handshake-o',  cls: 'info',    key: 'patient_appt-status-in_progress' },
+			'completed':    { icon: 'fa-check-circle', cls: 'primary', key: 'patient_appt-status-completed' },
+			'no_show':      { icon: 'fa-user-times',   cls: 'danger',  key: 'patient_appt-status-no_show' }
+		};
+		var s = map[status];
+		if(!s){ return ''; }
+		return Spacebars.SafeString(
+			'<span class="label label-' + s.cls + '"><i class="fa ' + s.icon + '"></i> ' +
+			TAPi18n.__(s.key) + '</span>'
+		);
 	},
 	formatedDate: function(){
 		return moment(this.date).format('DD/MM/YYYY');

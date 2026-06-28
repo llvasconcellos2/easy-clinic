@@ -17,6 +17,11 @@ patients_start-appointment: Iniciar Consulta
 patients_finish-appointment: Terminar Consulta
 patients_full-patient-register: Cadastro Completo
 patient_appointment-leave-confirmation: Você deve parar a consulta antes de sair desta página.
+patient_appointment-doctor: Médico(a)
+patient_appt-status-re-scheduled: Reagendada
+patient_appt-status-in_progress: Em andamento
+patient_appt-status-completed: Concluída
+patient_appt-status-no_show: Não compareceu
 schemas:
   patients:
     name:

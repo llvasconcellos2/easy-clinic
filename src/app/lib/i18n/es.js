@@ -19,6 +19,7 @@ T9n.map('es', {
 	apptInProgress: "En progreso",
 	apptCompleted: "Completada",
 	apptNoShow: "No asistió",
+	records: "Ficha Médica",
 	enabled: "Activo",
 	disabled: "Inactivo",
 	edit: "Editar",

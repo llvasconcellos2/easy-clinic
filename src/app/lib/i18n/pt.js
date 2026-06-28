@@ -19,6 +19,7 @@ T9n.map('pt', {
 	apptInProgress: "Em andamento",
 	apptCompleted: "Concluída",
 	apptNoShow: "Não compareceu",
+	records: "Prontuário",
 	enabled: "Ativo",
 	disabled: "Inativo",
 	edit: "Editar",

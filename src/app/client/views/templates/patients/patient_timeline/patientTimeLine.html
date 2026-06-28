@@ -25,6 +25,22 @@
 					<li class={{#if $first}}selected{{/if}} data-date="{{shortDate}}">
 						<em><i class="fa fa-calendar"></i> {{fullDate}}</em>
 						<div class="panel-group" id="accordion{{dateIdentifier}}">
+							{{#each appointments}}
+								<div class="panel panel-default timeline-appointment">
+									<div class="panel-heading">
+										<h5 class="panel-title">
+											<i class="fa fa-stethoscope" aria-hidden="true"></i> {{_ 'schedule_appointment'}}
+											{{apptStatusBadge status}}
+										</h5>
+									</div>
+									<div class="panel-body">
+										<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{apptTime start}}{{#if end}} &ndash; {{apptTime end}}{{/if}}</p>
+										{{#if user.name}}
+											<p><b>{{_ 'patient_appointment-doctor'}}:</b> {{user.name}}</p>
+										{{/if}}
+									</div>
+								</div>
+							{{/each}}
 							{{#each record in records}}
 								<div class="panel panel-default">
 									<button type="button" data-id="{{dateIdentifier}}_{{@index}}" class="pull-right print-document">

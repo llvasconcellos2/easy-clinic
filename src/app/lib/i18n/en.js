@@ -19,6 +19,7 @@ T9n.map('en', {
 	apptInProgress: "In progress",
 	apptCompleted: "Completed",
 	apptNoShow: "No show",
+	records: "Records",
 	enabled: "Enabled",
 	disabled: "Disabled",
 	edit: "Edit",

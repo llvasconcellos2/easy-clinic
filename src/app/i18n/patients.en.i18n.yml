@@ -17,6 +17,11 @@ patients_start-appointment: Start Appointment
 patients_finish-appointment: Finish Appointment
 patients_full-patient-register: Full Register
 patient_appointment-leave-confirmation: You need to stop the appointment before leaving this page.
+patient_appointment-doctor: Doctor
+patient_appt-status-re-scheduled: Rescheduled
+patient_appt-status-in_progress: In progress
+patient_appt-status-completed: Completed
+patient_appt-status-no_show: No show
 schemas:
   patients:
     name:
