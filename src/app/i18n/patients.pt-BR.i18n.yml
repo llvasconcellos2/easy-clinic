@@ -12,7 +12,7 @@ patients_add-certificate: Adicionar Atestado Médico
 patients_add-exam-request: Adicionar Pedido de Exame
 patients_records-empty-title: Nenhum registro ainda
 patients_records-empty-text: Este paciente ainda não possui nada no prontuário. Comece adicionando o primeiro registro.
-patients_records-empty-hint: 'Toque no botão azul no canto inferior direito e escolha o que deseja adicionar:'
+patients_records-empty-hint: 'Toque no botão verde no canto inferior direito e escolha o que deseja adicionar:'
 patient_document: Documento
 patient_records-validation-error: Verifique o Formulário por erros.
 patient_records-item: Item

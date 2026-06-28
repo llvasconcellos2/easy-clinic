@@ -8,7 +8,7 @@ patients_add-certificate: Agregar Certificado Médico
 patients_add-exam-request: Agregar Solicitud de Examen
 patients_records-empty-title: Aún no hay registros
 patients_records-empty-text: Este paciente todavía no tiene nada en su ficha. Comience agregando el primer registro.
-patients_records-empty-hint: 'Toque el botón azul en la esquina inferior derecha y elija lo que desea agregar:'
+patients_records-empty-hint: 'Toque el botón verde en la esquina inferior derecha y elija lo que desea agregar:'
 schemas:
   patients:
     name:

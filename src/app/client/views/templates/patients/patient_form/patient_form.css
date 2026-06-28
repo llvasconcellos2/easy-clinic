@@ -2,17 +2,49 @@
 /* PatientForm: Style */
 /*****************************************************************************/
 .patient-form label {
-	display: block;
+  display: block;
 }
 
 .form-inline .form-group {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
-#insertPatientForm > div:nth-child(30), textarea[name=obs] {
-	display: block !important;
-	width: 100% !important;
+#insertPatientForm > div:nth-child(30),
+textarea[name="obs"] {
+  display: block !important;
+  width: 100% !important;
 }
-.tabs-container .start-appointment{
-	margin-left: 6px;
+.tabs-container .start-appointment {
+  margin-left: 6px;
+}
+
+.patient-tabs > li > a {
+  padding: 8px 18px !important;
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.patient-tabs h4 {
+  margin: 0;
+}
+
+.patient-tabs .subtitle {
+  font-size: 75%;
+  opacity: 0.8;
+  margin-left: 0;
+}
+
+/* On mobile the floated action buttons overlap the first tab.
+   Stack them full-width above the tabs instead. */
+@media (max-width: 767px) {
+  .tabs-container .new-record,
+  .tabs-container .start-appointment {
+    float: none !important;
+    display: block;
+    width: 100%;
+    margin: 0 0 8px 0;
+  }
 }

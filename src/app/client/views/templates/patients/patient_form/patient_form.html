@@ -1,60 +1,64 @@
 <template name="patientForm">
-	{{> pageHeading title='patients_patients'}}
+  {{> pageHeading title='patients_patients'}}
 
-	<div class="wrapper wrapper-content fadeInRight">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="tabs-container">
-					{{#if isEditForm}}
-						{{#if isInRole 'super-admin,medical_doctor'}}
-							<button class="btn btn-sm btn-success pull-right m-t-n-xs start-appointment">
-								<strong><i class="fa fa-play" aria-hidden="true"></i> {{_ 'patients_start-appointment'}}</strong>
-							</button>
-						{{/if}}
-					{{/if}}
-					<button class="btn btn-sm btn-primary pull-right m-t-n-xs new-record">
-						<strong><i class="fa fa-plus" aria-hidden="true"></i> {{_ 'patients_newpatient'}}</strong>
-					</button>
-					<ul class="nav nav-tabs">
-						<li class="active">
-							<a data-toggle="tab" href="#tab-1">
-								<h4>{{_ 'patients_data'}}
-									<small class="m-l-sm">{{_ 'patients_create-form-title'}}</small>
-								</h4>
-							</a>
-						</li>
-						{{#if isInRole 'super-admin,administration,medical_doctor,nurse'}}
-							{{#with patient}}
-								<li class="">
-									<a data-toggle="tab" href="#records-tab">
-										<h4>{{_ 'patients_records'}}</h4>
-									</a>
-								</li>
-							{{/with}}
-						{{/if}}
-					</ul>
-					<div class="tab-content">
-						<div id="tab-1" class="tab-pane active">
-							<div class="panel-body">
-								{{#if isEditForm}}
-									{{> quickForm collection="Patients" doc=patient id="insertPatientForm" type="update" buttonContent=saveButton class="form-inline patient-form"}}
-								{{else}}
-									{{> quickForm collection="Patients" id="insertPatientForm" type="insert" buttonContent=saveButton class="form-inline patient-form"}}
-								{{/if}}
-							</div>
-						</div>
-						{{#if isInRole 'super-admin,administration,medical_doctor,nurse'}}
-							{{#with patient}}
-								<div id="records-tab" class="tab-pane">
-									<div class="panel-body">
-										{{> patientRecord }}
-									</div>
-								</div>
-							{{/with}}
-						{{/if}}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="wrapper wrapper-content fadeInRight">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="tabs-container">
+          {{#if isEditForm}} {{#if isInRole 'super-admin,medical_doctor'}}
+          <button
+            class="btn btn-sm btn-success pull-right m-t-n-xs start-appointment"
+          >
+            <strong
+              ><i class="fa fa-play" aria-hidden="true"></i
+              >&nbsp;&nbsp;&nbsp;{{_ 'patients_start-appointment'}}</strong
+            >
+          </button>
+          {{/if}} {{/if}}
+          <button class="btn btn-sm btn-primary pull-right m-t-n-xs new-record">
+            <strong
+              ><i class="fa fa-plus" aria-hidden="true"></i
+              >&nbsp;&nbsp;&nbsp;{{_ 'patients_newpatient'}}</strong
+            >
+          </button>
+          <ul class="nav nav-tabs patient-tabs">
+            <li class="active">
+              <a data-toggle="tab" href="#tab-1">
+                <h4>{{_ 'patients_data'}}</h4>
+                <small class="m-l-sm subtitle"
+                  >{{_ 'patients_create-form-title'}}</small
+                >
+              </a>
+            </li>
+            {{#if isInRole 'super-admin,administration,medical_doctor,nurse'}}
+            {{#with patient}}
+            <li class="">
+              <a data-toggle="tab" href="#records-tab">
+                <h4>{{_ 'patients_records'}}</h4>
+              </a>
+            </li>
+            {{/with}} {{/if}}
+          </ul>
+          <div class="tab-content">
+            <div id="tab-1" class="tab-pane active">
+              <div class="panel-body">
+                {{#if isEditForm}} {{> quickForm collection="Patients"
+                doc=patient id="insertPatientForm" type="update"
+                buttonContent=saveButton class="form-inline patient-form"}}
+                {{else}} {{> quickForm collection="Patients"
+                id="insertPatientForm" type="insert" buttonContent=saveButton
+                class="form-inline patient-form"}} {{/if}}
+              </div>
+            </div>
+            {{#if isInRole 'super-admin,administration,medical_doctor,nurse'}}
+            {{#with patient}}
+            <div id="records-tab" class="tab-pane">
+              <div class="panel-body">{{> patientRecord }}</div>
+            </div>
+            {{/with}} {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
