@@ -133,9 +133,9 @@ ul.navbar-top-links .lang-switch .lang-flag {
   min-height: 0;
   border-radius: 3px;
   line-height: 0;
-  opacity: 0.4;
+  /* opacity: 0.4;
   filter: grayscale(70%);
-  -webkit-filter: grayscale(70%);
+  -webkit-filter: grayscale(70%); */
   transition:
     opacity 0.2s ease,
     filter 0.2s ease,
