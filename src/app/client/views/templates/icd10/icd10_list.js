@@ -6,11 +6,13 @@ Template.icd10List.helpers({
 			return localICD10.find().fetch();
 		};
 	},
-	optionsObject: {
+	optionsObject: function () {
+		return {
 		columns: [{
 			title: T9n.get('name'),
 			data: 'icd'
 		}]
+		};
 	}
 });
 

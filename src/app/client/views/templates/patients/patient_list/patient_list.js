@@ -10,7 +10,8 @@ Template.patientList.helpers({
 			return Patients.find().fetch();
 		};
 	},
-	optionsObject: {
+	optionsObject: function () {
+		return {
 		columns: [{
 			title: '',
 			//width: '1%',
@@ -51,6 +52,7 @@ Template.patientList.helpers({
 				return '<a class="btn btn-info" href="' + FlowRouter.path('patientEdit', {_id: cellData}) + '"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a>';
 			}
 		}]
+		};
 	}
 });
 

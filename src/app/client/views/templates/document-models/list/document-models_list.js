@@ -10,7 +10,8 @@ Template.documentModelList.helpers({
 			return DocumentModels.find().fetch();
 		};
 	},
-	optionsObject: {
+	optionsObject: function () {
+		return {
 		columns: [{
 			title: T9n.get('name'),
 			data: 'name'
@@ -45,6 +46,7 @@ Template.documentModelList.helpers({
 				return '<a class="btn btn-info" href="' + FlowRouter.path('documentModelEdit', {_id: cellData}) + '"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a>';
 			}
 		}]
+		};
 	}
 });
 

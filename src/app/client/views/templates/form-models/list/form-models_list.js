@@ -10,7 +10,8 @@ Template.formModelsList.helpers({
 			return FormModels.find().fetch();
 		};
 	},
-	optionsObject: {
+	optionsObject: function () {
+		return {
 		columns: [{
 			title: T9n.get('name'),
 			data: 'name'
@@ -23,6 +24,7 @@ Template.formModelsList.helpers({
 				return '<a class="btn btn-info" href="' + FlowRouter.path('formModelEdit', {_id: cellData}) + '"><i class="glyphicon glyphicon-edit patient-id" aria-hidden="true"></i></a>';
 			}
 		}]
+		};
 	}
 });
 

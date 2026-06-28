@@ -6,7 +6,8 @@ Template.reportAppointments.helpers({
 			return Appointments.find().fetch();
 		};
 	},
-	optionsObject: {
+	optionsObject: function () {
+		return {
 		columns: [{
 			title: T9n.get('groupMD'),
 			data: 'user.name'
@@ -67,6 +68,7 @@ Template.reportAppointments.helpers({
 					'<i class="fa fa-stethoscope" aria-hidden="true"></i> ' + date + '</a>';
 			}
 		}]
+		};
 	}
 });
 

@@ -43,7 +43,8 @@ Template.users.helpers({
 			return Meteor.users.find().fetch();
 		};
 	},
-	optionsObject: {
+	optionsObject: function () {
+		return {
 		columns: [{
 			title: '',
 			//width: '1%',
@@ -119,6 +120,7 @@ Template.users.helpers({
 				return '<button class="btn btn-info"><i class="glyphicon glyphicon-edit user-id" aria-hidden="true" data-userid="' + cellData + '"></i></button>';
 			}
 		}]
+		};
 	}
 });
 

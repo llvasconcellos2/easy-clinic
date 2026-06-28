@@ -6,7 +6,8 @@ Template.doctorList.helpers({
 			return Meteor.users.find({'profile.group':'medical_doctor'}).fetch();
 		};
 	},
-	optionsObject: {
+	optionsObject: function () {
+		return {
 		columns: [{
 			title: '',
 			//width: '1%',
@@ -68,6 +69,7 @@ Template.doctorList.helpers({
 				return '<a class="btn btn-info" href="' + FlowRouter.path('doctorEdit', {_id: cellData}) + '"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a>';
 			}
 		}]
+		};
 	}
 });
 

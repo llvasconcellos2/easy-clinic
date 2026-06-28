@@ -80,6 +80,25 @@ Template.ReactiveDatatable.rendered = function() {
     this.autorun(function() {
         reactiveDataTable.update(data.tableData());
     });
+
+    // Re-translate column headers when the user switches language without
+    // navigating away. The table is initialised only once, so its <th> text
+    // would otherwise stay in the language active at first render. Column titles
+    // come from a reactive helper (T9n.get), so re-read them via the reactive
+    // data context and patch the header cells whenever the language changes.
+    this.autorun(function() {
+        var liveData = Template.currentData();
+        var columns = liveData && liveData.options && liveData.options.columns;
+        if (!columns) return;
+        columns.forEach(function(column, index) {
+            if (typeof column.title !== 'undefined') {
+                $(dt.column(index).header()).html(column.title);
+            }
+        });
+        // Redraw so cell render() callbacks that call T9n.get/TAPi18n (status
+        // badges, enabled/disabled, document type, ...) re-evaluate too.
+        dt.draw(false);
+    });
 };
 
 Template.ReactiveDatatable.onDestroyed(function(){

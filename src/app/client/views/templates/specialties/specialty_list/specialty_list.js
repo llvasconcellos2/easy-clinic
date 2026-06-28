@@ -10,7 +10,8 @@ Template.specialtyList.helpers({
 			return Specialties.find().fetch();
 		};
 	},
-	optionsObject: {
+	optionsObject: function () {
+		return {
 		columns: [{
 			title: T9n.get('name'),
 			data: 'name'
@@ -20,6 +21,7 @@ Template.specialtyList.helpers({
 				return '<a class="btn btn-info" href="' + FlowRouter.path('specialtyEdit', {_id: cellData}) + '"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a>';
 			}
 		}]
+		};
 	}
 });
 
