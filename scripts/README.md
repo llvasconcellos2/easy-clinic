@@ -19,6 +19,11 @@ Run in numeric order on a freshly seeded database:
 | 03 | `03-fix-images.sh` | Regenerates missing patient photos as a placeholder avatar and repairs the `Images` file paths/sizes to the container's storage dir. |
 | 04 | `04-anonymize-patients.js` | Replaces real PII (name, email, phone, RG, address, `recommendedBy`, free-text `obs`) with realistic fake Brazilian data. Keeps the already-fake CPFs and non-identifying fields (city/state, DOB, gender, etc.). |
 | 05 | `05-fill-emails.js` | Fills patients that have no email with a fake email derived from their (anonymized) name. |
+| 06 | `06-fix-ages.js` | Gives patients with a missing or impossible `dateOfBirth` (age < 0 or > 110) a fresh random birthdate for a random age between 1 and 100. |
+| 07 | `07-seed-patient-photos.sh` | Gives every patient a distinct avatar, alternating real gender-matched portraits (randomuser.me) and illustrated avatars (DiceBear). Downloads and stores all files locally, writes `Images` docs, sets `patient.picture`. Replaces the old shared placeholder photos. |
+| 08 | `08-fill-obs.js` | Writes a brief, fake doctor-style observation (pt-BR) into each patient's `obs`, tailored to age band and gender. Overwrites existing obs. |
+| 09 | `09-create-doctors.js` | Creates 9 extra doctors (Brazilian names) with distinct staggered shifts across the clinic's 05:00-23:00 window, random specialties, and calendar colors. They reuse the owner's password hash. Idempotent (keyed by email). |
+| 10 | `10-seed-doctor-photos.sh` | Gives every doctor a gender-matched real portrait reused from the `07` portrait pool (`.seed-pool/portraits`), writes the `Images` doc and sets `profile.picture`. Only photographs doctors that lack one, so it is safe to re-run. |
 
 ## How to run
 
@@ -29,9 +34,14 @@ From the project root, with the stack up (`docker compose up -d`):
 docker compose exec -T mongo mongo --quiet meteor < scripts/01-dedupe-cpf.js
 docker compose exec -T mongo mongo --quiet meteor < scripts/02-fill-cpf.js
 docker compose exec -T mongo mongo --quiet meteor < scripts/04-anonymize-patients.js
+docker compose exec -T mongo mongo --quiet meteor < scripts/06-fix-ages.js
+docker compose exec -T mongo mongo --quiet meteor < scripts/08-fill-obs.js
+docker compose exec -T mongo mongo --quiet meteor < scripts/09-create-doctors.js
 
-# image repair (bash + docker compose)
+# image repair / seeding (bash + docker compose)
 bash scripts/03-fix-images.sh
+bash scripts/07-seed-patient-photos.sh
+bash scripts/10-seed-doctor-photos.sh
 ```
 
 ## Notes
