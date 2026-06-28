@@ -9,6 +9,7 @@ T9n.map('en', {
 	groupReception: "Receptionist",
 	groupAdmin: "Administration",
 	name: "Name",
+	dateOfBirth: "Date of Birth",
 	description: "Description",
 	patient: "Patient",
 	start: "Start",

@@ -40,6 +40,12 @@ Template.patientList.helpers({
 				return cellData || '';
 			}
 		},{
+			title: T9n.get('dateOfBirth'),
+			data: 'dateOfBirth',
+			render: function(cellData, renderType, currentRow) {
+				return cellData ? moment(cellData).format('DD/MM/YYYY') : '';
+			}
+		},{
 			data: '_id',
 			render: function(cellData, renderType, currentRow) {
 				return '<a class="btn btn-info" href="' + FlowRouter.path('patientEdit', {_id: cellData}) + '"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a>';
