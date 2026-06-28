@@ -1,0 +1,103 @@
+patients_data: Dados do Paciente
+patients_records: Prontuário do Paciente
+patients_patients: Pacientes
+patients_patient: Paciente
+patients_create-form-title: Edite Informações do Paciente
+patients_newpatient: Novo Paciente
+patients_list: Listar Pacientes
+patients_add-to-records: Adicionar ao Prontuário do Paciente
+patients_add-form: Adicionar Formulário
+patients_add-prescription: Adicionar Prescrição
+patients_add-certificate: Adicionar Atestado Médico
+patients_add-exam-request: Adicionar Pedido de Exame
+patient_document: Documento
+patient_records-validation-error: Verifique o Formulário por erros.
+patient_records-item: Item
+patients_start-appointment: Iniciar Consulta
+patients_finish-appointment: Terminar Consulta
+patients_full-patient-register: Cadastro Completo
+patient_encounter-leave-confirmation: Você deve parar a consulta antes de sair desta página.
+schemas:
+  patients:
+    name:
+      label: Nome
+    bed:
+      label: Leito
+    records:
+      label: Prontuário
+    createdAt:
+      label: Data Cadastro
+    dateOfBirth:
+      label: Data de Nascimento
+    enabled:
+      label: Ativo
+    healthInsurance:
+      label: Convênio
+    code:
+      label: Matrícula
+    gender:
+      label: Gênero
+      M: Masculino
+      F: Feminino
+    maritalStatus:
+      label: Estado Civil
+      single: Solteiro(a)
+      married: Casado(a)
+      life_partner: União Estável
+      separated: Separado(a)
+      divorced: Divorciado(a)
+      widowed: Viúvo(a)
+    skinColor:
+      label: Cor
+      white: Branco
+      brown: Mulato
+      black: Negro
+      mixed: Mestiço
+      other: Outro
+    placeOfBirth:
+      label: Naturalidade
+    literacy:
+      label: Grau de Instrução
+      illiterate: Analfabeto
+      primary_school: Ensino Fundamental
+      high_school: Ensino Médio
+      graduated: Graduado
+      master: Mestre
+      doctor: Doutor
+      phd: PhD
+    CPF:
+      label: CPF
+    RG:
+      label: RG
+    titularCPF:
+      label: Titular CPF
+    fathersName:
+      label: Nome do Pai
+    mothersName:
+      label: Nome da Mãe
+    occupation:
+      label: Profissão
+    recommendedBy:
+      label: Indicado Por
+    returnDate:
+      label: Data de Retorno
+    email:
+      label: E-mail
+    phone:
+      label: Telefone
+    mobile:
+      label: Celular
+    obs:
+      label: Observações
+    streetAddress_1:
+      label: Endereço
+    streetAddress_2:
+      label: Complemento
+    bairro:
+      label: Bairro
+    city:
+      label: Cidade
+    state:
+      label: Estado
+    zip:
+      label: CEP

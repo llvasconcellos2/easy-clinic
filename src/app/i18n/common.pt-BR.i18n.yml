@@ -1,0 +1,63 @@
+medical_doctor: Médico(a)
+nurse: Enfermeiro(a)
+recepcionist: Recepcionista
+administration: Administração
+
+common_app-name: Clínica Fácil
+common_developed-by: Desenvolvido por
+common_500: Erro Interno do Servidor
+common_500-generic-message: Desculpe, o servidor encontrou algo inesperado e não pode completar a requisição.
+common_404: Página Não Encontrada
+common_404-message: Desculpe mas a página que você está procurando não foi encontrada. Tente verificar a URL ou faça uma busca no nosso aplicativo.
+common_search-page: Pesquisar pela página
+common_search: Pesquisar
+common_dashboard: Painel de Controle
+common_logout: Sair
+common_save: Salvar
+common_cancel: Cancelar
+common_success: Successo
+common_error: Erro
+common_save-success: Dados salvos com sucesso.
+common_access-denied: Acesso Negado
+common_access-denied-message: Você não tem permissão para executar esta tarefa.
+common_patients: Pacientes
+common_firstOption: Escolha Um
+common_imageUploadMaxSize: São permitidas apenas imagens com tamanho menor do que 10MB
+common_browse: Abrir
+common_reset: Reset
+common_remove: Remover
+common_uploading: Enviando
+common_areYouSure: Tem certeza?
+common_close: Fechar
+common_cam: Camera
+common_cameraWaitForPermission: Aguardando permissão da camera...
+common_takePhoto: Tirar Foto
+common_usePhoto: Usar Foto
+common_takeNewPhoto: Tirar Nova Foto
+common_cameraPermissionsDenied: Permissão de Camera Negada
+common_cameraPermissionsInstructions: Você não deu permissão para este aplicativo usar sua camera. Se você gostaria de dar permissão, siga as instruções de acordo com o seu browser abaixo.
+common_cameraPermissionsInstructionsChrome: Vá para Configurações > Mostrar configurações avançadas > Configurações de conteúdo > Seção Mídia > Gerenciar exceções, encontre este website na lista e permita a captura de video.
+common_cameraPermissionsInstructionsFirefox: Recarregue esta página e tente novamente.
+common_cameraPermissionsInstructionsOpera: Vá para Configurações > Preferências > Navegador > Seção Mídia > Gerenciar exceções, encontre este website na lista e permita a captura de video.
+common_cameraAccessError: Houve um error ao acessar a camera.
+common_cameraNotSupportedError: Desculple mas este browser não suporta o uso da camera.
+common_deleteSuccess: Registro removido com sucesso.
+common_confirm: Confirmar
+common_enabled: Ativo
+common_disabled: Inativo
+common_deleteConfirmation: "Tem certeza que deseja remover o registro %s?"
+common_icd: CID-10
+common_manage_icd: Classificação Estatística Internacional de Doenças e Problemas Relacionados com a Saúde
+common_copy: Copiar conteúdo da tablea para área de transferência
+common_csv: Exportar para o excel (csv)
+common_print: Imprimir tabela
+common_notAllowed: Permissão Negada
+common_medical-certificate: Atestado Médico
+common_prescription: Prescrição
+common_exam-request: Pedido de Exame
+common_date: Data
+common_back: Voltar
+common_yes: Sim
+common_no: Não
+common_field-required: Este campo é obrigatório
+common_notification: Notificação

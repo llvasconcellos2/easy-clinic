@@ -1,0 +1,18 @@
+/*****************************************************************************/
+/* PatientForm: Style */
+/*****************************************************************************/
+.patient-form label {
+	display: block;
+}
+
+.form-inline .form-group {
+    margin-right: 10px;
+}
+
+#insertPatientForm > div:nth-child(30), textarea[name=obs] {
+	display: block !important;
+	width: 100% !important;
+}
+.tabs-container .start-appointment{
+	margin-left: 6px;
+}

@@ -1,0 +1,97 @@
+<template name="camera">
+  <div class="modal inmodal" id="camera-popup" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content animated bounceInRight">
+          <div class="modal-header">
+              <button type="button" class="close cancel" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{_ 'common_close'}}</span></button>
+              <i class="fa fa-camera modal-icon"></i>
+              <h4 class="modal-title">{{_ 'common_cam'}}</h4>
+          </div>
+          <div class="modal-body">
+            {{#if error}}
+              {{#if permissionDeniedError}}
+                {{> permissionDenied}}
+              {{else}}
+                {{#if browserNotSupportedError}}
+                  {{> genericError message=cameraNotSupportedError}}
+                {{else}}
+                  {{> genericError message=cameraAccessError}}
+                {{/if}}
+              {{/if}}
+            {{else}}
+              {{#if photo}}
+                <div class="center">
+                  <img src="{{photo}}" class="photo-preview" />
+                </div>
+              {{else}}
+                {{> viewfinder}}
+              {{/if}}
+            {{/if}}
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-white cancel" data-dismiss="modal">
+                <i class="fa fa-ban" aria-hidden="true"></i> {{_ 'common_cancel'}}
+              </button>
+              {{#if photo}}
+                <button class="btn btn-success use-photo"><i class="fa fa-check" aria-hidden="true"></i> {{_ 'common_usePhoto'}}</button>
+                <button class="btn btn-primary new-photo"><i class="fa fa-camera"></i> {{_ 'common_takeNewPhoto'}}</button>
+              {{/if}}
+              {{#unless waitingForPermission}}
+                {{#unless photo}}
+                  <button type="button" class="btn btn-primary shutter">
+                    <i class="fa fa-camera"></i> {{_ 'common_takePhoto'}}
+                  </button>
+                {{/unless}}
+              {{/unless}}
+          </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+
+
+<template name="viewfinder">
+  <div class="viewfinder">
+    <video id="video" class="{{#if waitingForPermission}}hidden{{/if}}"></video>
+    <div>
+      {{#if waitingForPermission}}
+        <p class="font-bold text-center">{{_ 'common_cameraWaitForPermission'}}</p>
+      {{/if}}
+    </div>
+  </div>
+
+  <canvas id="canvas" style="visibility: hidden"></canvas>
+</template>
+
+<template name="genericError">
+  <div class="generic-error">
+    <p class="text-center">{{message}}</p>
+  </div>
+</template>
+
+<template name="permissionDenied">
+  <div class="permission-denied-error">
+    <h2 class="text-danger">{{_ 'common_cameraPermissionsDenied'}}</h2>
+    
+    <p>{{_ 'common_cameraPermissionsInstructions'}}</p>
+
+    <div class="list-group permissions-howto">
+        <a class="list-group-item" href="#">
+            <h3 class="list-group-item-heading">Google Chrome</h3>
+            <p class="list-group-item-text">{{_ 'common_cameraPermissionsInstructionsChrome'}}</p>
+        </a>
+
+        <a class="list-group-item " href="#">
+            <h3 class="list-group-item-heading">Mozilla Firefox</h3>
+            <p class="list-group-item-text">{{_ 'common_cameraPermissionsInstructionsFirefox'}}</p>
+        </a>
+
+        <a class="list-group-item" href="#">
+            <h3 class="list-group-item-heading">Opera</h3>
+            <p class="list-group-item-text">{{_ 'common_cameraPermissionsInstructionsOpera'}}</p>
+        </a>
+    </div>
+  </div>
+</template>

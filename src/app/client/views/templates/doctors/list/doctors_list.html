@@ -1,0 +1,22 @@
+<template name="doctorList">
+	{{> pageHeading title='users_doctors'}}
+
+	<div class="wrapper wrapper-content  animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12" id="tablebox">
+				<div class="ibox ">
+					<div class="ibox-title">
+						<h5>{{_ 'users_doctors'}}
+							<small class="m-l-sm">{{_ 'doctors_list-title'}}</small>
+						</h5>
+						{{!-->iboxTools--}}
+					</div>
+					<div class="ibox-content">
+						{{> ReactiveDatatable id="doctors-table" tableData=reactiveDataFunction options=optionsObject useDefaults=true}}
+					</div>
+					<div id="table-footer" class="ibox-footer"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

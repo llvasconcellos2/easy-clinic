@@ -1,0 +1,84 @@
+<template name="users">
+	{{> pageHeading title='users_users'}}
+
+	<div class="wrapper wrapper-content  animated fadeInRight">
+		<div class="row users">
+			<div class="col-sm-12" id="tablebox">
+				<div class="ibox ">
+					<div class="ibox-title">
+						<h5>{{_ 'users_users'}}
+							<small class="m-l-sm">{{_ 'users_management'}}</small>
+						</h5>
+						{{!-->iboxTools--}}
+						<button class="btn btn-sm btn-primary pull-right m-t-n-xs new-user">
+							<strong><i class="fa fa-plus" aria-hidden="true"></i> {{_ 'users_newuser'}}</strong>
+						</button>
+					</div>
+					<div class="ibox-content">
+						{{> ReactiveDatatable id="users-table" tableData=reactiveDataFunction options=optionsObject useDefaults=true}}
+					</div>
+					<div id="table-footer" class="ibox-footer"></div>
+				</div>
+			</div>
+			<div class="col-sm-0" id="formbox">
+				<div class="ibox ">
+					<div class="ibox-title">
+						<h5>{{_ 'users_edituser'}}</h5>
+					</div>
+					<div class="ibox-content">
+						<form id="user-form" role="form">
+							<div class="form-group">
+								<label for="R4DzcFc6DZ8RqLEAn" class="control-label">Picture</label>
+								{{> picFileUpload atts=imagesCollection}}
+							</div>
+							<div class="form-group">
+								<label>{{_'users_firstName'}}</label>
+								<input type="input" name="firstName" placeholder="{{_'users_firstNamePlaceholder'}}" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label>{{_'users_lastName'}}</label>
+								<input type="input" name="lastName" placeholder="{{_'users_lastNamePlaceholder'}}" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label>{{_'users_email'}}</label>
+								<input type="email" name="email" placeholder="{{_'users_emailPlaceholder'}}" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label>{{_'users_password'}}</label>
+								<input type="password" name="password" placeholder="{{_'users_passwordPlaceholder'}}" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>{{t9n 'group'}}</label>
+								<select name="group" class="form-control">
+									{{#each groups}}
+										<option value="{{value}}">{{text}}</option>
+									{{/each}}
+								</select>
+							</div>
+							<div class="form-group">
+								<label>
+									<input type="checkbox" name="enabled" class="i-checks">
+									{{_ 'common_enabled'}}
+								</label>
+								<label class="pull-right">
+									{{_ 'users_super-admin'}}
+									<input type="checkbox" name="super-admin" class="i-checks">
+								</label>
+							</div>
+							<div>
+								<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit">
+									<strong><i class="fa fa-floppy-o" aria-hidden="true"></i> {{_ 'common_save'}}</strong>
+								</button>
+								<button class="btn btn-sm btn-white pull-right m-t-n-xs cancel" type="reset">
+									<strong><i class="fa fa-ban" aria-hidden="true"></i> {{_ 'common_cancel'}}</strong>
+								</button>
+								<label></label>
+							</div>
+						</form>
+					</div>
+					<div class="ibox-footer">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

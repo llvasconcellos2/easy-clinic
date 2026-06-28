@@ -1,0 +1,103 @@
+patients_data: Patient Data
+patients_records: Patient Records
+patients_patients: Patients
+patients_patient: Patient
+patients_create-form-title: Edit Patient Information
+patients_newpatient: New Patient
+patients_list: List Patients
+patients_add-to-records: Add to Patient Record
+patients_add-form: Add Form
+patients_add-prescription: Add Prescription
+patients_add-certificate: Add Medical Certificate
+patients_add-exam-request: Add Exam Request
+patient_document: Document
+patient_records-validation-error: Please check the form for errors.
+patient_records-item: Item
+patients_start-appointment: Start Appointment
+patients_finish-appointment: Finish Appointment
+patients_full-patient-register: Full Register
+patient_encounter-leave-confirmation: You need to stop the encounter before leaving this page.
+schemas:
+  patients:
+    name:
+      label: Name
+    bed:
+      label: Bed
+    records:
+      label: Records
+    createdAt:
+      label: Register Date
+    dateOfBirth:
+      label: Date of Birth
+    enabled:
+      label: Enabled
+    healthInsurance:
+      label: Health Insurance
+    code:
+      label: Code
+    gender:
+      label: Gender
+      M: Male
+      F: Female
+    maritalStatus:
+      label: Marital Status
+      single: Single
+      married: Married
+      life_partner: Life Partner
+      separated: Separated
+      divorced: Divorced
+      widowed: Widowed
+    skinColor:
+      label: Skin Color
+      white: White
+      brown: Brown
+      black: Black
+      mixed: Mixed
+      other: Other
+    placeOfBirth:
+      label: Place of Birth
+    literacy:
+      label: Literacy
+      illiterate: Illiterate
+      primary_school: Primary School
+      high_school: High School
+      graduated: Graduated
+      master: Master
+      doctor: Doctor
+      phd: PhD
+    CPF:
+      label: CPF
+    RG:
+      label: RG
+    titularCPF:
+      label: Titular CPF
+    fathersName:
+      label: Father's Name
+    mothersName:
+      label: Mother's Name
+    occupation:
+      label: Occupation
+    recommendedBy:
+      label: Recommended By
+    returnDate:
+      label: Return Date
+    email:
+      label: Email
+    phone:
+      label: Phone
+    mobile:
+      label: Mobile
+    obs:
+      label: Observations
+    streetAddress_1:
+      label: Street Address
+    streetAddress_2:
+      label: Complemento
+    bairro:
+      label: Bairro
+    city:
+      label: City
+    state:
+      label: State
+    zip:
+      label: Zip Code

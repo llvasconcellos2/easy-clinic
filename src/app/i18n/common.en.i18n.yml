@@ -1,0 +1,63 @@
+medical_doctor: Medical Doctor
+nurse: Nurse
+recepcionist: Recepcionist
+administration: Administration
+
+common_app-name: Easy Clinic
+common_developed-by: Developed by
+common_500: Internal Server Error
+common_500-generic-message: The server encountered something unexpected that didn't allow it to complete the request. We apologize.
+common_404: Page Not Found
+common_404-message: Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.
+common_search-page: Search for page
+common_search: Search
+common_dashboard: Dashboard
+common_logout: Logout
+common_save: Save
+common_cancel: Cancel
+common_success: Success
+common_error: Error
+common_save-success: Data saved with success.
+common_access-denied: Access Denied
+common_access-denied-message: You don't have permission to execute this task.
+common_patients: Patients
+common_firstOption: Select One
+common_imageUploadMaxSize: Please upload image, with size equal or less than 10MB
+common_browse: Browse
+common_reset: Reset
+common_remove: Remove
+common_uploading: Uploading
+common_areYouSure: Are you sure?
+common_close: Close
+common_cam: Camera
+common_cameraWaitForPermission: Waiting for camera permissions...
+common_takePhoto: Take Photo
+common_usePhoto: Use Photo
+common_takeNewPhoto: Take New Photo
+common_cameraPermissionsDenied: Camera Permissions Denied
+common_cameraPermissionsInstructions: You have denied this app permission to use your camera. If you would like to allow permissions, follow the directions for your browser below.
+common_cameraPermissionsInstructionsChrome: Go to Settings > Show advanced settings > Content settings > Media heading > Manage exceptions, then find this website in the list and allow video capture.
+common_cameraPermissionsInstructionsFirefox: Reload the page and try again.
+common_cameraPermissionsInstructionsOpera: Go to Preferences > Websites > Media heading > Manage exceptions, then find this website in the list and allow video capture.
+common_cameraAccessError: There was an error accessing the camera.
+common_cameraNotSupportedError: Sorry, this browser is currently not supported for camera functionality.
+common_deleteSuccess: Record deleted with success.
+common_confirm: Confirm
+common_enabled: Enabled
+common_disabled: Disabled
+common_deleteConfirmation: "Do you really want to delete this record %s?"
+common_icd: ICD-10
+common_manage_icd: International Statistical Classification of Diseases and Related Health Problems
+common_copy: Copy table contents to clipboard
+common_csv: Export table data to csv (excel)
+common_print: Print table contents
+common_notAllowed: Not Allowed
+common_medical-certificate: Medical Certificate
+common_prescription: Prescription
+common_exam-request: Exam Request
+common_date: Date
+common_back: Back
+common_yes: Yes
+common_no: No
+common_field-required: This field is required
+common_notification: Notification

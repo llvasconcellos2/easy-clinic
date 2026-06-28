@@ -1,0 +1,22 @@
+.note-editable {
+	font-size: 11px;
+	line-height: 1;
+	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
+.note-editable h1, .note-editable h2, .note-editable h3, 
+.note-editable h4, .note-editable h5, .note-editable h6,
+.note-editable p  {
+	margin: 0 !important;
+	line-height: normal !important;
+}
+.note-editable .table > thead > tr > th, 
+.note-editable .table > tbody > tr > th,
+.note-editable .table > tfoot > tr > th,
+.note-editable .table > thead > tr > td,
+.note-editable .table > tbody > tr > td,
+.note-editable .table > tfoot > tr > td {
+	font-size: 11px;
+    line-height: 1;
+    padding: 4px;
+    vertical-align: middle;
+}

@@ -1,0 +1,45 @@
+.is-phone #page-wrapper, .is-phone .wrapper-content {
+	padding: 0;
+}
+.is-phone .ibox-title h5 .m-l-sm, .is-phone .html5buttons, .is-phone .dataTables_length {
+	display: none;
+}
+.is-phone .page-heading {
+	margin-left:0;
+}
+.is-phone .ibox-content {
+	padding: 6px;
+}
+.is-phone .table-responsive {
+	padding-top: 20px;
+}
+/* #TODO: Remove this */
+.is-phone #page-wrapper > div:nth-child(1) {
+	margin: 0;
+}
+.is-phone .patient-form label {
+	clear: both;
+}
+.is-phone .navbar-default {
+	position: fixed !important;
+}
+.is-phone .modal-dialog.fullscreen {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+}
+.is-phone .modal-dialog.fullscreen .modal-content {
+	height: auto;
+	min-height: 100%;
+	border-radius: 0;
+}
+
+.is-phone .work-hours .hours {
+	margin-left: 0px;
+}

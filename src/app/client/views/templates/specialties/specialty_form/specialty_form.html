@@ -1,0 +1,28 @@
+<template name="specialtyForm">
+  {{> pageHeading title='specialties_specialties'}}
+
+	<div class="wrapper wrapper-content  animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12" id="tablebox">
+				<div class="ibox ">
+					<div class="ibox-title">
+						<h5>{{_ 'specialties_specialties'}}
+							<small class="m-l-sm">{{_ 'specialties_create-form-title'}}</small>
+						</h5>
+						{{!-->iboxTools--}}
+						<button class="btn btn-sm btn-primary pull-right m-t-n-xs new-record">
+							<strong><i class="fa fa-plus" aria-hidden="true"></i> {{_ 'specialties_new'}}</strong>
+						</button>
+					</div>
+					<div class="ibox-content">
+						{{#if isEditForm}}
+							{{> quickForm collection="Specialties" doc=record id="specialtyForm" type="update" buttonContent=saveButton class="form-inline specialty-form"}}
+						{{else}}
+							{{> quickForm collection="Specialties" id="specialtyForm" type="insert" buttonContent=saveButton class="form-inline specialty-form"}}
+						{{/if}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

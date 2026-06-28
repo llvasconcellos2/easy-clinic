@@ -1,0 +1,17 @@
+users_users: Users
+users_newuser: New User
+users_edituser: Edit User
+users_management: System's user management
+users_firstName: First Name
+users_lastName: Last Name
+users_email: Email
+users_password: Password
+users_firstNamePlaceholder: Enter First Name
+users_lastNamePlaceholder: Enter Last Name
+users_emailPlaceholder: Enter Email
+users_passwordPlaceholder: Enter Password
+users_changepassword: Change Password
+users_doctors: Medical Doctors
+users_super-admin: Super Admin
+users_group: Group
+users_language: Language

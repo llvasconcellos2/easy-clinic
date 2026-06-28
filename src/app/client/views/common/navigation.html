@@ -1,0 +1,142 @@
+<template name="navigation">
+{{#if currentUser}}
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+
+            <!-- Close canvas menu used only on OffCanvas page -->
+            <!-- You can remove this tag if you dont use offCanvas menu -->
+            <a class="close-canvas-menu"><i class="fa fa-times"></i></a>
+            <!-- End offCanvas menu toggle -->
+
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <span>
+                            <img alt="profile image" id="mini-profile-img" class="img-circle" src="images/default-user-image.png" data-pin-nopin="true" style="width:50px">
+                        </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">{{currentUser.profile.firstName}}</strong>
+                                </span>
+                                <span class="text-muted text-xs block">
+                                    {{_ currentUser.profile.group}} <b class="caret"></b>
+                                </span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        CF
+                    </div>
+                </li>
+
+                <li class="{{isActivePath regex='dashboard'}}">
+                    <a href="{{pathFor route='dashboard'}}" class="hide-on-phone"><i class="fa fa-dashboard"></i> <span class="nav-label">{{_ 'common_dashboard'}}</span> </a>
+                </li>
+                {{#if isInRole 'super-admin,administration,recepcionist'}}
+                    <li class="{{isActivePath regex='schedule'}}">
+                        <a href="{{pathFor route='schedule'}}" class="hide-on-phone"><i class="fa fa-calendar" aria-hidden="true"></i> <span class="nav-label">{{_ 'schedule_schedule'}}</span></a>
+                    </li>
+                {{/if}}
+                {{#if isInRole 'super-admin,administration,recepcionist,medical_doctor,nurse'}}
+                    <li class="{{isActivePath regex='patientCreate|patientEdit|patientList'}}">
+                        <a href="{{pathFor route='patientCreate'}}">
+                            <i class="fa fa-male"></i><i class="fa fa-female"></i>
+                            <span class="nav-label">{{_ 'common_patients'}}</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level collapse {{isActivePath regex='patientCreate|patientList' className='in'}}">
+                            {{#if isInRole 'super-admin,administration,recepcionist,medical_doctor,nurse'}}
+                                <li class="{{isActivePath regex='patientCreate|patientEdit'}}">
+                                    <a href="{{pathFor route='patientCreate'}}" class="hide-on-phone">{{_ 'patients_newpatient'}}</a>
+                                </li>
+                            {{/if}}
+                             {{#if isInRole 'super-admin,administration,recepcionist,nurse'}}
+                                <li class="{{isActivePath regex='patientList'}}">
+                                    <a href="{{pathFor route='patientList'}}" class="hide-on-phone">{{_ 'patients_list'}}</a>
+                                </li>
+                            {{/if}}
+                        </ul>
+                    </li>
+                {{/if}}
+                {{#if isInRole 'super-admin,administration'}}
+                    <li class="{{isActivePath regex='reportEncounters'}}">
+                        <a href="{{pathFor route='reportEncounters'}}">
+                            <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                            <span class="nav-label">{{_ 'reports_reports'}}</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level collapse {{isActivePath regex='reportEncounters' className='in'}}">
+                            <li class="{{isActivePath regex='reportEncounters'}}">
+                                <a href="{{pathFor route='reportEncounters'}}" class="hide-on-phone">{{_ 'reports_encounters'}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                {{/if}}
+                {{#if isInRole 'super-admin,administration,medical_doctor'}}
+	                <li class="{{isActivePath regex='settingsForm|specialtyList|documentModelList|icd10List|drugList|doctorList|users|import|recordsList'}}">
+	                    <a href="{{isActivePath regex='settings'}}">
+	                        <i class="fa fa-cogs" aria-hidden="true"></i>
+	                        <span class="nav-label">{{_ 'settings_settings'}}</span>
+	                        <span class="fa arrow"></span>
+	                    </a>
+	                    <ul class="nav nav-second-level collapse {{isActivePath regex='settingsForm|specialtyList|documentModelList|icd10List|drugList|doctorList|users|import|recordsList' className='in'}}">
+                            {{#if isInRole 'super-admin'}}
+                                <li class="{{isActivePath regex='settingsForm'}}">
+                                    <a href="{{pathFor route='settingsForm'}}" class="hide-on-phone"><i class="fa fa-cog" aria-hidden="true"></i> <span class="nav-label">{{_ 'settings_general'}}</span></a>
+                                </li>
+                            {{/if}}
+                            {{#if isInRole 'super-admin,administration,medical_doctor'}}
+    	                       <li class="{{isActivePath regex='specialtyList'}}">
+    		                        <a href="{{pathFor route='specialtyList'}}" class="hide-on-phone"><i class="fa fa-stethoscope"></i> <span class="nav-label">{{_ 'specialties_specialties'}}</span></a>
+    		                    </li>
+                            {{/if}}
+                            {{#if isInRole 'super-admin,administration,medical_doctor'}}
+    		                    <li class="{{isActivePath regex='icd10List'}}">
+    		                        <a href="{{pathFor route='icd10List'}}" class="hide-on-phone"><i class="fa fa-bug" aria-hidden="true"></i> <span class="nav-label">{{_ 'common_icd'}}</span></a>
+    		                    </li>
+                            {{/if}}
+                            {{#if isInRole 'super-admin,administration,medical_doctor'}}
+    		                    <li class="{{isActivePath regex='drugList'}}">
+    		                        <a href="{{pathFor route='drugList'}}" class="hide-on-phone"><img style="width: 16px; margin-right: 4px;" src="/images/drugs.png" /> <span class="nav-label">{{_ 'drugs_drugs'}}</span></a>
+    		                    </li>
+                            {{/if}}
+                            {{#if isInRole 'super-admin,administration,medical_doctor'}}
+                                <li class="{{isActivePath regex='documentModelList'}}">
+                                    <a href="{{pathFor route='documentModelList'}}" class="hide-on-phone"><i class="fa fa-file-text" aria-hidden="true"></i> <span class="nav-label">{{_ 'document-models_document-models'}}</span></a>
+                                </li>
+                            {{/if}}
+                            {{#if isInRole 'super-admin,administration,medical_doctor'}}
+                                <li class="{{isActivePath regex='formModelsList'}}">
+                                    <a href="{{pathFor route='formModelsList'}}" class="hide-on-phone"><i class="fa fa-id-card" aria-hidden="true"></i> <span class="nav-label">{{_ 'form-models_form-models'}}</span></a>
+                                </li>
+                            {{/if}}
+                            {{#if isInRole 'super-admin,administration'}}
+    		                    <li class="{{isActivePath regex='doctorList'}}">
+    		                        <a href="{{pathFor route='doctorList'}}" class="hide-on-phone"><i class="fa fa-user-md"></i> <span class="nav-label">{{_ 'users_doctors'}}</span></a>
+    		                    </li>
+                            {{/if}}
+                            {{#if isInRole 'super-admin'}}
+    		                    <li class="{{isActivePath regex='users'}}">
+    		                        <a href="{{pathFor route='users'}}" class="hide-on-phone"><i class="fa fa-users"></i> <span class="nav-label">{{_ 'users_users'}}</span></a>
+    		                    </li>
+                            {{/if}}
+                            {{#if isInRole 'super-admin'}}
+    		                    <li class="{{isActivePath regex='import'}}">
+    		                        <a href="{{pathFor route='import'}}" class="hide-on-phone"><i class="fa fa-database" aria-hidden="true"></i> <span class="nav-label">{{_ 'import_data-import'}}</span></a>
+    		                    </li>
+                            {{/if}}
+	                    </ul>
+	                </li>
+                {{/if}}
+            </ul>
+        </div>
+    </nav>
+{{/if}}
+</template>

@@ -1,0 +1,28 @@
+schedule_schedule: Agenda
+schedule_today: Hoje
+schedule_timelineDay: Linha do Tempo Dia
+schedule_timelineThreeDays: Linha do Tempo 3 Dias
+schedule_listDay: Lista Dia
+schedule_listWeek: Lista Semana
+schedule_agendaDay: Agenda Dia
+schedule_agendaWeek: Agenda Semana
+schedule_month: Mês
+schedule_appointment-canceled: Consulta Cancelada
+schedule_timeline: Sua linha do tempo
+schedule_notAllowedError: Desculpe, este horário acabou de ser reservado por outra pessoa.
+schedule_appointment: Consulta
+schedule_hours-ago: horas atrás
+schedule_hours-from-now: horas restantes
+schedule_no-appointment-today: Nenhum compromisso hoje.
+schedule_new-appointment: Agendar Consulta
+schedule_no-doctor-workhours-error: Por favor informe o horário de trabalho do médico antes de agendar uma consulta.
+schedule_no-specialties: Sem Especialidades
+schedule_patient-has-arrived: Um paciente chegou para a consulta.
+schedule_status: Status
+schedule_status-waiting: Aguardando
+schedule_status-scheduled: Agendado
+schedule_status-attending: Em Consulta
+schedule_status-finished: Finalizado
+schedule_status-no-show: Não Compareceu
+schedule_status-to-confirm: "[A confirmar]"
+schedule_long-press-to-add: "* Toque prolongado para adicionar consulta."

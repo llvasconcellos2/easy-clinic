@@ -1,0 +1,120 @@
+<template name="schedule">
+
+    <!-- Page heading -->
+    {{> pageHeading title='schedule_schedule' }}
+
+    <div class="wrapper wrapper-content">
+        <div class="row animated fadeInDown">
+            <div class="col-lg-12">
+                <!-- <div class="text-right">
+                    <button id="new-appointment" type="button" class="btn btn-primary">
+                        <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                        {{_ 'schedule_new-appointment'}}
+                    </button>
+                </div>
+                <div id="day-hours"></div> -->
+                <div id="calendar"></div>
+                {{#if isMobile}}
+                    <div>{{_ 'schedule_long-press-to-add'}}</div> 
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal" id="scheduleEventForm" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                    	<span aria-hidden="true">&times;</span>
+                    	<span class="sr-only">Close</span>
+                    </button>
+                    <div class="scheduleTitle"></div>
+                </div>
+                <div class="modal-body">
+                    <div id="content-switcher" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+
+                            <div class="item active">
+                                <form id="schedule-form" class="schedule-form" novalidate="novalidate">
+                                    <input type="hidden" name="eventId" />
+                                    <div class="row selectAddPacient">
+                                        <div class="col-md-2">
+                                            <a class="btn btn-default addPatient" href="#content-switcher" role="button" data-slide="next">
+                                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div id="patient-form-group" class="form-group" data-required="true">
+                                                <label for="patients">{{_ 'patients_patients'}}</label>
+                                                <div class="select-wrapper"> 
+                                                    <select name="patients" data-placeholder="{{_ 'common_firstOption'}}" class="patients-chosen-select" tabindex="4">
+                                                        <option class="tag" value="">{{_ 'common_firstOption'}}</option>
+                                                        {{#each patients}}
+                                                            <option class="tag" value="{{_id}}">{{name}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                                <span class="help-block">{{_ 'common_field-required'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group status-group" data-required="true">
+                                        <label class="control-label">{{_ 'schedule_status'}}</label>
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-xs btn-info btn-outline">
+                                                <input type="radio" name="status" value="scheduled" autocomplete="off"> {{_ 'schedule_status-scheduled'}}
+                                            </label>
+                                            <label class="btn btn-xs btn-info btn-outline">
+                                                <input type="radio" name="status" value="waiting" autocomplete="off"> {{_ 'schedule_status-waiting'}}
+                                            </label>
+                                            <label class="btn btn-xs btn-info btn-outline">
+                                                <input type="radio" name="status" value="attending" autocomplete="off"> {{_ 'schedule_status-attending'}}
+                                            </label>
+                                            <label class="btn btn-xs btn-info btn-outline">
+                                                <input type="radio" name="status" value="finished" autocomplete="off"> {{_ 'schedule_status-finished'}}
+                                            </label>
+                                            <label class="btn btn-xs btn-info btn-outline">
+                                                <input type="radio" name="status" value="no-show" autocomplete="off"> {{_ 'schedule_status-no-show'}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="item">
+                                {{#autoForm collection="Patients" id="quickPatientForm" type="insert"}}
+                                    {{> afQuickField name='name'}}
+                                    {{> afQuickField name='gender'}}
+                                    {{> afQuickField name='dateOfBirth'}}
+                                    {{> afQuickField name='mobile'}}
+                                    {{> afQuickField name='email'}}
+                                {{/autoForm}}
+
+                                <a class="pull-left btn btn-success" href="#content-switcher" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    {{_ 'common_back'}}
+                                </a>
+                                <button type="button" class="pull-right btn btn-primary full-patient-register">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                    {{_ 'patients_full-patient-register'}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger delete-btn" type="button" data-dismiss="modal">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-white cancel" data-dismiss="modal">
+						<i class="fa fa-ban" aria-hidden="true"></i> {{_ 'common_cancel'}}
+                    </button>
+                    <button type="button" class="btn btn-primary save">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i> {{_ 'common_save'}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

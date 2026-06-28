@@ -1,0 +1,16 @@
+# Keep the build context small and avoid leaking host-built artifacts into the
+# image (they would be rebuilt for the wrong platform / Node version anyway).
+.git
+**/node_modules
+# Prebuilt local-package npm artifacts. Shipping them makes Meteor rename a
+# COPY'd (lower overlay layer) directory during build, which fails with
+# "EXDEV: cross-device link not permitted". Excluded so Meteor rebuilds them
+# fresh in the writable layer.
+src/app/packages/*/.npm
+src/app/.meteor/local
+**/build
+meteor-build/
+src/app/pictures/*.jpg
+# Mongo seed dumps — used by the seed service's bind mount, never COPY'd.
+db/
+db-dump/

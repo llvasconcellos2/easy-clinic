@@ -1,0 +1,35 @@
+.profile-pic {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+}
+.dataTable {
+	margin-top: 1em !important;
+}
+.user-id {
+	font-size: 1.15em;
+	cursor: pointer;
+}
+.user-id:hover {
+	color: #1c84c6;
+}
+.checkbox {
+	display: inline-block;
+}
+
+.row.users div {
+    -webkit-transition: width 0.3s ease, margin 0.3s ease;
+    -moz-transition: width 0.3s ease, margin 0.3s ease;
+    -o-transition: width 0.3s ease, margin 0.3s ease;
+    transition: width 0.3s ease, margin 0.3s ease;
+}
+
+.col-sm-0 {
+	overflow: hidden;
+	width: 0 !important;
+	float:left;
+}
+
+form .btn {
+	margin-right: 6px;
+}

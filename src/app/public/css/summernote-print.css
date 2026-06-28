@@ -1,0 +1,22 @@
+.summernote-print {
+	font-size: 11px;
+	line-height: 1;
+	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
+.summernote-print h1, .summernote-print h2, .summernote-print h3, 
+.summernote-print h4, .summernote-print h5, .summernote-print h6,
+.summernote-print p  {
+	margin: 0 !important;
+	line-height: normal !important;
+}
+.summernote-print .table > thead > tr > th, 
+.summernote-print .table > tbody > tr > th,
+.summernote-print .table > tfoot > tr > th,
+.summernote-print .table > thead > tr > td,
+.summernote-print .table > tbody > tr > td,
+.summernote-print .table > tfoot > tr > td {
+	font-size: 11px;
+    line-height: 1;
+    padding: 4px;
+    vertical-align: middle;
+}

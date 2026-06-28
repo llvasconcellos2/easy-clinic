@@ -1,0 +1,53 @@
+<template name="patientTimeLine">
+	<div class="cd-horizontal-timeline">
+		<div class="timeline">
+			<div class="events-wrapper">
+				<div class="events">
+					<ol>
+						{{#each $mapped entries}}
+							<li><a class={{#if $first}}selected{{/if}} href="#0" data-date="{{shortDate}}">{{shortDate}}</a></li>
+						{{/each}}
+					</ol>
+
+					<span class="filling-line" aria-hidden="true"></span>
+				</div> <!-- .events -->
+			</div> <!-- .events-wrapper -->
+				
+			<ul class="cd-timeline-navigation">
+				<li><a href="#0" class="prev inactive">Prev</a></li>
+				<li><a href="#0" class="next">Next</a></li>
+			</ul> <!-- .cd-timeline-navigation -->
+		</div> <!-- .timeline -->
+
+		<div class="events-content">
+			<ol>
+				{{#each $mapped entries}}
+					<li class={{#if $first}}selected{{/if}} data-date="{{shortDate}}">
+						<em><i class="fa fa-calendar"></i> {{fullDate}}</em>
+						<div class="panel-group" id="accordion{{dateIdentifier}}">
+							{{#each record in records}}
+								<div class="panel panel-default">
+									<button type="button" data-id="{{dateIdentifier}}_{{@index}}" class="pull-right print-document">
+										<i class="fa fa-print"></i>
+									</button>
+									<div class="panel-heading">
+										<h5 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion{{dateIdentifier}}" href="#collapse_{{dateIdentifier}}_{{@index}}" aria-expanded="true" class="">{{_ 'patient_records-item'}} #{{addOne @index}}</a>
+										</h5>
+									</div>
+									<div id="collapse_{{dateIdentifier}}_{{@index}}" class="panel-collapse collapse in" aria-expanded="true">
+										<div class="panel-body note-editable overflow-hiden" id="{{dateIdentifier}}_{{@index}}">
+											{{#each record}}
+												{{{generateOutput this}}}
+											{{/each}}
+										</div>
+									</div>
+								</div>
+							{{/each}}
+						</div>
+					</li>
+				{{/each}}
+			</ol>
+		</div> <!-- .events-content -->
+	</div>
+</template>
