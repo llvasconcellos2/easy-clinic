@@ -66,6 +66,21 @@
                     </li>
                 {{/if}}
                 {{#if isInRole 'super-admin,administration'}}
+                    <li class="{{isActivePath regex='doctorList'}}">
+                        <a href="{{pathFor route='doctorList'}}" class="hide-on-phone"><i class="fa fa-user-md"></i> <span class="nav-label">{{_ 'users_doctors'}}</span></a>
+                    </li>
+                {{/if}}
+                {{#if isInRole 'super-admin,administration,medical_doctor'}}
+                    <li class="{{isActivePath regex='icd10List'}}">
+                        <a href="{{pathFor route='icd10List'}}" class="hide-on-phone"><i class="fa fa-bug" aria-hidden="true"></i> <span class="nav-label">{{_ 'common_icd'}}</span></a>
+                    </li>
+                {{/if}}
+                {{#if isInRole 'super-admin,administration,medical_doctor'}}
+                    <li class="{{isActivePath regex='drugList'}}">
+                        <a href="{{pathFor route='drugList'}}" class="hide-on-phone"><img style="width: 16px; margin-right: 4px;" src="/images/drugs.png" /> <span class="nav-label">{{_ 'drugs_drugs'}}</span></a>
+                    </li>
+                {{/if}}
+                {{#if isInRole 'super-admin,administration'}}
                     <li class="{{isActivePath regex='reportAppointments'}}">
                         <a href="{{pathFor route='reportAppointments'}}">
                             <i class="fa fa-newspaper-o" aria-hidden="true"></i>
@@ -80,13 +95,13 @@
                     </li>
                 {{/if}}
                 {{#if isInRole 'super-admin,administration,medical_doctor'}}
-	                <li class="{{isActivePath regex='settingsForm|specialtyList|documentModelList|icd10List|drugList|doctorList|users|import|recordsList'}}">
+	                <li class="{{isActivePath regex='settingsForm|specialtyList|documentModelList|users|import|recordsList'}}">
 	                    <a href="{{isActivePath regex='settings'}}">
 	                        <i class="fa fa-cogs" aria-hidden="true"></i>
 	                        <span class="nav-label">{{_ 'settings_settings'}}</span>
 	                        <span class="fa arrow"></span>
 	                    </a>
-	                    <ul class="nav nav-second-level collapse {{isActivePath regex='settingsForm|specialtyList|documentModelList|icd10List|drugList|doctorList|users|import|recordsList' className='in'}}">
+	                    <ul class="nav nav-second-level collapse {{isActivePath regex='settingsForm|specialtyList|documentModelList|users|import|recordsList' className='in'}}">
                             {{#if isInRole 'super-admin'}}
                                 <li class="{{isActivePath regex='settingsForm'}}">
                                     <a href="{{pathFor route='settingsForm'}}" class="hide-on-phone"><i class="fa fa-cog" aria-hidden="true"></i> <span class="nav-label">{{_ 'settings_general'}}</span></a>
@@ -98,16 +113,6 @@
     		                    </li>
                             {{/if}}
                             {{#if isInRole 'super-admin,administration,medical_doctor'}}
-    		                    <li class="{{isActivePath regex='icd10List'}}">
-    		                        <a href="{{pathFor route='icd10List'}}" class="hide-on-phone"><i class="fa fa-bug" aria-hidden="true"></i> <span class="nav-label">{{_ 'common_icd'}}</span></a>
-    		                    </li>
-                            {{/if}}
-                            {{#if isInRole 'super-admin,administration,medical_doctor'}}
-    		                    <li class="{{isActivePath regex='drugList'}}">
-    		                        <a href="{{pathFor route='drugList'}}" class="hide-on-phone"><img style="width: 16px; margin-right: 4px;" src="/images/drugs.png" /> <span class="nav-label">{{_ 'drugs_drugs'}}</span></a>
-    		                    </li>
-                            {{/if}}
-                            {{#if isInRole 'super-admin,administration,medical_doctor'}}
                                 <li class="{{isActivePath regex='documentModelList'}}">
                                     <a href="{{pathFor route='documentModelList'}}" class="hide-on-phone"><i class="fa fa-file-text" aria-hidden="true"></i> <span class="nav-label">{{_ 'document-models_document-models'}}</span></a>
                                 </li>
@@ -116,11 +121,6 @@
                                 <li class="{{isActivePath regex='formModelsList'}}">
                                     <a href="{{pathFor route='formModelsList'}}" class="hide-on-phone"><i class="fa fa-id-card" aria-hidden="true"></i> <span class="nav-label">{{_ 'form-models_form-models'}}</span></a>
                                 </li>
-                            {{/if}}
-                            {{#if isInRole 'super-admin,administration'}}
-    		                    <li class="{{isActivePath regex='doctorList'}}">
-    		                        <a href="{{pathFor route='doctorList'}}" class="hide-on-phone"><i class="fa fa-user-md"></i> <span class="nav-label">{{_ 'users_doctors'}}</span></a>
-    		                    </li>
                             {{/if}}
                             {{#if isInRole 'super-admin'}}
     		                    <li class="{{isActivePath regex='users'}}">
