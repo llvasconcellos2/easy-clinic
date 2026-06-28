@@ -11,7 +11,7 @@ to run again under Docker. The original repo lived on Bitbucket; only `first com
 in this git history. UI language is primarily Brazilian Portuguese (pt-BR), with en/es i18n.
 
 The Meteor application lives entirely under **`src/app/`** — that is the Meteor project root
-(it contains `.meteor/`). Everything outside `src/app/` (Docker files, `scripts/`, `db/`) is
+(it contains `.meteor/`). Everything outside `src/app/` (Docker files, `src/scripts/`, `db/`) is
 tooling added to revive the app.
 
 ## Running the app
@@ -41,7 +41,7 @@ See `DOCKER.md` for the full stack description.
 
 Account creation from the client is forbidden (`forbidClientAccountCreation`) and email
 verification is enforced. Seeded users come from the anonymized dump. To verify the admin
-so you can log in (from `scripts/README.md`):
+so you can log in (from `src/scripts/README.md`):
 
 ```js
 db.users.update({"emails.address":"leo.lima.web@gmail.com"},{$set:{"emails.$.verified":true}})
@@ -51,10 +51,10 @@ db.users.update({"emails.address":"leo.lima.web@gmail.com"},{$set:{"emails.$.ver
 
 - `db/meteor/` is a **cleaned + anonymized** BSON dump. The `seed` service in
   docker-compose restores it into the `meteor` DB **only if empty** (idempotent).
-- `scripts/` are one-off **mongo-shell** maintenance scripts (plus `03-fix-images.sh`, a
+- `src/scripts/` are one-off **mongo-shell** maintenance scripts (plus `03-fix-images.sh`, a
   bash/ImageMagick orchestration) used to dedupe CPFs, backfill valid Brazilian CPFs,
   repair patient images, and anonymize PII. Run in numeric order against the running stack;
-  see `scripts/README.md`. They mutate the `mongo-data` volume, so `down -v` reverts to the
+  see `src/scripts/README.md`. They mutate the `mongo-data` volume, so `down -v` reverts to the
   original dump and they must be re-run.
 
 ## Architecture
@@ -128,7 +128,7 @@ For any UI / styling / web-design task, follow the dedicated docs:
 
 - **[`docs/WEBDESIGN.md`](docs/WEBDESIGN.md)** — the *how-to-work* layer: invoke the
   `frontend-design` skill first, run the stack on `http://localhost:3000`, and use the
-  Playwright screenshot helper (`scripts/screenshot.js`, run via `npm run screenshot`) to
+  Playwright screenshot helper (`src/scripts/screenshot.js`, run via `npm run screenshot`) to
   capture and compare your output.
 - **[`docs/DESIGN.md`](docs/DESIGN.md)** — the design-system single source of truth: color
   tokens, typography, layout, and the INSPINIA component patterns (`ibox`, `pageHeading`),

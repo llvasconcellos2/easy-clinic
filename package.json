@@ -4,7 +4,7 @@
   "private": true,
   "description": "Host-side dev tooling for the Clínica Fácil Meteor app (NOT the Meteor app itself — that lives in src/app and runs in Docker). Only modern-Node dev utilities like the Playwright screenshot helper live here.",
   "scripts": {
-    "screenshot": "node scripts/screenshot.js"
+    "screenshot": "node src/scripts/screenshot.js"
   },
   "devDependencies": {
     "playwright": "^1.49.0"

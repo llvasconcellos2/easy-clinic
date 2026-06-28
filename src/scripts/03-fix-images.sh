@@ -10,7 +10,7 @@
 #   3. rewrites each Images doc's path/_storagePath/versions.original.path to the
 #      container storage dir (/src/app/pictures) and fixes size/Content-Length.
 #
-# Run from the project root:  bash scripts/03-fix-images.sh
+# Run from the project root:  bash src/scripts/03-fix-images.sh
 set -euo pipefail
 
 DC="docker compose"

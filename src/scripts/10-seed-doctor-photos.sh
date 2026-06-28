@@ -8,7 +8,7 @@
 #
 # Run AFTER 07-seed-patient-photos.sh (which fills the portrait pool) and
 # 09-create-doctors.js:
-#   bash scripts/10-seed-doctor-photos.sh
+#   bash src/scripts/10-seed-doctor-photos.sh
 set -euo pipefail
 
 PICDIR_HOST="src/app/pictures"

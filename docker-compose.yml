@@ -25,7 +25,7 @@ services:
   # One-shot job: restore the bundled BSON dump (db/meteor) into the
   # `meteor` database, but only if it is still empty. Safe to leave enabled —
   # it skips on every run after the first seed.
-  # `db/` is the cleaned + anonymized dump (see scripts/). It also carries the
+  # `db/` is the cleaned + anonymized dump (see src/scripts/). It also carries the
   # patients c2_CPF unique+sparse index, so a fresh seed comes up healthy.
   seed:
     image: mongo:3.2

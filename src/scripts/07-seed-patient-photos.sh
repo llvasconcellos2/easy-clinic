@@ -12,7 +12,7 @@
 # is idempotent and safe to re-run.
 #
 # Run AFTER 06-fix-ages.js, from the project root:
-#   bash scripts/07-seed-patient-photos.sh
+#   bash src/scripts/07-seed-patient-photos.sh
 set -euo pipefail
 
 DC="docker compose"

@@ -32,18 +32,18 @@ From the project root, with the stack up (`docker compose up -d`):
 
 ```bash
 # mongo shell scripts
-docker compose exec -T mongo mongo --quiet meteor < scripts/01-dedupe-cpf.js
-docker compose exec -T mongo mongo --quiet meteor < scripts/02-fill-cpf.js
-docker compose exec -T mongo mongo --quiet meteor < scripts/04-anonymize-patients.js
-docker compose exec -T mongo mongo --quiet meteor < scripts/06-fix-ages.js
-docker compose exec -T mongo mongo --quiet meteor < scripts/08-fill-obs.js
-docker compose exec -T mongo mongo --quiet meteor < scripts/09-create-doctors.js
-docker compose exec -T mongo mongo --quiet meteor < scripts/11-fill-phones.js
+docker compose exec -T mongo mongo --quiet meteor < src/scripts/01-dedupe-cpf.js
+docker compose exec -T mongo mongo --quiet meteor < src/scripts/02-fill-cpf.js
+docker compose exec -T mongo mongo --quiet meteor < src/scripts/04-anonymize-patients.js
+docker compose exec -T mongo mongo --quiet meteor < src/scripts/06-fix-ages.js
+docker compose exec -T mongo mongo --quiet meteor < src/scripts/08-fill-obs.js
+docker compose exec -T mongo mongo --quiet meteor < src/scripts/09-create-doctors.js
+docker compose exec -T mongo mongo --quiet meteor < src/scripts/11-fill-phones.js
 
 # image repair / seeding (bash + docker compose)
-bash scripts/03-fix-images.sh
-bash scripts/07-seed-patient-photos.sh
-bash scripts/10-seed-doctor-photos.sh
+bash src/scripts/03-fix-images.sh
+bash src/scripts/07-seed-patient-photos.sh
+bash src/scripts/10-seed-doctor-photos.sh
 ```
 
 ## Notes

@@ -19,11 +19,11 @@
 //                   {$set:{"emails.$.verified":true,"isUserEnabled":true}})
 //
 // Usage (run from PowerShell, not Git Bash — MSYS mangles a leading-`/` arg):
-//   node scripts/screenshot.js                         # /dashboard, label "dashboard"
-//   node scripts/screenshot.js /patients patients      # <path> <label>
-//   node scripts/screenshot.js /privacy privacy        # public page, no login needed
+//   node src/scripts/screenshot.js                         # /dashboard, label "dashboard"
+//   node src/scripts/screenshot.js /patients patients      # <path> <label>
+//   node src/scripts/screenshot.js /privacy privacy        # public page, no login needed
 //   $env:SCREENSHOT_USER="leo.lima.web@gmail.com"; $env:SCREENSHOT_PASS="..."; \
-//     node scripts/screenshot.js /schedule schedule
+//     node src/scripts/screenshot.js /schedule schedule
 //
 // Output: ./screenshots-dev/screenshot-<N>-<label>-<viewport>.png
 // (N auto-increments; existing files are never overwritten.)

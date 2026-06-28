@@ -59,7 +59,7 @@ Seeded admin credentials (local anonymized dump — dev only):
 ## Screenshot Workflow
 
 > There is **no screenshot MCP configured in this project.** Use the committed Playwright
-> helper — [`scripts/screenshot.js`](../scripts/screenshot.js).
+> helper — [`src/scripts/screenshot.js`](../src/scripts/screenshot.js).
 
 **One-time setup** (Playwright is a host-side dev tool, installed from the **repo-root**
 `package.json` — kept separate from the Node-4 Meteor app in `src/app`):
