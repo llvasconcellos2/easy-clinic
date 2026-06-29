@@ -42,18 +42,18 @@
 								</div>
 							{{/each}}
 							{{#each record in records}}
-								<div class="panel panel-default">
+								<div class="panel panel-default record-type-{{recordTypeClass record.recordType}}">
 									<button type="button" data-id="{{dateIdentifier}}_{{@index}}" class="pull-right print-document">
 										<i class="fa fa-print"></i>
 									</button>
 									<div class="panel-heading">
 										<h5 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion{{dateIdentifier}}" href="#collapse_{{dateIdentifier}}_{{@index}}" aria-expanded="true" class="">{{_ 'patient_records-item'}} #{{addOne @index}}</a>
+										<a data-toggle="collapse" data-parent="#accordion{{dateIdentifier}}" href="#collapse_{{dateIdentifier}}_{{@index}}" aria-expanded="true" class=""><i class="fa {{recordIcon record.recordType}}"></i> {{#if record.recordName}}{{record.recordName}}{{else}}{{_ 'patient_records-item'}} #{{addOne @index}}{{/if}}</a>
 										</h5>
 									</div>
 									<div id="collapse_{{dateIdentifier}}_{{@index}}" class="panel-collapse collapse in" aria-expanded="true">
 										<div class="panel-body note-editable overflow-hiden" id="{{dateIdentifier}}_{{@index}}">
-											{{#each record}}
+											{{#each record.fields}}
 												{{{generateOutput this}}}
 											{{/each}}
 										</div>

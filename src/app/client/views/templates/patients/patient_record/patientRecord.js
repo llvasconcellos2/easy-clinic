@@ -3,7 +3,20 @@
 // import '/imports/client/datepicker/bootstrap-datepicker.es.min.js';
 // import '/imports/client/datepicker/datepicker3.css';
 
+// wipe every modal input so nothing leaks from the previously added record:
+// hide all groups, clear the selects, and empty the formBuilder render target
+// and the document editor (both live inside #patient-record-form)
+var resetModal = function () {
+  $("#addToRecords .form-group").not("#date").hide();
+  $("#addToRecords select").val("");
+  $(".chosen-select").trigger("chosen:updated");
+  $("#form-render").html("");
+  $("#document").summernote("code", "");
+  $("#patient-record-form").find(".has-error").removeClass("has-error");
+};
+
 var openModal = function (type) {
+  resetModal();
   switch (type) {
     case "form":
       $("#form-models-form-group").show();
@@ -63,17 +76,22 @@ Template.patientRecord.helpers({
     };
 
     recordsCollection.forEach(function (item) {
+      var record = {
+        fields: item.record,
+        recordType: item.recordType,
+        recordName: item.recordName,
+      };
       var entry = findByDay(item.date);
       if (!entry) {
         entries.push({
           _id: item._id,
           date: item.date,
           patientId: item.patientId,
-          records: [item.record],
+          records: [record],
           appointments: [],
         });
       } else {
-        entry.records.push(item.record);
+        entry.records.push(record);
       }
     });
 
@@ -153,6 +171,24 @@ Template.patientRecord.helpers({
   },
   addOne: function (add) {
     return add + 1;
+  },
+  recordIcon: function (type) {
+    var map = {
+      form: "fa-id-card",
+      prescription: "fa-file-text",
+      medical_certificate: "fa-file-text-o",
+      exam_request: "fa-eye",
+    };
+    return map[type] || "fa-file-text-o";
+  },
+  recordTypeClass: function (type) {
+    var map = {
+      form: "form",
+      prescription: "info",
+      medical_certificate: "warning",
+      exam_request: "danger",
+    };
+    return map[type] || "default";
   },
   generateOutput: function (record) {
     if (record.name && record.name.toLowerCase() != "document") {
@@ -275,9 +311,7 @@ Template.patientRecord.onRendered(function () {
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     $("#addToRecords .form-group").not("#date").hide();
     $("#addToRecords").on("hidden.bs.modal", function (e) {
-      $("#addToRecords .form-group").not("#date").hide();
-      $("#addToRecords select").val("");
-      $(".chosen-select").trigger("chosen:updated");
+      resetModal();
     });
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -500,9 +534,19 @@ Template.patientRecord.onRendered(function () {
 
         var date = formData.shift().value;
 
+        // remember which model produced this record (the one visible select
+        // with a value) so the timeline can show a typed, named panel
+        var $sel = $("#addToRecords .chosen-select")
+          .filter(function () {
+            return $(this).val();
+          })
+          .first();
+
         var data = {
           date: moment(date, "DD/MM/YYYY").toDate(),
           patientId: FlowRouter.getParam("_id"),
+          recordType: $sel.data("type"),
+          recordName: $sel.find("option:selected").text(),
           record: formData,
         };
 

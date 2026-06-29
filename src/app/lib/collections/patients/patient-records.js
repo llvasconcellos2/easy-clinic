@@ -7,6 +7,14 @@ var schema = {
 	patientId: {
 		type: String
 	},
+	recordType: {
+		type: String,
+		optional: true
+	},
+	recordName: {
+		type: String,
+		optional: true
+	},
 	record: {
 		type: [Object],
 		blackbox: true

@@ -2,6 +2,19 @@
   margin:5px;
 }
 
+/* per-type colour cue on each record panel: left accent border + title icon,
+   matching the action-button colours (form=green, prescription=blue,
+   certificate=yellow, exam=red) */
+.events-content .panel.record-type-form    { border-left: 3px solid #1c84c6; }
+.events-content .panel.record-type-info    { border-left: 3px solid #23c6c8; }
+.events-content .panel.record-type-warning { border-left: 3px solid #f8ac59; }
+.events-content .panel.record-type-danger  { border-left: 3px solid #ed5565; }
+
+.events-content .panel.record-type-form .panel-title i    { color: #1c84c6; }
+.events-content .panel.record-type-info .panel-title i    { color: #23c6c8; }
+.events-content .panel.record-type-warning .panel-title i { color: #f8ac59; }
+.events-content .panel.record-type-danger .panel-title i  { color: #ed5565; }
+
 .cd-horizontal-timeline {
   opacity: 0;
   margin: 2em auto;
