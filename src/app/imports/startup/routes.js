@@ -113,6 +113,23 @@ reportRoutes.route('/appointments', {
   }
 });
 
+reportRoutes.route('/patients', {
+  name: 'reportPatients',
+  subscriptions: function(params) {
+    this.register('patients', Meteor.subscribe('patients'));
+  },
+  action: function() {
+    BlazeLayout.render('mainLayout', {content: 'reportPatients'});
+  }
+});
+
+reportRoutes.route('/production', {
+  name: 'reportProduction',
+  action: function() {
+    BlazeLayout.render('mainLayout', {content: 'reportProduction'});
+  }
+});
+
 FlowRouter.route('/settings', {
   name: 'settingsForm',
   subscriptions: function(params) {

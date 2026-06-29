@@ -1,0 +1,40 @@
+<template name="reportProduction">
+  {{> pageHeading title='reports_production'}}
+
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-3 col-sm-6">
+        <div class="ibox"><div class="ibox-content prod-kpi prod-blue">
+          <span class="prod-kpi-label"><i class="fa fa-id-card"></i> {{_ 'dashboard_forms'}}</span>
+          <h2>{{totals.form}}</h2>
+        </div></div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="ibox"><div class="ibox-content prod-kpi prod-teal">
+          <span class="prod-kpi-label"><i class="fa fa-file-text"></i> {{_ 'dashboard_prescriptions'}}</span>
+          <h2>{{totals.prescription}}</h2>
+        </div></div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="ibox"><div class="ibox-content prod-kpi prod-red">
+          <span class="prod-kpi-label"><i class="fa fa-eye"></i> {{_ 'dashboard_exam-requests'}}</span>
+          <h2>{{totals.exam_request}}</h2>
+        </div></div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="ibox"><div class="ibox-content prod-kpi prod-yellow">
+          <span class="prod-kpi-label"><i class="fa fa-file-text-o"></i> {{_ 'dashboard_certificates'}}</span>
+          <h2>{{totals.medical_certificate}}</h2>
+        </div></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox">
+          <div class="ibox-title"><h5><i class="fa fa-bar-chart"></i> {{_ 'reports_production-subtitle'}}</h5><small class="pull-right text-muted">{{_ 'dashboard_last-12-months'}}</small></div>
+          <div class="ibox-content"><div class="report-chart-wrap report-chart-tall"><canvas id="prod-month"></canvas></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

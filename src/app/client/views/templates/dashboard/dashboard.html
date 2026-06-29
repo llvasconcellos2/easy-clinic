@@ -2,242 +2,138 @@
   {{> pageHeading title='common_dashboard' }}
 
   <div class="wrapper wrapper-content">
-    <div class="row animated fadeInRight">
-      <div class="col-lg-6">
-        <div class="ibox float-e-margins">
-          <!--div class="text-center float-e-margins p-md">
-                        <span>Turn on/off color/background or orientation version: </span>
-                        <a href="#" class="btn btn-xs btn-primary" id="lightVersion">Light version</a>
-                        <a href="#" class="btn btn-xs btn-primary" id="darkVersion">Dark version</a>
-                        <a href="#" class="btn btn-xs btn-primary" id="leftVersion">Left version</a>
-                    </div-->
 
-          <div class="ibox">
-            <div class="ibox-title">
-              <h5>
-                {{_ 'schedule_schedule'}}
-                <small class="m-l-sm">{{_ 'schedule_timeline'}}</small>
-              </h5>
-              {{!-->iboxTools--}}
-              <!--button class="btn btn-sm btn-primary pull-right m-t-n-xs new-record">
-								<strong><i class="fa fa-plus" aria-hidden="true"></i> {{_ 'specialties_new'}}</strong>
-							</button-->
-            </div>
-            <div class="ibox-content inspinia-timeline" id="schedule-timeline">
-              {{#if schedule.length}} {{#each schedule}}
-              <div class="timeline-item">
-                <div class="row">
-                  <div class="col-xs-3 date">
-                    <i class="fa fa-clock-o"></i>
-                    {{getTime start}}
-                    <br />
-                    <small class="text-navy">{{getHoursFromNow start}}</small>
-                  </div>
-                  <div class="col-xs-7 content no-top-border">
-                    <p>
-                      <div class="timeline-label"
-                        >{{_ 'patients_patient'}}:</div
-                      >
-                      {{#if patient}}
-                      <a href="{{pathFor route='patientEdit' _id=patient}}"
-                        ><b>{{getTitle title}}</b></a
-                      >
-                      {{else}}
-                      <b>{{getTitle title}}</b>
-                      {{/if}}
-                    </p>
-                    <p class="m-b-xs">
-                      <div class="timeline-label"
-                        >{{_ 'schedule_status'}}:</div
-                      >
-                      {{scheduleStatusBadge status}}
-                    </p>
-                    {{#if patientArrived status}}
-                    <a
-                      href="{{pathFor route='patientEdit' _id=patient query='start_appointment=true&eventId='}}{{_id}}"
-                      class="btn btn-sm btn-primary iniciar-consulta-btn"
-                    >
-                      <i class="fa fa-play" aria-hidden="true"></i>&nbsp;&nbsp;{{_
-                      'patients_start-appointment'}}
-                    </a>
-                    {{else}}
-                      <a
-                      href="{{pathFor route='patientEdit' _id=patient query='tab=records'}}"
-                      class="btn btn-sm btn-secondary iniciar-consulta-btn"
-                    >
-                      <i class="fa fa-folder-open-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{_
-                      'patients_records'}}
-                    </a>
-                    {{/if}}
-                  </div>
-                </div>
-              </div>
-              {{/each}} {{else}} {{_ 'schedule_no-appointment-today'}} {{/if}}
+    <!-- KPI widgets -->
+    <div class="row">
+      <div class="col-lg-3 col-sm-6">
+        <div class="ibox">
+          <div class="ibox-content dash-kpi">
+            <span class="dash-kpi-icon bg-blue"><i class="fa fa-users"></i></span>
+            <div class="dash-kpi-body">
+              <span class="dash-kpi-label">{{_ 'dashboard_patients'}}</span>
+              <h2 class="dash-kpi-value">{{stats.totals.patients}}</h2>
+              <small class="text-muted">{{_ 'dashboard_patients-total'}}</small>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <!-- <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Lista de Tarefas</h5>
-                        {{>iboxTools}}
-                    </div>
-                    <div class="ibox-content">
-                        <ul class="todo-list m-t small-list">
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" id="checkbox1" checked>
-                                    <label for="checkbox1" class="todo-completed">
-                                        Ligar para fornecedor
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" id="checkbox2" >
-                                    <label for="checkbox2">
-                                        Comprar materiais
-                                    </label>
-                                </div>
-
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" id="checkbox3" checked>
-                                    <label for="checkbox3" class="todo-completed">
-                                        Dormir
-                                        <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
-                                    </label>
-                                </div>
-
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" id="checkbox4" checked>
-                                    <label for="checkbox4" class="todo-completed">
-                                        Comer
-                                    </label>
-                                </div>
-
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" id="checkbox5" >
-                                    <label for="checkbox5">
-                                        Ligar para fornecedor
-                                    </label>
-                                </div>
-
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" id="checkbox6" >
-                                    <label for="checkbox6">
-                                        Ligar para fornecedor
-                                    </label>
-                                </div>
-
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" id="checkbox7" >
-                                    <label for="checkbox7">
-                                        Comer Comer Comer
-                                    </label>
-                                </div>
-
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Mensagens</h5>
-                        {{>iboxTools}}
-                    </div>
-                    <div class="ibox-content ibox-heading">
-                        <h3><i class="fa fa-envelope-o"></i> Novas Mensagens</h3>
-                        <small><i class="fa fa-tim"></i> Você tem 22 novas mensagens e 16 aguardando nos rascunhos.
-                        </small>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="feed-activity-list">
-
-                            <div class="feed-element">
-                                <div>
-                                    <small class="pull-right text-navy">1m atrás</small>
-                                    <strong>João da Silva</strong>
-
-                                    <div>Mussum Ipsum, cacilds vidis litro abertis. Paisis, filhis, espiritis santis. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Manduma pindureta quium dia nois paga.
-                                    </div>
-                                    <small class="text-muted">Hoje 14:23 - 20/10/2016</small>
-                                </div>
-                            </div>
-
-                            <div class="feed-element">
-                                <div>
-                                    <small class="pull-right">2m atrás</small>
-                                    <strong>João da Silva</strong>
-
-                                    <div>Mussum Ipsum, cacilds vidis litro abertis. Paisis, filhis, espiritis santis. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Manduma pindureta quium dia nois paga.</div>
-                                    <small class="text-muted">Hoje 14:23 - 20/10/2016</small>
-                                </div>
-                            </div>
-
-                            <div class="feed-element">
-                                <div>
-                                    <small class="pull-right">5m atrás</small>
-                                    <strong>João da Silva</strong>
-
-                                    <div>Mussum Ipsum, cacilds vidis litro abertis. Paisis, filhis, espiritis santis. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Manduma pindureta quium dia nois paga.</div>
-                                    <small class="text-muted">Ontem 20:48 - 19/10/2016</small>
-                                </div>
-                            </div>
-
-                            <div class="feed-element">
-                                <div>
-                                    <small class="pull-right">5m atrás</small>
-                                    <strong>João da Silva</strong>
-
-                                    <div>Mussum Ipsum, cacilds vidis litro abertis. Paisis, filhis, espiritis santis. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Manduma pindureta quium dia nois paga.</div>
-                                    <small class="text-muted">Ontem 20:48 - 19/10/2016</small>
-                                </div>
-                            </div>
-
-
-                            <div class="feed-element">
-                                <div>
-                                    <small class="pull-right">5m atrás</small>
-                                    <strong>João da Silva</strong>
-
-                                    <div>Mussum Ipsum, cacilds vidis litro abertis. Paisis, filhis, espiritis santis. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Manduma pindureta quium dia nois paga.</div>
-                                    <small class="text-muted">Ontem 20:48 - 19/10/2016</small>
-                                </div>
-                            </div>
-                            <div class="feed-element">
-                                <div>
-                                    <small class="pull-right">5m atrás</small>
-                                    <strong>João da Silva</strong>
-
-                                    <div>Mussum Ipsum, cacilds vidis litro abertis. Paisis, filhis, espiritis santis. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Manduma pindureta quium dia nois paga.</div>
-                                    <small class="text-muted">Ontem 20:48 - 19/10/2016</small>
-                                </div>
-                            </div>
-                            <div class="feed-element">
-                                <div>
-                                    <small class="pull-right">5m atrás</small>
-                                    <strong>João da Silva</strong>
-
-                                    <div>Mussum Ipsum, cacilds vidis litro abertis. Paisis, filhis, espiritis santis. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Manduma pindureta quium dia nois paga.</div>
-                                    <small class="text-muted">Ontem 20:48 - 19/10/2016</small>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> -->
+      <div class="col-lg-3 col-sm-6">
+        <div class="ibox">
+          <div class="ibox-content dash-kpi">
+            <span class="dash-kpi-icon bg-green"><i class="fa fa-stethoscope"></i></span>
+            <div class="dash-kpi-body">
+              <span class="dash-kpi-label">{{_ 'dashboard_appointments'}}</span>
+              <h2 class="dash-kpi-value">{{stats.totals.appointmentsMonth}}</h2>
+              <small class="text-muted">{{_ 'dashboard_appointments-month'}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="ibox">
+          <div class="ibox-content dash-kpi">
+            <span class="dash-kpi-icon bg-teal"><i class="fa fa-folder-open"></i></span>
+            <div class="dash-kpi-body">
+              <span class="dash-kpi-label">{{_ 'dashboard_records'}}</span>
+              <h2 class="dash-kpi-value">{{stats.totals.recordsMonth}}</h2>
+              <small class="text-muted">{{_ 'dashboard_records-month'}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="ibox">
+          <div class="ibox-content dash-kpi">
+            <span class="dash-kpi-icon bg-yellow"><i class="fa fa-file-text"></i></span>
+            <div class="dash-kpi-body">
+              <span class="dash-kpi-label">{{_ 'dashboard_prescriptions'}}</span>
+              <h2 class="dash-kpi-value">{{stats.totals.prescriptions}}</h2>
+              <small class="text-muted">{{_ 'dashboard_prescriptions-total'}}</small>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- today's agenda (top-left) sharing the row with the main chart -->
+    <div class="row animated fadeInRight">
+      <div class="col-lg-4">
+        <div class="ibox">
+          <div class="ibox-title">
+            <h5>{{_ 'schedule_schedule'}} <small class="m-l-sm">{{_ 'schedule_timeline'}}</small></h5>
+          </div>
+          <div class="ibox-content inspinia-timeline dash-agenda" id="schedule-timeline">
+            {{#if schedule.length}}
+              {{#each schedule}}
+                <div class="timeline-item">
+                  <div class="row">
+                    <div class="col-xs-3 date">
+                      <i class="fa fa-clock-o"></i>
+                      {{getTime start}}
+                      <br />
+                      <small class="text-navy">{{getHoursFromNow start}}</small>
+                    </div>
+                    <div class="col-xs-7 content no-top-border">
+                      <p>
+                        <div class="timeline-label">{{_ 'patients_patient'}}:</div>
+                        {{#if patient}}
+                          <a href="{{pathFor route='patientEdit' _id=patient}}"><b>{{getTitle title}}</b></a>
+                        {{else}}
+                          <b>{{getTitle title}}</b>
+                        {{/if}}
+                      </p>
+                      <p class="m-b-xs">
+                        <div class="timeline-label">{{_ 'schedule_status'}}:</div>
+                        {{scheduleStatusBadge status}}
+                      </p>
+                      {{#if patientArrived status}}
+                        <a href="{{pathFor route='patientEdit' _id=patient query='start_appointment=true&eventId='}}{{_id}}" class="btn btn-sm btn-primary iniciar-consulta-btn">
+                          <i class="fa fa-play" aria-hidden="true"></i>&nbsp;&nbsp;{{_ 'patients_start-appointment'}}
+                        </a>
+                      {{else}}
+                        <a href="{{pathFor route='patientEdit' _id=patient query='tab=records'}}" class="btn btn-sm btn-secondary iniciar-consulta-btn">
+                          <i class="fa fa-folder-open-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{_ 'patients_records'}}
+                        </a>
+                      {{/if}}
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+            {{else}}
+              {{_ 'schedule_no-appointment-today'}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="ibox">
+          <div class="ibox-title"><h5><i class="fa fa-bar-chart"></i> {{_ 'dashboard_appts-by-month'}}</h5><small class="pull-right text-muted">{{_ 'dashboard_last-12-months'}}</small></div>
+          <div class="ibox-content"><div class="dash-chart-wrap"><canvas id="dash-appts"></canvas></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- secondary charts -->
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="ibox">
+          <div class="ibox-title"><h5><i class="fa fa-pie-chart"></i> {{_ 'dashboard_records-by-type'}}</h5></div>
+          <div class="ibox-content"><div class="dash-chart-wrap"><canvas id="dash-records"></canvas></div></div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="ibox">
+          <div class="ibox-title"><h5><i class="fa fa-bar-chart"></i> {{_ 'dashboard_patients-by-age'}}</h5></div>
+          <div class="ibox-content"><div class="dash-chart-wrap"><canvas id="dash-age"></canvas></div></div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="ibox">
+          <div class="ibox-title"><h5><i class="fa fa-venus-mars"></i> {{_ 'dashboard_patients-by-gender'}}</h5></div>
+          <div class="ibox-content"><div class="dash-chart-wrap"><canvas id="dash-gender"></canvas></div></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>

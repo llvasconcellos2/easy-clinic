@@ -27,6 +27,103 @@ Template.dashboard.onRendered(function () {
   });
 });
 
+// ---- dashboard analytics (KPIs + Chart.js charts) ----
+var DASH_PAL = {
+  blue: "#1c84c6", green: "#1ab394", teal: "#23c6c8",
+  yellow: "#f8ac59", red: "#ed5565", pink: "#ec90c5", muted: "#d1dade",
+};
+var DASH_MONTHS = {
+  "pt-BR": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+  en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  es: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+};
+function dashMonthLabel(y, m) {
+  var arr = DASH_MONTHS[TAPi18n.getLanguage()] || DASH_MONTHS["pt-BR"];
+  return arr[m] + "/" + String(y).slice(2);
+}
+
+Template.dashboard.onCreated(function () {
+  var self = this;
+  this.stats = new ReactiveVar(null);
+  Meteor.call("dashboardStats", function (err, res) {
+    if (!err) self.stats.set(res);
+  });
+});
+
+Template.dashboard.helpers({
+  stats: function () {
+    return Template.instance().stats.get();
+  },
+});
+
+Template.dashboard.onRendered(function () {
+  var tpl = this;
+  tpl.charts = {};
+
+  var mk = function (id, cfg) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (tpl.charts[id]) tpl.charts[id].destroy();
+    tpl.charts[id] = new Chart(el.getContext("2d"), cfg);
+  };
+
+  var draw = function () {
+    var s = tpl.stats.get();
+    if (!s) return;
+
+    mk("dash-appts", {
+      type: "bar",
+      data: {
+        labels: s.apptsByMonth.map(function (x) { return dashMonthLabel(x.y, x.m); }),
+        datasets: [{ label: TAPi18n.__("dashboard_appointments"), backgroundColor: DASH_PAL.blue, data: s.apptsByMonth.map(function (x) { return x.value; }) }],
+      },
+      options: { responsive: true, maintainAspectRatio: false, legend: { display: false },
+        scales: { yAxes: [{ ticks: { beginAtZero: true } }] } },
+    });
+
+    var rt = s.recordsByType;
+    mk("dash-records", {
+      type: "doughnut",
+      data: {
+        labels: [TAPi18n.__("dashboard_forms"), TAPi18n.__("dashboard_prescriptions"), TAPi18n.__("dashboard_exam-requests"), TAPi18n.__("dashboard_certificates")],
+        datasets: [{ data: [rt.form, rt.prescription, rt.exam_request, rt.medical_certificate],
+          backgroundColor: [DASH_PAL.blue, DASH_PAL.teal, DASH_PAL.red, DASH_PAL.yellow] }],
+      },
+      options: { responsive: true, maintainAspectRatio: false, legend: { position: "bottom" }, cutoutPercentage: 60 },
+    });
+
+    mk("dash-age", {
+      type: "bar",
+      data: {
+        labels: s.ageGroups.map(function (x) { return x.label; }),
+        datasets: [{ label: TAPi18n.__("dashboard_patients"), backgroundColor: DASH_PAL.green, data: s.ageGroups.map(function (x) { return x.value; }) }],
+      },
+      options: { responsive: true, maintainAspectRatio: false, legend: { display: false },
+        scales: { yAxes: [{ ticks: { beginAtZero: true } }] } },
+    });
+
+    mk("dash-gender", {
+      type: "doughnut",
+      data: {
+        labels: [TAPi18n.__("dashboard_male"), TAPi18n.__("dashboard_female")],
+        datasets: [{ data: [s.gender.M, s.gender.F], backgroundColor: [DASH_PAL.blue, DASH_PAL.pink] }],
+      },
+      options: { responsive: true, maintainAspectRatio: false, legend: { position: "bottom" }, cutoutPercentage: 60 },
+    });
+  };
+
+  tpl.autorun(function () {
+    tpl.stats.get();
+    TAPi18n.getLanguage(); // redraw chart labels when the language changes
+    Tracker.afterFlush(function () { Tracker.nonreactive(draw); });
+  });
+});
+
+Template.dashboard.onDestroyed(function () {
+  var tpl = this;
+  if (tpl.charts) Object.keys(tpl.charts).forEach(function (k) { try { tpl.charts[k].destroy(); } catch (e) {} });
+});
+
 Template.dashboard.helpers({
   patientArrived: function (status) {
     return status == "waiting";

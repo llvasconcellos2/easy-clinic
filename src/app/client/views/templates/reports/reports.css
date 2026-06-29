@@ -1,0 +1,30 @@
+.report-chart-wrap {
+  position: relative;
+  height: 300px;
+}
+.report-chart-wrap.report-chart-tall {
+  height: 420px;
+}
+
+.prod-kpi {
+  border-left: 3px solid #ccc;
+}
+.prod-kpi h2 {
+  margin: 6px 0 0;
+  font-weight: 600;
+  color: #2f4050;
+}
+.prod-kpi-label {
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: #9aa4ac;
+}
+.prod-blue { border-left-color: #1c84c6; }
+.prod-blue .prod-kpi-label i { color: #1c84c6; }
+.prod-teal { border-left-color: #23c6c8; }
+.prod-teal .prod-kpi-label i { color: #23c6c8; }
+.prod-red { border-left-color: #ed5565; }
+.prod-red .prod-kpi-label i { color: #ed5565; }
+.prod-yellow { border-left-color: #f8ac59; }
+.prod-yellow .prod-kpi-label i { color: #f8ac59; }

@@ -1,0 +1,87 @@
+<template name="patientEvolution">
+  {{#if hasData}}
+    <div class="panel-body evolution-pane">
+
+      <!-- summary cards -->
+      <div class="row">
+        <div class="col-md-3 col-sm-6">
+          <div class="ibox">
+            <div class="ibox-content evo-summary">
+              <span class="evo-summary-label">{{_ 'evolution_imc'}}</span>
+              <h2 class="evo-summary-value">{{summary.imc}} <small>kg/m²</small></h2>
+              <span class="label label-{{summary.imcCls}}">{{summary.imcLabel}}</span>
+              {{#if summary.imcDelta}}<div class="evo-delta {{summary.imcDeltaCls}}"><i class="fa {{summary.imcDeltaIcon}}"></i> {{summary.imcDelta}} kg/m² {{_ 'evolution_since-first'}}</div>{{/if}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="ibox">
+            <div class="ibox-content evo-summary">
+              <span class="evo-summary-label">{{_ 'evolution_weight'}}</span>
+              <h2 class="evo-summary-value">{{summary.peso}} <small>kg</small></h2>
+              <span class="text-muted">{{_ 'evolution_height'}}: {{summary.altura}} cm</span>
+              {{#if summary.pesoDelta}}<div class="evo-delta {{summary.pesoDeltaCls}}"><i class="fa {{summary.pesoDeltaIcon}}"></i> {{summary.pesoDelta}} kg {{_ 'evolution_since-first'}}</div>{{/if}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="ibox">
+            <div class="ibox-content evo-summary">
+              <span class="evo-summary-label">{{_ 'evolution_blood-pressure'}}</span>
+              <h2 class="evo-summary-value">{{summary.sys}}/{{summary.dia}} <small>mmHg</small></h2>
+              <span class="label label-{{summary.paCls}}">{{summary.paLabel}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="ibox">
+            <div class="ibox-content evo-summary">
+              <span class="evo-summary-label">{{_ 'evolution_heart-rate'}}</span>
+              <h2 class="evo-summary-value">{{summary.fc}} <small>bpm</small></h2>
+              <span class="text-muted">{{summary.count}} {{_ 'evolution_measurements'}} · {{summary.span}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- charts -->
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="ibox">
+            <div class="ibox-title"><h5><i class="fa fa-line-chart"></i> {{_ 'evolution_imc'}}</h5><span class="label label-info pull-right">{{_ 'evolution_imc-subtitle'}}</span></div>
+            <div class="ibox-content"><div class="evo-chart-wrap"><canvas id="evo-imc"></canvas></div></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="ibox">
+            <div class="ibox-title"><h5><i class="fa fa-balance-scale"></i> {{_ 'evolution_weight'}}</h5></div>
+            <div class="ibox-content"><div class="evo-chart-wrap"><canvas id="evo-peso"></canvas></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="ibox">
+            <div class="ibox-title"><h5><i class="fa fa-heartbeat"></i> {{_ 'evolution_blood-pressure'}}</h5></div>
+            <div class="ibox-content"><div class="evo-chart-wrap"><canvas id="evo-pa"></canvas></div></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="ibox">
+            <div class="ibox-title"><h5><i class="fa fa-heart"></i> {{_ 'evolution_heart-rate'}} &amp; SpO₂</h5></div>
+            <div class="ibox-content"><div class="evo-chart-wrap"><canvas id="evo-fc"></canvas></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {{else}}
+    <div class="panel-body">
+      <div class="records-empty-state">
+        <div class="records-empty-icon"><i class="fa fa-line-chart"></i></div>
+        <h3>{{_ 'evolution_empty-title'}}</h3>
+        <p class="text-muted">{{_ 'evolution_empty-text'}}</p>
+      </div>
+    </div>
+  {{/if}}
+</template>

@@ -1,0 +1,32 @@
+.evolution-pane .evo-chart-wrap {
+  position: relative;
+  height: 260px;
+}
+.evolution-pane .evo-summary {
+  text-align: center;
+}
+.evolution-pane .evo-summary-label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: #9aa4ac;
+  margin-bottom: 4px;
+}
+.evolution-pane .evo-summary-value {
+  margin: 2px 0 6px;
+  font-weight: 600;
+  color: #2f4050;
+}
+.evolution-pane .evo-summary-value small {
+  font-size: 13px;
+  color: #9aa4ac;
+  font-weight: 400;
+}
+.evolution-pane .evo-delta {
+  margin-top: 8px;
+  font-size: 12px;
+}
+.evolution-pane .ibox-title .label {
+  margin-top: 2px;
+}

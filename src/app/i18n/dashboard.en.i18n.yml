@@ -1,0 +1,19 @@
+dashboard_patients: Patients
+dashboard_patients-total: Total registered
+dashboard_appointments: Appointments
+dashboard_appointments-month: Completed this month
+dashboard_records: Records
+dashboard_records-month: In records this month
+dashboard_prescriptions: Prescriptions
+dashboard_prescriptions-total: Issued in total
+dashboard_appts-by-month: Appointments per month
+dashboard_last-12-months: last 12 months
+dashboard_records-by-type: Records by type
+dashboard_patients-by-age: Patients by age group
+dashboard_patients-by-gender: Patients by gender
+dashboard_gender: Gender
+dashboard_forms: Forms
+dashboard_exam-requests: Exam Requests
+dashboard_certificates: Certificates
+dashboard_male: Male
+dashboard_female: Female

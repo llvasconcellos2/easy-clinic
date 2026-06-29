@@ -25,6 +25,28 @@ patient_appt-status-re-scheduled: Rescheduled
 patient_appt-status-in_progress: In progress
 patient_appt-status-completed: Completed
 patient_appt-status-no_show: No show
+patients_evolution: Evolution
+evolution_imc: BMI
+evolution_imc-subtitle: Body Mass Index
+evolution_weight: Weight
+evolution_height: Height
+evolution_blood-pressure: Blood Pressure
+evolution_heart-rate: Heart Rate
+evolution_measurements: measurements
+evolution_since-first: since first
+evolution_pa-systolic: Systolic
+evolution_pa-diastolic: Diastolic
+evolution_imc-underweight: Underweight
+evolution_imc-normal: Normal weight
+evolution_imc-overweight: Overweight
+evolution_imc-obese-1: Obesity class I
+evolution_imc-obese-2: Obesity class II
+evolution_imc-obese-3: Obesity class III
+evolution_pa-optimal: Optimal
+evolution_pa-elevated: Elevated
+evolution_pa-high: High
+evolution_empty-title: No evolution data
+evolution_empty-text: Record a Triage and Vital Signs entry in the patient record to track this patient's evolution.
 schemas:
   patients:
     name:

@@ -1,3 +1,7 @@
 reports_reports: Relatórios
 reports_appointments: Relatório de Consultas
 reports_appointments-subtitle: Relatório de Consultas por Pacientes
+reports_patients: Relatório de Pacientes
+reports_patients-subtitle: Perfil demográfico dos pacientes
+reports_production: Produção Clínica
+reports_production-subtitle: Registros emitidos por período

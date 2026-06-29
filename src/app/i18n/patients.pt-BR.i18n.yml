@@ -25,6 +25,28 @@ patient_appt-status-re-scheduled: Reagendada
 patient_appt-status-in_progress: Em andamento
 patient_appt-status-completed: Concluída
 patient_appt-status-no_show: Não compareceu
+patients_evolution: Evolução
+evolution_imc: IMC
+evolution_imc-subtitle: Índice de Massa Corporal
+evolution_weight: Peso
+evolution_height: Altura
+evolution_blood-pressure: Pressão Arterial
+evolution_heart-rate: Freq. Cardíaca
+evolution_measurements: aferições
+evolution_since-first: desde a 1ª
+evolution_pa-systolic: Sistólica
+evolution_pa-diastolic: Diastólica
+evolution_imc-underweight: Abaixo do peso
+evolution_imc-normal: Peso normal
+evolution_imc-overweight: Sobrepeso
+evolution_imc-obese-1: Obesidade grau I
+evolution_imc-obese-2: Obesidade grau II
+evolution_imc-obese-3: Obesidade grau III
+evolution_pa-optimal: Ótima
+evolution_pa-elevated: Limítrofe
+evolution_pa-high: Elevada
+evolution_empty-title: Sem dados de evolução
+evolution_empty-text: Registre uma Triagem e Sinais Vitais no prontuário para acompanhar a evolução do paciente.
 schemas:
   patients:
     name:

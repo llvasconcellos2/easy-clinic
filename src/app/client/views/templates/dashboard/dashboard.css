@@ -5,3 +5,48 @@ div.checkbox {
 .iniciar-consulta-btn {
   margin-top: 10px;
 }
+
+/* dashboard analytics */
+.dash-kpi {
+  display: flex;
+  align-items: center;
+}
+.dash-kpi-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+  margin-right: 14px;
+  flex: 0 0 52px;
+}
+.dash-kpi-icon.bg-blue { background: #1c84c6; }
+.dash-kpi-icon.bg-green { background: #1ab394; }
+.dash-kpi-icon.bg-teal { background: #23c6c8; }
+.dash-kpi-icon.bg-yellow { background: #f8ac59; }
+.dash-kpi-label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: #9aa4ac;
+}
+.dash-kpi-value {
+  margin: 2px 0;
+  font-weight: 600;
+  color: #2f4050;
+}
+.dash-chart-wrap {
+  position: relative;
+  height: 280px;
+}
+.dash-agenda {
+  max-height: 360px;
+  overflow-y: auto;
+}
+.dash-chart-wrap.dash-chart-sm {
+  height: 220px;
+}

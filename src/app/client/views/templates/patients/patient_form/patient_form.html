@@ -37,6 +37,11 @@
                 <h4>{{_ 'patients_records'}}</h4>
               </a>
             </li>
+            <li class="">
+              <a data-toggle="tab" href="#evolution-tab">
+                <h4>{{_ 'patients_evolution'}}</h4>
+              </a>
+            </li>
             {{/with}} {{/if}}
           </ul>
           <div class="tab-content">
@@ -54,6 +59,9 @@
             {{#with patient}}
             <div id="records-tab" class="tab-pane">
               <div class="panel-body">{{> patientRecord }}</div>
+            </div>
+            <div id="evolution-tab" class="tab-pane">
+              {{> patientEvolution }}
             </div>
             {{/with}} {{/if}}
           </div>

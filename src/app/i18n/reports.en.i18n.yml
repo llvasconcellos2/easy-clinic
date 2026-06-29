@@ -1,3 +1,7 @@
 reports_reports: Reports
 reports_appointments: Appointments Report
 reports_appointments-subtitle: Patients Appointments Report
+reports_patients: Patients Report
+reports_patients-subtitle: Patient demographic profile
+reports_production: Clinical Production
+reports_production-subtitle: Records issued by period

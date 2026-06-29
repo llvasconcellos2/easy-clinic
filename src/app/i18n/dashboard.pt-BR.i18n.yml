@@ -1,0 +1,19 @@
+dashboard_patients: Pacientes
+dashboard_patients-total: Total cadastrado
+dashboard_appointments: Atendimentos
+dashboard_appointments-month: Concluídos no mês
+dashboard_records: Registros
+dashboard_records-month: No prontuário este mês
+dashboard_prescriptions: Prescrições
+dashboard_prescriptions-total: Emitidas no total
+dashboard_appts-by-month: Atendimentos por mês
+dashboard_last-12-months: últimos 12 meses
+dashboard_records-by-type: Registros por tipo
+dashboard_patients-by-age: Pacientes por faixa etária
+dashboard_patients-by-gender: Pacientes por gênero
+dashboard_gender: Gênero
+dashboard_forms: Formulários
+dashboard_exam-requests: Pedidos de Exame
+dashboard_certificates: Atestados
+dashboard_male: Masculino
+dashboard_female: Feminino

@@ -81,15 +81,21 @@
                     </li>
                 {{/if}}
                 {{#if isInRole 'super-admin,administration'}}
-                    <li class="{{isActivePath regex='reportAppointments'}}">
+                    <li class="{{isActivePath regex='reportAppointments|reportPatients|reportProduction'}}">
                         <a href="{{pathFor route='reportAppointments'}}">
                             <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                             <span class="nav-label">{{_ 'reports_reports'}}</span>
                             <span class="fa arrow"></span>
                         </a>
-                        <ul class="nav nav-second-level collapse {{isActivePath regex='reportAppointments' className='in'}}">
+                        <ul class="nav nav-second-level collapse {{isActivePath regex='reportAppointments|reportPatients|reportProduction' className='in'}}">
                             <li class="{{isActivePath regex='reportAppointments'}}">
                                 <a href="{{pathFor route='reportAppointments'}}" class="hide-on-phone"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="nav-label">{{_ 'reports_appointments'}}</span></a>
+                            </li>
+                            <li class="{{isActivePath regex='reportPatients'}}">
+                                <a href="{{pathFor route='reportPatients'}}" class="hide-on-phone"><i class="fa fa-users" aria-hidden="true"></i> <span class="nav-label">{{_ 'reports_patients'}}</span></a>
+                            </li>
+                            <li class="{{isActivePath regex='reportProduction'}}">
+                                <a href="{{pathFor route='reportProduction'}}" class="hide-on-phone"><i class="fa fa-line-chart" aria-hidden="true"></i> <span class="nav-label">{{_ 'reports_production'}}</span></a>
                             </li>
                         </ul>
                     </li>
