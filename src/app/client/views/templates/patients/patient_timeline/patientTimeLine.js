@@ -104,6 +104,22 @@ var runTimeline = function () {
       //the timeline has been initialize - show it
       timeline.addClass("loaded");
 
+      //size .events-content to the currently selected event. updateVisibleContent
+      //(which sets this height) only runs on navigation, so on a fresh init - e.g.
+      //right after a record was added - the container would otherwise keep its stale
+      //height and clip the taller content until the user navigates away and back.
+      var eventsContent = timelineComponents["eventsContent"];
+      var initialContent = eventsContent.find(".selected");
+      if (initialContent.length > 0) {
+        var fitSelectedContent = function () {
+          eventsContent.css("height", initialContent.height() + "px");
+        };
+        fitSelectedContent();
+        //records may contain images (e.g. the clinic logo) that load after the
+        //initial measurement and would leave the content clipped - re-fit on load.
+        initialContent.find("img").one("load", fitSelectedContent);
+      }
+
       //detect click on the next arrow
       timelineComponents["timelineNavigation"].on(
         "click",
