@@ -26,6 +26,18 @@ var schema = {
       return TAPi18n.__('settings_clinic-workhours-end');
     },
   },
+  appointmentValue: {
+    type: Number,
+    decimal: true,
+    optional: true,
+    min: 0,
+    label: function() {
+      return TAPi18n.__('settings_appointment-value');
+    },
+    autoform: {
+      placeholder: '250,00'
+    }
+  },
   address: {
     type: String,
     label: function() {

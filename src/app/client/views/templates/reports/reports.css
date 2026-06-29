@@ -9,6 +9,15 @@
 .prod-kpi {
   border-left: 3px solid #ccc;
 }
+.prod-billing {
+  border-left: 4px solid #18a689;
+}
+.prod-billing .prod-kpi-label i { color: #18a689; }
+.prod-billing-value {
+  margin: 6px 0 2px;
+  font-weight: 700;
+  color: #18a689;
+}
 .prod-kpi h2 {
   margin: 6px 0 0;
   font-weight: 600;

@@ -48,6 +48,16 @@ Template.settingsForm.onRendered(function () {
 		transformToClockPicker($('input[name=workHoursStart]'));
 		transformToClockPicker($('input[name=workHoursEnd]'));
 		$('.clockpicker').clockpicker();
+
+		// prepend an "R$" addon to the appointment-value field
+		var apptInput = $('input[name=appointmentValue]');
+		if(apptInput.length){
+			apptInput.addClass('form-control');
+			var apptGroup = $.parseHTML('<div class="input-group"></div>');
+			apptInput.parent().find('label').after(apptGroup);
+			$(apptGroup).append('<span class="input-group-addon">R$</span>');
+			apptInput.detach().appendTo(apptGroup);
+		}
 		
 		$("textarea[name=address]").summernote({
 			height: 150,

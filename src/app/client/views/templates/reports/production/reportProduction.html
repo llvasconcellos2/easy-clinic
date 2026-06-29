@@ -3,6 +3,15 @@
 
   <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox"><div class="ibox-content prod-billing">
+          <span class="prod-kpi-label"><i class="fa fa-money"></i> {{_ 'reports_billing-month'}}</span>
+          <h1 class="prod-billing-value">{{billing.monthly}}</h1>
+          <small class="text-muted">{{billing.appointments}} {{_ 'reports_appointments-unit'}} &times; {{billing.value}}</small>
+        </div></div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-3 col-sm-6">
         <div class="ibox"><div class="ibox-content prod-kpi prod-blue">
           <span class="prod-kpi-label"><i class="fa fa-id-card"></i> {{_ 'dashboard_forms'}}</span>

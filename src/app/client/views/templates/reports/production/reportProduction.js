@@ -11,6 +11,10 @@ function prodMonthLabel(y, m) {
   var arr = PROD_MONTHS[TAPi18n.getLanguage()] || PROD_MONTHS["pt-BR"];
   return arr[m] + "/" + String(y).slice(2);
 }
+function formatBRL(n) {
+  var s = (Number(n) || 0).toFixed(2).split(".");
+  return "R$ " + s[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "," + s[1];
+}
 
 Template.reportProduction.onCreated(function () {
   var self = this;
@@ -22,6 +26,11 @@ Template.reportProduction.helpers({
   totals: function () {
     var s = Template.instance().stats.get();
     return s ? s.totals : { form: 0, prescription: 0, exam_request: 0, medical_certificate: 0 };
+  },
+  billing: function () {
+    var s = Template.instance().stats.get();
+    var b = (s && s.billing) || { value: 0, appointments: 0, monthly: 0 };
+    return { value: formatBRL(b.value), appointments: b.appointments, monthly: formatBRL(b.monthly) };
   },
 });
 

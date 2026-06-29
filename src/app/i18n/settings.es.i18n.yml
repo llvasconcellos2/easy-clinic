@@ -6,3 +6,4 @@ settings_clinic-workhours-start: Hora de Apertura de la Clínica
 settings_clinic-workhours-end: Hora de Cierre de la Clínica
 settings_clinic-notifications: SMS/Email - Tiempo Antes de las Notificaciones
 settings_clinic-notifications-placeholder: "En minutos, separados por coma. Por defecto: 120,1440,2880 (es decir 2 horas, 1 día, 2 días)"
+settings_appointment-value: Valor de la Consulta

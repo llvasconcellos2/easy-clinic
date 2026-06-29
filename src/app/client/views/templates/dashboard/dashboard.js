@@ -41,6 +41,10 @@ function dashMonthLabel(y, m) {
   var arr = DASH_MONTHS[TAPi18n.getLanguage()] || DASH_MONTHS["pt-BR"];
   return arr[m] + "/" + String(y).slice(2);
 }
+function dashFormatBRL(n) {
+  var s = (Number(n) || 0).toFixed(2).split(".");
+  return "R$ " + s[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "," + s[1];
+}
 
 Template.dashboard.onCreated(function () {
   var self = this;
@@ -53,6 +57,11 @@ Template.dashboard.onCreated(function () {
 Template.dashboard.helpers({
   stats: function () {
     return Template.instance().stats.get();
+  },
+  billing: function () {
+    var s = Template.instance().stats.get();
+    var b = (s && s.billing) || { value: 0, appointments: 0, monthly: 0 };
+    return { value: dashFormatBRL(b.value), appointments: b.appointments, monthly: dashFormatBRL(b.monthly) };
   },
 });
 

@@ -23,6 +23,14 @@ Meteor.methods({
       prescriptions: PatientRecords.find({ recordType: 'prescription' }).count(),
     };
 
+    // monthly billing = completed appointments this month * appointment value
+    var apptValue = ((Settings.findOne() || {}).appointmentValue) || 0;
+    stats.billing = {
+      value: apptValue,
+      appointments: stats.totals.appointmentsMonth,
+      monthly: apptValue * stats.totals.appointmentsMonth,
+    };
+
     // completed appointments per month, last 12 months
     var months = [];
     for (var i = 11; i >= 0; i--) {
@@ -91,11 +99,17 @@ Meteor.methods({
         if (months[j].y === d.getFullYear() && months[j].m === d.getMonth()) { months[j][r.recordType]++; break; }
       }
     });
+    // monthly billing = completed appointments this month * appointment value
+    var apptValue = ((Settings.findOne() || {}).appointmentValue) || 0;
+    var mStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    var apptsMonth = Appointments.find({ status: 'completed', start: { $gte: mStart } }).count();
+
     return {
       byMonth: months.map(function (x) {
         return { y: x.y, m: x.m, form: x.form, prescription: x.prescription, exam_request: x.exam_request, medical_certificate: x.medical_certificate };
       }),
       totals: totals,
+      billing: { value: apptValue, appointments: apptsMonth, monthly: apptValue * apptsMonth },
     };
   },
 });

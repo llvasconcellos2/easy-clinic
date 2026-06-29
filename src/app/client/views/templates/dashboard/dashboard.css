@@ -23,10 +23,34 @@ div.checkbox {
   margin-right: 14px;
   flex: 0 0 52px;
 }
-.dash-kpi-icon.bg-blue { background: #1c84c6; }
-.dash-kpi-icon.bg-green { background: #1ab394; }
-.dash-kpi-icon.bg-teal { background: #23c6c8; }
-.dash-kpi-icon.bg-yellow { background: #f8ac59; }
+.dash-kpi-icon.bg-blue {
+  background: #1c84c6;
+}
+.dash-kpi-icon.bg-green {
+  background: #1ab394;
+}
+.dash-kpi-icon.bg-teal {
+  background: #23c6c8;
+}
+.dash-kpi-icon.bg-yellow {
+  background: #f8ac59;
+}
+.dash-kpi-icon.bg-money {
+  background: #18a689;
+}
+/* five equal KPI cards per row on large screens */
+@media (min-width: 1200px) {
+  .dash-col-5 {
+    width: 20% !important;
+    float: left;
+  }
+}
+.dash-col-5 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
 .dash-kpi-label {
   display: block;
   text-transform: uppercase;
@@ -44,8 +68,12 @@ div.checkbox {
   height: 280px;
 }
 .dash-agenda {
-  max-height: 360px;
+  height: 366px;
   overflow-y: auto;
+}
+/* keep the appointments-per-month chart the same height as the agenda panel */
+.dash-chart-wrap.dash-chart-appts {
+  height: 330px;
 }
 .dash-chart-wrap.dash-chart-sm {
   height: 220px;

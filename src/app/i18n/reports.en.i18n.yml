@@ -5,3 +5,5 @@ reports_patients: Patients Report
 reports_patients-subtitle: Patient demographic profile
 reports_production: Clinical Production
 reports_production-subtitle: Records issued by period
+reports_billing-month: Monthly billing
+reports_appointments-unit: appointments

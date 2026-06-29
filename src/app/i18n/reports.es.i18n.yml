@@ -5,3 +5,5 @@ reports_patients: Reporte de Pacientes
 reports_patients-subtitle: Perfil demográfico de los pacientes
 reports_production: Producción Clínica
 reports_production-subtitle: Registros emitidos por período
+reports_billing-month: Facturación del mes
+reports_appointments-unit: atenciones

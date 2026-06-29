@@ -5,7 +5,7 @@
 
     <!-- KPI widgets -->
     <div class="row">
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-sm-6 dash-col-5">
         <div class="ibox">
           <div class="ibox-content dash-kpi">
             <span class="dash-kpi-icon bg-blue"><i class="fa fa-users"></i></span>
@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-sm-6 dash-col-5">
         <div class="ibox">
           <div class="ibox-content dash-kpi">
             <span class="dash-kpi-icon bg-green"><i class="fa fa-stethoscope"></i></span>
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-sm-6 dash-col-5">
         <div class="ibox">
           <div class="ibox-content dash-kpi">
             <span class="dash-kpi-icon bg-teal"><i class="fa fa-folder-open"></i></span>
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-sm-6 dash-col-5">
         <div class="ibox">
           <div class="ibox-content dash-kpi">
             <span class="dash-kpi-icon bg-yellow"><i class="fa fa-file-text"></i></span>
@@ -49,6 +49,18 @@
               <span class="dash-kpi-label">{{_ 'dashboard_prescriptions'}}</span>
               <h2 class="dash-kpi-value">{{stats.totals.prescriptions}}</h2>
               <small class="text-muted">{{_ 'dashboard_prescriptions-total'}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 dash-col-5">
+        <div class="ibox">
+          <div class="ibox-content dash-kpi">
+            <span class="dash-kpi-icon bg-money"><i class="fa fa-money"></i></span>
+            <div class="dash-kpi-body">
+              <span class="dash-kpi-label">{{_ 'reports_billing-month'}}</span>
+              <h2 class="dash-kpi-value">{{billing.monthly}}</h2>
+              <small class="text-muted">{{billing.appointments}} {{_ 'reports_appointments-unit'}}</small>
             </div>
           </div>
         </div>
@@ -108,7 +120,7 @@
       <div class="col-lg-8">
         <div class="ibox">
           <div class="ibox-title"><h5><i class="fa fa-bar-chart"></i> {{_ 'dashboard_appts-by-month'}}</h5><small class="pull-right text-muted">{{_ 'dashboard_last-12-months'}}</small></div>
-          <div class="ibox-content"><div class="dash-chart-wrap"><canvas id="dash-appts"></canvas></div></div>
+          <div class="ibox-content"><div class="dash-chart-wrap dash-chart-appts"><canvas id="dash-appts"></canvas></div></div>
         </div>
       </div>
     </div>
