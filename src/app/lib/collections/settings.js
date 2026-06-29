@@ -26,6 +26,17 @@ var schema = {
       return TAPi18n.__('settings_clinic-workhours-end');
     },
   },
+  slotDuration: {
+    type: Number,
+    optional: true,
+    min: 1,
+    label: function() {
+      return TAPi18n.__('settings_slot-duration');
+    },
+    autoform: {
+      placeholder: '20'
+    }
+  },
   appointmentValue: {
     type: Number,
     decimal: true,

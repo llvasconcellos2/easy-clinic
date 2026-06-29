@@ -180,6 +180,7 @@ Template.schedule.onRendered(function () {
 
   var workHoursStart = "06:00";
   var workHoursEnd = "23:00";
+  var slotDurationMinutes = 20;
 
   if (this.data.settings) {
     if (this.data.settings.workHoursStart) {
@@ -188,6 +189,9 @@ Template.schedule.onRendered(function () {
     if (this.data.settings.workHoursEnd) {
       workHoursEnd = this.data.settings.workHoursEnd;
     }
+    if (this.data.settings.slotDuration) {
+      slotDurationMinutes = this.data.settings.slotDuration;
+    }
   }
 
   var datePicker = null;
@@ -195,7 +199,7 @@ Template.schedule.onRendered(function () {
   var calendar = $("#calendar").fullCalendar({
     defaultView: "timelineDay",
     timezone: "America/Sao_Paulo", // #TODO: make this i18n
-    slotDuration: "00:20:00",
+    slotDuration: { minutes: slotDurationMinutes },
     minTime: workHoursStart + ":00",
     maxTime: workHoursEnd + ":00",
     locale: TAPi18n.getLanguage().toLowerCase(),
@@ -248,7 +252,7 @@ Template.schedule.onRendered(function () {
           "HH:mm", // lower level of text
         ],
         slotLabelInterval: {
-          minutes: 20,
+          minutes: slotDurationMinutes,
         },
         titleFormat: "dddd – MMMM D, YYYY",
       },
