@@ -1,88 +1,102 @@
 Template.doctorList.events({});
 
 Template.doctorList.helpers({
-	reactiveDataFunction: function () {
-		return function () {
-			return Meteor.users.find({'profile.group':'medical_doctor'}).fetch();
-		};
-	},
-	optionsObject: function () {
-		return {
-		columns: [{
-			title: '',
-			//width: '1%',
-			data: 'profile.picture',
-			orderable: false,
-			render: function(cellData, renderType, currentRow) {
-				var url = 'https://cdn4.iconfinder.com/data/icons/medical-14/512/9-128.png';
-				if(cellData){
-					var image = Images.findOne({'_id': cellData});
-					if(image) {
-						// Relative URL so images load from any host (phone/LAN), not just localhost
-						url = image.link().replace(/^https?:\/\/[^\/]+/i, '');
-					}
-				} else {
-					var email = currentRow.emails[0].address;
-					url = Gravatar.imageUrl(email, {
-						secure: true,
-						size: 28,
-						default: url
-					});
-				}
-				return '<img class="profile-pic" src="' + url + '">';
-			}
-		},{
-			title: T9n.get('name'),
-			data: 'profile.firstName',
-			render: function(cellData, renderType, currentRow) {
-				return currentRow.profile.firstName + ' ' + currentRow.profile.lastName;
-			}
-		},{
-			// envelope icon lives in the header now, not on every row — frees
-			// horizontal room so the doctor name can stay on a single line
-			title: '<i class="fa fa-envelope"></i> Email',
-			data: 'emails[0].address',
-			render: function(cellData, renderType, currentRow) {
-				return currentRow.emails[0].address;
-			}
-		},{
-			title: T9n.get('enabled'),
-			//width: '1%',
-			orderable: false,
-			data: 'profile.firstName',
-			render: function(cellData, renderType, currentRow) {
-				// var checkbox = '<input type="checkbox" class="js-switch"'; #TODO: editar direto na tabela
-				// checkbox += (currentRow.isUserEnabled) ? ' checked' : '';
-				// checkbox += '/>';
-				// return checkbox;
-				var html = '<span class="label label-';
-				html += (currentRow.isUserEnabled) ? 'primary' : 'danger';
-				html += '">';
-				html += (currentRow.isUserEnabled) ? T9n.get('enabled') : T9n.get('disabled');
-				return html;
-			}
-		},{
-			//title: T9n.get('edit'),
-			//width: '1%',
-			data: '_id',
-			render: function(cellData, renderType, currentRow) {
-				return '<a class="btn btn-info" href="' + FlowRouter.path('doctorEdit', {_id: cellData}) + '"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a>';
-			}
-		}]
-		};
-	}
+  reactiveDataFunction: function () {
+    return function () {
+      return Meteor.users.find({ "profile.group": "medical_doctor" }).fetch();
+    };
+  },
+  optionsObject: function () {
+    return {
+      columns: [
+        {
+          title: "",
+          //width: '1%',
+          data: "profile.picture",
+          orderable: false,
+          render: function (cellData, renderType, currentRow) {
+            var url = "/doctor-avatar.png";
+            if (cellData) {
+              var image = Images.findOne({ _id: cellData });
+              if (image) {
+                // Relative URL so images load from any host (phone/LAN), not just localhost
+                url = image.link().replace(/^https?:\/\/[^\/]+/i, "");
+              }
+            } else {
+              var email = currentRow.emails[0].address;
+              url = Gravatar.imageUrl(email, {
+                secure: true,
+                size: 28,
+                default: url,
+              });
+            }
+            return '<img class="profile-pic" src="' + url + '">';
+          },
+        },
+        {
+          title: T9n.get("name"),
+          data: "profile.firstName",
+          render: function (cellData, renderType, currentRow) {
+            return (
+              currentRow.profile.firstName + " " + currentRow.profile.lastName
+            );
+          },
+        },
+        {
+          // envelope icon lives in the header now, not on every row — frees
+          // horizontal room so the doctor name can stay on a single line
+          title: '<i class="fa fa-envelope"></i> Email',
+          data: "emails[0].address",
+          render: function (cellData, renderType, currentRow) {
+            return currentRow.emails[0].address;
+          },
+        },
+        {
+          title: T9n.get("enabled"),
+          //width: '1%',
+          orderable: false,
+          data: "profile.firstName",
+          render: function (cellData, renderType, currentRow) {
+            // var checkbox = '<input type="checkbox" class="js-switch"'; #TODO: editar direto na tabela
+            // checkbox += (currentRow.isUserEnabled) ? ' checked' : '';
+            // checkbox += '/>';
+            // return checkbox;
+            var html = '<span class="label label-';
+            html += currentRow.isUserEnabled ? "primary" : "danger";
+            html += '">';
+            html += currentRow.isUserEnabled
+              ? T9n.get("enabled")
+              : T9n.get("disabled");
+            return html;
+          },
+        },
+        {
+          //title: T9n.get('edit'),
+          //width: '1%',
+          data: "_id",
+          render: function (cellData, renderType, currentRow) {
+            return (
+              '<a class="btn btn-info" href="' +
+              FlowRouter.path("doctorEdit", { _id: cellData }) +
+              '"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a>'
+            );
+          },
+        },
+      ],
+    };
+  },
 });
 
 Template.doctorList.onCreated(function () {});
 
 Template.doctorList.onRendered(function () {
-	var table = this.data.dataTable;
-	$(document).ready(function(){
-		$('#doctors-table tbody').on( 'click', 'tr', function () {
-			var rowData = table.row(this).data();
-			FlowRouter.go('doctorEdit', {_id: rowData._id})
-		});
-	});
+  var table = this.data.dataTable;
+  $(document).ready(function () {
+    $("#doctors-table tbody").on("click", "tr", function () {
+      var rowData = table.row(this).data();
+      FlowRouter.go("doctorEdit", { _id: rowData._id });
+    });
+  });
 });
 
 Template.doctorList.onDestroyed(function () {});
