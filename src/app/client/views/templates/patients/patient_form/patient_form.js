@@ -24,6 +24,11 @@ var toggleStartBtnState = function(){
 
 Template.patientForm.events({
 	'click .new-record': (event, template) => {
+		// Going to patientCreate reuses this same template instance, so the
+		// Records/Evolução tabs/panes are removed reactively. If one of them was
+		// the active tab, re-activate the form tab first or the UI ends up with
+		// no selected tab and a hidden form.
+		$('.patient-tabs a[href="#tab-1"]').tab('show');
 		FlowRouter.go('patientCreate');
 	},
 	'click .start-appointment': (event, template) => {
