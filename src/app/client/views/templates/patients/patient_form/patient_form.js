@@ -228,6 +228,13 @@ Template.patientForm.onRendered(function () {
 		// #TODO: make this international
 		$('.input-group.date input').mask('00/00/0000');
 
+		// The datepicker is bound to the <input> (no buttonClasses), so
+		// bootstrap-datepicker doesn't treat the calendar addon as a component
+		// trigger. Forward addon clicks to the input so the icon opens the picker.
+		$('.input-group.date').on('click', '.input-group-addon', function(){
+			$(this).siblings('input').datepicker('show');
+		});
+
 		$('textarea[name=obs]')
 			.css('display', 'block')
 			.css('width', '100%')
