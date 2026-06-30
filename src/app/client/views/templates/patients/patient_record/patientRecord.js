@@ -224,8 +224,8 @@ Template.patientRecord.helpers({
   },
 });
 
-var hashTagReplace = function (data, text) {
-  var keyReplace = [
+var buildHashTagMap = function (data) {
+  return [
     {
       key: "#NOME_DO_PACIENTE",
       replace: data.name || "",
@@ -288,12 +288,26 @@ var hashTagReplace = function (data, text) {
       replace: data.settings.address || "",
     },
   ];
+};
 
+var hashTagReplace = function (data, text) {
   var modifiedText = text;
-  keyReplace.forEach(function (item, index, array) {
-    modifiedText = modifiedText.replace(item.key, item.replace);
+  buildHashTagMap(data).forEach(function (item) {
+    var value = typeof item.replace === "function" ? item.replace() : item.replace;
+    modifiedText = modifiedText.split(item.key).join(value);
   });
   return modifiedText;
+};
+
+// resolves a single shortcut word (eg. "CPF_PACIENTE", no leading #) to its
+// patient-data value, so it can be substituted as soon as it's inserted
+// instead of waiting for the next full hashTagReplace pass
+var hashTagValue = function (data, word) {
+  var match = buildHashTagMap(data).filter(function (item) {
+    return item.key === "#" + word;
+  })[0];
+  if (!match) return word;
+  return typeof match.replace === "function" ? match.replace() : match.replace;
 };
 
 Template.patientRecord.onRendered(function () {
@@ -528,7 +542,7 @@ Template.patientRecord.onRendered(function () {
             return "#" + item;
           },
           replace: function replace(item) {
-            return item.toUpperCase() + " ";
+            return hashTagValue(data, item.toUpperCase()) + " ";
           },
         },
       ],
@@ -563,6 +577,19 @@ Template.patientRecord.onRendered(function () {
 
         var date = formData.shift().value;
 
+        // catch any #SHORTCUT left untouched by hand-typing (the hint
+        // dropdown already substitutes its picks on insertion)
+        formData.forEach(function (element) {
+          if (element.name === "document") {
+            element.value = hashTagReplace(data, element.value);
+          }
+        });
+
+        // only persist fields the user actually answered
+        var answeredFields = formData.filter(function (element) {
+          return element.value !== "";
+        });
+
         // remember which model produced this record (the one visible select
         // with a value) so the timeline can show a typed, named panel
         var $sel = $("#addToRecords .chosen-select")
@@ -571,15 +598,15 @@ Template.patientRecord.onRendered(function () {
           })
           .first();
 
-        var data = {
+        var recordData = {
           date: moment(date, "DD/MM/YYYY").toDate(),
           patientId: FlowRouter.getParam("_id"),
           recordType: $sel.data("type"),
           recordName: $sel.find("option:selected").text(),
-          record: formData,
+          record: answeredFields,
         };
 
-        PatientRecords.insert(data, function (error, result) {
+        PatientRecords.insert(recordData, function (error, result) {
           if (error) {
             toastr["error"](error.message, TAPi18n.__("common_error"));
           }
