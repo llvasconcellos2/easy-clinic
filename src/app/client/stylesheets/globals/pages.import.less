@@ -122,20 +122,18 @@
 }
 
 .loginscreen .logo {
-  height: 21em;
   width: 100%;
-  -webkit-box-ordinal-group: 2;
-  -ms-flex-order: 1;
-  order: 1;
-  background: url("images/logo.svg") center center no-repeat;
-  display: block;
-  background-size: contain;
-  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 1em;
 }
 
-.loginscreen .logo h1 {
-  display: none;
+.loginscreen .logo img {
+  max-height: 21em;
+  max-width: 100%;
+  height: auto;
+  width: auto;
 }
 
 .middle-box h1 {
