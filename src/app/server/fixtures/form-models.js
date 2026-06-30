@@ -1,0 +1,223 @@
+if (FormModels.find().count() === 0) {
+	// Default clinical forms (pt-BR) rendered by the formBuilder: triage/vital
+	// signs and anamnesis. `model` is the formBuilder field definition array.
+	var formModels = [
+		{
+			"name": "Triagem e Sinais Vitais",
+			"description": "Formulário a ser preenchido para a triagem dos pacientes.",
+			"model": [
+				{
+					"type": "header",
+					"subtype": "h2",
+					"label": "Triagem e Sinais Vitais",
+					"className": "header"
+				},
+				{
+					"type": "number",
+					"label": "Pressão Arterial Sistólica - mmHg",
+					"className": "form-control",
+					"name": "pressao-sistolica"
+				},
+				{
+					"type": "number",
+					"label": "Pressão Arterial Diastólica - mmHg",
+					"className": "form-control",
+					"name": "pressao-diastolica"
+				},
+				{
+					"type": "number",
+					"label": "Frequência Cardíaca - BPM",
+					"className": "form-control",
+					"name": "frequencia-cardiaca"
+				},
+				{
+					"type": "number",
+					"label": "Frequência respiratória - RPM",
+					"className": "form-control",
+					"name": "frequencia-respiratoria"
+				},
+				{
+					"type": "number",
+					"label": "Temperatura Corporal -  °C",
+					"className": "form-control",
+					"name": "temperatura-corporal"
+				},
+				{
+					"type": "number",
+					"label": "Saturação de oxigênio - SpO2 - %",
+					"className": "form-control",
+					"name": "saturacao-oxigenio"
+				},
+				{
+					"type": "number",
+					"label": "Peso - Kg",
+					"className": "form-control",
+					"name": "peso"
+				},
+				{
+					"type": "number",
+					"label": "Altura - cm",
+					"className": "form-control",
+					"name": "altura"
+				},
+				{
+					"type": "select",
+					"label": "Alergias - Medicamentos (Crítico)",
+					"className": "form-control",
+					"name": "alergias-medicamentos",
+					"multiple": true,
+					"values": [
+						{
+							"label": "Penicilina e derivados (Amoxicilina, Ampicilina)",
+							"value": "Penicilina e derivados (Amoxicilina, Ampicilina)"
+						},
+						{
+							"label": "Sulfas (Sulfametoxazol)",
+							"value": "Sulfas (Sulfametoxazol)"
+						},
+						{
+							"label": "Anti-inflamatórios Não Esteroides (AINES) (Aspirina, Ibuprofeno, Diclofenaco)",
+							"value": "Anti-inflamatórios Não Esteroides (AINES) (Aspirina, Ibuprofeno, Diclofenaco)"
+						},
+						{
+							"label": "Dipirona",
+							"value": "Dipirona"
+						},
+						{
+							"label": "Paracetamol",
+							"value": "Paracetamol"
+						},
+						{
+							"label": "Contrastes Iodados",
+							"value": "Contrastes Iodados"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"label": "Alergias - Alimentos Comuns",
+					"className": "form-control",
+					"name": "alergias-alimentos",
+					"multiple": true,
+					"values": [
+						{
+							"label": "Proteína do leite de vaca",
+							"value": "Proteína do leite de vaca"
+						},
+						{
+							"label": "Lactose (Intolerância/Alergia)",
+							"value": "Lactose (Intolerância/Alergia)"
+						},
+						{
+							"label": "Ovo",
+							"value": "Ovo"
+						},
+						{
+							"label": "Frutos do mar (Camarão, caranguejo, peixes)",
+							"value": "Frutos do mar (Camarão, caranguejo, peixes)"
+						},
+						{
+							"label": "Oleaginosas (Amendoim, castanhas, nozes)",
+							"value": "Oleaginosas (Amendoim, castanhas, nozes)"
+						},
+						{
+							"label": "Trigo / Glúten",
+							"value": "Trigo / Glúten"
+						},
+						{
+							"label": "Soja",
+							"value": "Soja"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"label": "Alergias - Outras Substâncias",
+					"className": "form-control",
+					"name": "alergias-diversos",
+					"multiple": true,
+					"values": [
+						{
+							"label": "Látex (Crítico para procedimentos médicos)",
+							"value": "Látex (Crítico para procedimentos médicos)"
+						},
+						{
+							"label": "Picada de insetos (Abelha, vespa, formiga)",
+							"value": "Picada de insetos (Abelha, vespa, formiga)"
+						},
+						{
+							"label": "Corantes e conservantes (Tartrazina, etc.)",
+							"value": "Corantes e conservantes (Tartrazina, etc.)"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"label": "Alergias - Outras",
+					"subtype": "text",
+					"className": "form-control",
+					"name": "alergias-outras"
+				}
+			]
+		},
+		{
+			"name": "Anamnese",
+			"description": "Formulário para registrar o histórico clínico do paciente.",
+			"model": [
+				{
+					"type": "textarea",
+					"label": "Queixa principal - QP",
+					"rows": "4",
+					"className": "form-control",
+					"name": "queixa-principal"
+				},
+				{
+					"type": "textarea",
+					"label": "Medicamentos em uso contínuo ",
+					"rows": "4",
+					"className": "form-control",
+					"name": "medicamentos"
+				},
+				{
+					"type": "textarea",
+					"label": "Doenças crônicas preexistentes (Seleção: Hipertensão, Diabetes, etc.)",
+					"rows": "4",
+					"className": "form-control",
+					"name": "doencas"
+				},
+				{
+					"type": "textarea",
+					"label": "Cirurgias prévias",
+					"rows": "4",
+					"className": "form-control",
+					"name": "cirurgias"
+				},
+				{
+					"type": "textarea",
+					"label": "Histórico da doença atual - HDA",
+					"rows": "6",
+					"className": "form-control",
+					"name": "historico-doenca"
+				},
+				{
+					"type": "textarea",
+					"label": "Histórico Familiar",
+					"rows": "4",
+					"className": "form-control",
+					"name": "historico-familiar"
+				},
+				{
+					"type": "textarea",
+					"label": "Hábitos de Vida",
+					"rows": "4",
+					"className": "form-control",
+					"name": "habitos-de-vida"
+				}
+			]
+		}
+	];
+
+	_.each(formModels, function (doc) {
+		FormModels.insert(doc);
+	});
+}
