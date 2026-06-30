@@ -1,0 +1,4 @@
+docker exec easy-clinic-mongo-1 sh -c "rm -rf /tmp/backup && mongodump --db meteor --out /tmp/backup --quiet && ls /tmp/backup/meteor | wc -l && echo '--- files ---' && ls /tmp/backup/meteor"
+Remove-Item db/meteor/* -Force; docker cp easy-clinic-mongo-1:/tmp/backup/meteor/. ./db/meteor; "--- result ---"; (Get-ChildItem db/meteor -File | Measure-Object).Count; Get-ChildItem db/meteor -Filter *.bson | Select-Object Name,Length
+docker cp easy-clinic-mongo-1:/tmp/backup/meteor/. ./db/meteor; "--- result ---"; (Get-ChildItem db/meteor -File | Measure-Object).Count; Get-ChildItem db/meteor -Filter *.bson | Select-Object Name,Length | Format-Table -AutoSize    
+docker exec easy-clinic-mongo-1 rm -rf /tmp/backup; "--- git status (db/meteor) ---"; git status --short db/meteor
