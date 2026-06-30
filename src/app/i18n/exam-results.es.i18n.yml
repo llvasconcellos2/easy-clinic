@@ -1,0 +1,9 @@
+exam-results_title: Resultados de Exámenes
+exam-results_laboratory: Laboratorio
+exam-results_date-performed: Fecha de Realización
+exam-results_exam-name: Examen
+exam-results_result: Resultado
+exam-results_reference: Referencia
+exam-results_unit: Unidad
+exam-results_keyboard-hint: Presione TAB o ENTER en el campo Unidad para agregar una nueva línea.
+exam-results_empty-warning: Agregue al menos un resultado de examen antes de guardar.

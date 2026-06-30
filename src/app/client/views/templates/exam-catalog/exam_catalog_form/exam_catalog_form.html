@@ -1,0 +1,27 @@
+<template name="examCatalogForm">
+	{{> pageHeading title='exam-catalog_exam-catalog'}}
+
+	<div class="wrapper wrapper-content  animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12" id="tablebox">
+				<div class="ibox ">
+					<div class="ibox-title">
+						<h5>{{_ 'exam-catalog_exam-catalog'}}
+							<small class="m-l-sm">{{_ 'exam-catalog_create-form-title'}}</small>
+						</h5>
+						<button class="btn btn-sm btn-primary pull-right m-t-n-xs new-record">
+							<strong><i class="fa fa-plus" aria-hidden="true"></i> {{_ 'exam-catalog_new'}}</strong>
+						</button>
+					</div>
+					<div class="ibox-content">
+						{{#if isEditForm}}
+							{{> quickForm collection="ExamCatalog" doc=record id="examCatalogForm" type="update" buttonContent=saveButton class="exam-catalog-form"}}
+						{{else}}
+							{{> quickForm collection="ExamCatalog" id="examCatalogForm" type="insert" buttonContent=saveButton class="exam-catalog-form"}}
+						{{/if}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

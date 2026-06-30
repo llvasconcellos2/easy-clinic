@@ -1,0 +1,14 @@
+exam-catalog_exam-catalog: Exam Catalog
+exam-catalog_create-form-title: Manage exams and reference ranges
+exam-catalog_new: New Exam
+exam-catalog_name: Exam Name
+exam-catalog_unit: Unit
+exam-catalog_usage-count: Usage
+exam-catalog_reference-rules: Reference Ranges
+exam-catalog_rule-gender: Gender
+exam-catalog_gender-all: All
+exam-catalog_rule-age-min: Min Age (months)
+exam-catalog_rule-age-max: Max Age (months)
+exam-catalog_rule-min: Min Value
+exam-catalog_rule-max: Max Value
+exam-catalog_rule-display-text: Reference Text

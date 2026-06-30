@@ -41,6 +41,38 @@
 									</div>
 								</div>
 							{{/each}}
+							{{#each exam in examSets}}
+								<div class="panel panel-default timeline-exam">
+									<div class="panel-heading">
+										<h5 class="panel-title">
+											<i class="fa fa-flask" aria-hidden="true"></i> {{_ 'exam-results_title'}}
+											{{#if exam.laboratory}}<small class="m-l-sm">{{exam.laboratory}}</small>{{/if}}
+										</h5>
+									</div>
+									<div class="panel-body">
+										<table class="table table-condensed exam-results-card-table">
+											<thead>
+												<tr>
+													<th>{{_ 'exam-results_exam-name'}}</th>
+													<th>{{_ 'exam-results_result'}}</th>
+													<th>{{_ 'exam-results_reference'}}</th>
+													<th>{{_ 'exam-results_unit'}}</th>
+												</tr>
+											</thead>
+											<tbody>
+												{{#each exam.results}}
+													<tr class="{{#if isAltered}}exam-altered{{/if}}">
+														<td>{{examName}}</td>
+														<td>{{value}}{{#if isAltered}} <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{/if}}</td>
+														<td>{{referenceUsed}}</td>
+														<td>{{unit}}</td>
+													</tr>
+												{{/each}}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							{{/each}}
 							{{#each record in records}}
 								<div class="panel panel-default record-type-{{recordTypeClass record.recordType}}">
 									<button type="button" data-id="{{dateIdentifier}}_{{@index}}" class="pull-right print-document">

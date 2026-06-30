@@ -17,6 +17,9 @@
 			<button id="patient-add-exam-btn" class="btn btn-danger btn-circle btn-lg btn-raised" type="button" data-tooltip="{{_ 'patients_add-exam-request'}}">
 				<i class="fa fa-eye" aria-hidden="true"></i>
 			</button>
+			<button id="patient-add-exam-results-btn" class="btn btn-exam-results btn-circle btn-lg btn-raised" type="button" data-tooltip="{{_ 'patients_add-exam-results'}}">
+				<i class="fa fa-flask" aria-hidden="true"></i>
+			</button>
 		</ul>
 	</div>
 	{{#with entries}}
@@ -50,6 +53,10 @@
 					<li>
 						<span class="btn btn-danger btn-circle"><i class="fa fa-eye"></i></span>
 						<span class="records-empty-option-label">{{_ 'patients_add-exam-request'}}</span>
+					</li>
+					<li>
+						<span class="btn btn-exam-results btn-circle"><i class="fa fa-flask"></i></span>
+						<span class="records-empty-option-label">{{_ 'patients_add-exam-results'}}</span>
 					</li>
 				</ul>
 			</div>
@@ -165,4 +172,6 @@
 			</div>
 		</div>
 	</div>
+
+	{{> examResultsModal}}
 </template>

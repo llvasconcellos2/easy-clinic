@@ -52,6 +52,22 @@ Meteor.publish('singleSpecialty', function (id) {
   return Specialties.find({_id: id});
 });
 
+Meteor.publish('examCatalog', function () {
+  return ExamCatalog.find();
+});
+
+Meteor.publish('singleExamCatalog', function (id) {
+  return ExamCatalog.find({_id: id});
+});
+
+Meteor.publish('patientExams', function (id) {
+  check(id, String);
+  if (!this.userId || !Roles.userIsInRole(this.userId, ['medical_doctor', 'administration', 'super-admin'])) {
+    return this.ready();
+  }
+  return PatientExams.find({patientId: id});
+});
+
 Meteor.publish('schedule', function () {
   return Schedule.find();
 });

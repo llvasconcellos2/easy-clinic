@@ -1,0 +1,83 @@
+<template name="examResultsModal">
+	<div class="modal inmodal" id="examResultsModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content animated bounceInRight">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">Close</span>
+					</button>
+					<div class="modalTitle">
+						<h3><i class="fa fa-flask"></i> {{_ 'exam-results_title'}}</h3>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="form-group col-sm-6">
+							<label for="exam-results-laboratory">{{_ 'exam-results_laboratory'}}</label>
+							<input type="text" id="exam-results-laboratory" class="form-control" />
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="exam-results-date">{{_ 'exam-results_date-performed'}}</label>
+							<div class="input-group date">
+								<input id="exam-results-date" name="datePerformed" type="text" class="form-control" placeholder="__/__/____" />
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+
+					<table class="table table-bordered exam-results-table">
+						<thead>
+							<tr>
+								<th class="col-name">{{_ 'exam-results_exam-name'}}</th>
+								<th class="col-value">{{_ 'exam-results_result'}}</th>
+								<th class="col-reference">{{_ 'exam-results_reference'}}</th>
+								<th class="col-unit">{{_ 'exam-results_unit'}}</th>
+								<th class="col-actions"></th>
+							</tr>
+						</thead>
+						<tbody id="exam-results-rows">
+							<!-- rows cloned from the template row below -->
+						</tbody>
+					</table>
+					<p class="text-muted exam-results-hint"><i class="fa fa-keyboard-o"></i> {{_ 'exam-results_keyboard-hint'}}</p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">
+						<i class="fa fa-ban" aria-hidden="true"></i> {{_ 'common_cancel'}}
+					</button>
+					<button type="button" class="btn btn-primary exam-results-save">
+						<i class="fa fa-floppy-o" aria-hidden="true"></i> {{_ 'common_save'}}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- hidden template row cloned for each exam line (spec section 3.3) -->
+	<table style="display:none;">
+		<tbody>
+			<tr id="exam-result-template-row" class="exam-result-row">
+				<td class="col-name">
+					<div class="exam-autocomplete-wrapper">
+						<input type="text" class="form-control exam-name-input" autocomplete="off" />
+						<ul class="exam-autocomplete-list dropdown-menu"></ul>
+					</div>
+				</td>
+				<td class="col-value">
+					<input type="text" class="form-control exam-value-input" autocomplete="off" />
+				</td>
+				<td class="col-reference">
+					<input type="text" class="form-control exam-reference-input" autocomplete="off" />
+				</td>
+				<td class="col-unit">
+					<input type="text" class="form-control exam-unit-input" autocomplete="off" />
+				</td>
+				<td class="col-actions">
+					<button type="button" class="btn btn-danger btn-xs exam-row-remove" tabindex="-1"><i class="fa fa-trash"></i></button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</template>

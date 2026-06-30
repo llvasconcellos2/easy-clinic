@@ -139,5 +139,133 @@ Meteor.methods({
 		// });
 
 		return CollectionName;
+	},
+	searchExamCatalog: function (term, gender, ageMonths) {
+		check(term, String);
+		if (term.length > 64) {
+			return [];
+		}
+		// escape regex metacharacters so the user term is matched literally
+		// (prevents NoSQL regex injection / catastrophic-backtracking ReDoS).
+		// An empty term yields an empty regex that matches every exam, so the
+		// pipeline returns the top entries by usageCount (popular suggestions).
+		var safeTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		var age = (typeof ageMonths === 'number') ? ageMonths : -1;
+		var raw = ExamCatalog.rawCollection();
+		var aggregate = Meteor.wrapAsync(raw.aggregate, raw);
+		var pipeline = [
+			{ $match: { name: { $regex: safeTerm, $options: 'i' } } },
+			{ $project: {
+				name: 1,
+				unit: 1,
+				usageCount: 1,
+				applicableRules: {
+					$filter: {
+						input: { $ifNull: ['$referenceRules', []] },
+						as: 'rule',
+						cond: {
+							$and: [
+								{ $or: [
+									{ $eq: ['$$rule.gender', 'todos'] },
+									{ $eq: ['$$rule.gender', gender] }
+								]},
+								{ $or: [
+									{ $eq: [{ $ifNull: ['$$rule.ageMin', null] }, null] },
+									{ $lte: ['$$rule.ageMin', age] }
+								]},
+								{ $or: [
+									{ $eq: [{ $ifNull: ['$$rule.ageMax', null] }, null] },
+									{ $gte: ['$$rule.ageMax', age] }
+								]}
+							]
+						}
+					}
+				}
+			}},
+			{ $sort: { usageCount: -1 } },
+			{ $limit: 5 }
+		];
+		return aggregate(pipeline, {}) || [];
+	},
+	savePatientExam: function (patientId, doc) {
+		check(patientId, String);
+		check(doc, Object);
+		if (!Roles.userIsInRole(Meteor.userId(), ['medical_doctor', 'super-admin'])) {
+			throw new Meteor.Error(TAPi18n.__('common_access-denied'), TAPi18n.__('common_access-denied-message'));
+		}
+
+		var results = doc.results || [];
+
+		// persist the exam set with the reference text used INLINE, so later
+		// edits to the global catalog never rewrite this patient's history
+		PatientExams.insert({
+			patientId: patientId,
+			laboratory: doc.laboratory || '',
+			datePerformed: doc.datePerformed ? new Date(doc.datePerformed) : new Date(),
+			results: results.map(function (r) {
+				return {
+					examName: r.examName,
+					value: (typeof r.value === 'undefined' || r.value === null) ? '' : String(r.value),
+					referenceUsed: r.referenceUsed || '',
+					unit: r.unit || '',
+					isAltered: !!r.isAltered
+				};
+			})
+		});
+
+		// let the catalog learn: bump usage, keep the unit fresh, and when the
+		// doctor typed a brand-new exam (or a manual reference for one that has
+		// no rules yet) capture a parsed reference rule for future autocomplete
+		results.forEach(function (r) {
+			if (!r.examName) {
+				return;
+			}
+			var existing = ExamCatalog.findOne({ name: r.examName });
+			if (existing) {
+				var mod = { $inc: { usageCount: 1 } };
+				if (r.unit) {
+					mod.$set = { unit: r.unit };
+				}
+				ExamCatalog.update(existing._id, mod);
+				var hasRules = existing.referenceRules && existing.referenceRules.length > 0;
+				if (!r.matched && r.referenceUsed && !hasRules) {
+					ExamCatalog.update(existing._id, { $push: { referenceRules: parseReferenceText(r.referenceUsed) } });
+				}
+			} else {
+				var newDoc = { name: r.examName, unit: r.unit || '', usageCount: 1, referenceRules: [] };
+				if (r.referenceUsed) {
+					newDoc.referenceRules = [parseReferenceText(r.referenceUsed)];
+				}
+				ExamCatalog.insert(newDoc);
+			}
+		});
+
+		return TAPi18n.__('common_save-success');
 	}
 });
+
+// Turn a free-text reference ("13 - 17", "até 200", "> 30") into a catalog
+// reference rule (spec section 4.1). Two numbers -> min/max; one number ->
+// keyword scan decides whether it is a ceiling (max) or a floor (min).
+parseReferenceText = function (text) {
+	var rule = { gender: 'todos', displayText: text || '' };
+	if (!text) {
+		return rule;
+	}
+	var matches = text.match(/\d+(?:[.,]\d+)?/g) || [];
+	var nums = matches.map(function (n) { return parseFloat(n.replace(',', '.')); });
+	if (nums.length >= 2) {
+		rule.min = Math.min(nums[0], nums[1]);
+		rule.max = Math.max(nums[0], nums[1]);
+	} else if (nums.length === 1) {
+		var lower = text.toLowerCase();
+		if (/[<≤]|menor|at[eé]|inferior|abaixo/.test(lower)) {
+			rule.max = nums[0];
+		} else if (/[>≥]|maior|superior|acima|m[ií]nimo/.test(lower)) {
+			rule.min = nums[0];
+		} else {
+			rule.max = nums[0];
+		}
+	}
+	return rule;
+};

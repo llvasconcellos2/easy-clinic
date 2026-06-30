@@ -89,6 +89,7 @@ FlowRouter.route('/patients/:_id', {
     this.register('formModels', Meteor.subscribe('formModels'));
     this.register('document-models', Meteor.subscribe('documentModels'));
     this.register('patient-records', Meteor.subscribe('patientRecords', params._id));
+    this.register('patient-exams', Meteor.subscribe('patientExams', params._id));
     this.register('settings', Meteor.subscribe('settings'));
     this.register('patient-appointments', Meteor.subscribe('patient-appointments', params._id));
     this.register('patient-schedule', Meteor.subscribe('patient-appointments', params._id));
@@ -164,6 +165,33 @@ FlowRouter.route('/specialties/:_id', {
   },
   action: function(params, queryParams) {
     BlazeLayout.render("mainLayout", {content: "specialtyForm"});
+  }
+});
+
+FlowRouter.route('/exam-catalog', {
+  name: 'examCatalogList',
+  subscriptions: function(params) {
+    this.register('examCatalog', Meteor.subscribe('examCatalog'));
+  },
+  action: function(params, queryParams) {
+    BlazeLayout.render("mainLayout", {content: "examCatalogList"});
+  }
+});
+
+FlowRouter.route('/exam-catalog/create', {
+  name: 'examCatalogCreate',
+  action: function(params, queryParams) {
+    BlazeLayout.render("mainLayout", {content: "examCatalogForm"});
+  }
+});
+
+FlowRouter.route('/exam-catalog/:_id', {
+  name: 'examCatalogEdit',
+  subscriptions: function(params) {
+    this.register('examCatalog', Meteor.subscribe('singleExamCatalog', params._id));
+  },
+  action: function(params, queryParams) {
+    BlazeLayout.render("mainLayout", {content: "examCatalogForm"});
   }
 });
 

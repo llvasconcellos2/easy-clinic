@@ -1,0 +1,9 @@
+exam-results_title: Exam Results
+exam-results_laboratory: Laboratory
+exam-results_date-performed: Date Performed
+exam-results_exam-name: Exam
+exam-results_result: Result
+exam-results_reference: Reference
+exam-results_unit: Unit
+exam-results_keyboard-hint: Press TAB or ENTER on the Unit field to add a new line.
+exam-results_empty-warning: Add at least one exam result before saving.

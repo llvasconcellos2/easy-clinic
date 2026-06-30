@@ -64,6 +64,10 @@ Template.patientRecord.helpers({
       { "patient._id": patientId },
       { sort: { start: -1 } },
     ).fetch();
+    var examsCollection = PatientExams.find(
+      { patientId: patientId },
+      { sort: { datePerformed: -1 } },
+    ).fetch();
 
     var entries = [];
 
@@ -89,6 +93,7 @@ Template.patientRecord.helpers({
           patientId: item.patientId,
           records: [record],
           appointments: [],
+          examSets: [],
         });
       } else {
         entry.records.push(record);
@@ -104,9 +109,29 @@ Template.patientRecord.helpers({
           patientId: patientId,
           records: [],
           appointments: [appointment],
+          examSets: [],
         });
       } else {
         entry.appointments.push(appointment);
+      }
+    });
+
+    examsCollection.forEach(function (exam) {
+      var entry = findByDay(exam.datePerformed);
+      if (!entry) {
+        entries.push({
+          _id: exam._id,
+          date: exam.datePerformed,
+          patientId: patientId,
+          records: [],
+          appointments: [],
+          examSets: [exam],
+        });
+      } else {
+        if (!entry.examSets) {
+          entry.examSets = [];
+        }
+        entry.examSets.push(exam);
       }
     });
 
@@ -369,6 +394,10 @@ Template.patientRecord.onRendered(function () {
     });
     $("#patient-add-exam-btn").click(function (event) {
       openModal("exam");
+    });
+    // exam RESULTS use their own dedicated modal (examResultsModal template)
+    $("#patient-add-exam-results-btn").click(function (event) {
+      $("#examResultsModal").modal();
     });
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////

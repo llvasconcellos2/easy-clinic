@@ -1,0 +1,14 @@
+exam-catalog_exam-catalog: Catálogo de Exames
+exam-catalog_create-form-title: Gerenciar exames e valores de referência
+exam-catalog_new: Novo Exame
+exam-catalog_name: Nome do Exame
+exam-catalog_unit: Unidade
+exam-catalog_usage-count: Usos
+exam-catalog_reference-rules: Valores de Referência
+exam-catalog_rule-gender: Sexo
+exam-catalog_gender-all: Todos
+exam-catalog_rule-age-min: Idade Mín. (meses)
+exam-catalog_rule-age-max: Idade Máx. (meses)
+exam-catalog_rule-min: Valor Mín.
+exam-catalog_rule-max: Valor Máx.
+exam-catalog_rule-display-text: Texto de Referência

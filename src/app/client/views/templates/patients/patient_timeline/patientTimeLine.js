@@ -18,6 +18,14 @@ Template.patientTimeLine.onCreated(function () {
       { "patient._id": patientId },
       { sort: { start: -1 } },
     ).fetch();
+    // establish a reactive dependency on exam results too, so saving one
+    // re-runs the timeline layout (re-fits the .events-content height and
+    // repositions dates) instead of leaving the new card clipped/hidden
+    // until the user navigates to another date and back.
+    PatientExams.find(
+      { patientId: patientId },
+      { sort: { datePerformed: -1 } },
+    ).fetch();
     setTimeout(function () {
       runTimeline();
     }, 250);
