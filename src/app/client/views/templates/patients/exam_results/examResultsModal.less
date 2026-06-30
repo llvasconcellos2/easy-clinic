@@ -102,10 +102,37 @@
 
 .exam-results-card-table {
   margin-bottom: 0;
+  table-layout: fixed;
+  width: 100%;
+
+  // let long names / references wrap instead of forcing the table wider than
+  // the viewport (was overflowing off-screen on phones)
+  td, th {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .exam-cell-name { width: 40%; }
+  .exam-cell-value { width: 25%; }
+  .exam-cell-ref { width: 35%; }
+
+  .exam-cell-unit { white-space: nowrap; }
 
   tr.exam-altered td {
     background-color: #fdecea;
     color: #a94442;
     font-weight: 600;
+  }
+
+  // tighten further on small screens
+  @media (max-width: 767px) {
+    font-size: 12px;
+
+    td, th {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .exam-cell-ref { color: #6c757d; }
   }
 }

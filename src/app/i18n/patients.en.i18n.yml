@@ -48,6 +48,10 @@ evolution_pa-elevated: Elevated
 evolution_pa-high: High
 evolution_empty-title: No evolution data
 evolution_empty-text: Record a Triage and Vital Signs entry in the patient record to track this patient's evolution.
+evolution_exam-results: Lab Results
+evolution_exam-select: 'Exam:'
+evolution_exam-reference: Reference
+evolution_exam-altered: Altered result
 schemas:
   patients:
     name:

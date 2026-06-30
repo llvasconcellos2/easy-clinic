@@ -423,3 +423,97 @@ ul {
 .overflow-hiden {
   overflow: hidden;
 }
+
+/* breathing room between the stacked day panels (Bootstrap's .panel-group
+   collapses their margins to 0). Last one stays flush - fitEventsContent
+   already adds a bottom buffer for the rounded corner. */
+.cd-horizontal-timeline .events-content .panel-group .panel {
+  margin-bottom: 14px;
+}
+.cd-horizontal-timeline .events-content .panel-group .panel:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Date strip: native horizontal scroll ------------------------------
+   The original transform-paging (prev/next arrows translating .events) is
+   patched/broken and always leaves the edge date half-clipped with no clean
+   way to reach it - on mobile AND desktop. Instead the strip scrolls
+   horizontally: touch-swipe on mobile, arrow buttons (rewired to scroll) on
+   desktop. The strip already reserves 100px of leading/trailing room (JS sets
+   .events width = N*100 + 100), so no date label gets clipped.
+   The SCROLLER is .events-wrapper (not .timeline) so the prev/next arrows -
+   which are siblings of .events-wrapper inside .timeline - stay pinned at the
+   edges instead of scrolling away with the content. */
+.cd-horizontal-timeline .events-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox - keep the 100px strip clean */
+}
+.cd-horizontal-timeline .events-wrapper::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+.cd-horizontal-timeline .events {
+  /* neutralise the JS translateX paging - we scroll natively instead */
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  transform: none !important;
+}
+/* the edge-fade gradients belonged to the paging illusion - drop them */
+.cd-horizontal-timeline .events-wrapper::before,
+.cd-horizontal-timeline .events-wrapper::after {
+  display: none;
+}
+/* no black focus rectangle when a date is tapped/selected */
+.cd-horizontal-timeline .events a {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* All date dots stay HOLLOW; a single green marker slides between them so the
+   selection visibly travels along the line instead of flashing at the new spot.
+   The marker is positioned in JS (updateFilling) to ride the end of the green
+   filling-line, and both transition together (0.3s). */
+.cd-horizontal-timeline .events a.selected::after,
+.cd-horizontal-timeline .events a.older-event::after {
+  background-color: #f8f8f8;
+  border-color: #dfdfdf;
+}
+.cd-horizontal-timeline .events .timeline-marker {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #7b9d6f;
+  border: 2px solid #7b9d6f;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: left 0.3s;
+  transition: left 0.3s;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .cd-horizontal-timeline .timeline {
+    width: 100%;
+  }
+  .cd-horizontal-timeline .events-wrapper {
+    margin: 0; /* arrows are hidden on mobile, reclaim their side gutters */
+  }
+  /* touch users swipe the strip directly - hide the arrow controls */
+  .cd-timeline-navigation {
+    display: none;
+  }
+  /* a single small card leaves almost no area to swipe between days; give the
+     content pane a minimum height so day-to-day swiping stays comfortable */
+  .cd-horizontal-timeline .events-content {
+    min-height: 45vh;
+  }
+}

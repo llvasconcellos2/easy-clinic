@@ -74,6 +74,27 @@
         </div>
       </div>
 
+      {{#if hasExams}}
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="ibox">
+            <div class="ibox-title">
+              <h5><i class="fa fa-flask"></i> {{_ 'evolution_exam-results'}}</h5>
+              <div class="pull-right evo-exam-picker">
+                <label class="evo-exam-label">{{_ 'evolution_exam-select'}}</label>
+                <select id="evo-exam-select" class="form-control input-sm evo-exam-select">
+                  {{#each examOptions}}
+                    <option value="{{name}}">{{name}}{{#if unit}} ({{unit}}){{/if}}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+            <div class="ibox-content"><div class="evo-chart-wrap"><canvas id="evo-exam"></canvas></div></div>
+          </div>
+        </div>
+      </div>
+      {{/if}}
+
     </div>
   {{else}}
     <div class="panel-body">

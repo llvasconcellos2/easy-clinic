@@ -119,33 +119,64 @@ var runTimeline = function () {
       var eventsContent = timelineComponents["eventsContent"];
       var initialContent = eventsContent.find(".selected");
       if (initialContent.length > 0) {
-        var fitSelectedContent = function () {
-          eventsContent.css("height", initialContent.height() + "px");
-        };
-        fitSelectedContent();
-        //records may contain images (e.g. the clinic logo) that load after the
-        //initial measurement and would leave the content clipped - re-fit on load.
-        initialContent.find("img").one("load", fitSelectedContent);
+        //The day "slides" are absolutely positioned, so .events-content needs an
+        //explicit height or it collapses/clips. fitEventsContent measures the
+        //full content height (and re-fits after layout settles) - see its
+        //definition for why a single synchronous measure isn't enough.
+        fitEventsContent(eventsContent);
+        initialContent.find("img").one("load", function () {
+          fitEventsContent(eventsContent);
+        });
+        $(window)
+          .off("resize.timelineFit")
+          .on(
+            "resize.timelineFit",
+            _.debounce(function () {
+              fitEventsContent(eventsContent);
+            }, 150),
+          );
       }
 
-      //detect click on the next arrow
-      timelineComponents["timelineNavigation"].on(
-        "click",
-        ".next",
-        function (event) {
-          event.preventDefault();
-          updateSlide(timelineComponents, timelineTotWidth, "next");
-        },
-      );
-      //detect click on the prev arrow
-      timelineComponents["timelineNavigation"].on(
-        "click",
-        ".prev",
-        function (event) {
-          event.preventDefault();
-          updateSlide(timelineComponents, timelineTotWidth, "prev");
-        },
-      );
+      //The strip now scrolls natively; rewire the arrows to page that scroll
+      //(the old transform-paging via updateSlide is disabled in CSS). The
+      //scroller is .events-wrapper so the arrows (its siblings) stay pinned.
+      //Toggle the inactive style at the scroll extremities.
+      var scroller = timelineComponents["timelineWrapper"];
+      var pageScroll = function (dir) {
+        var node = scroller.get(0);
+        if (!node) {
+          return;
+        }
+        var amount = Math.max(node.clientWidth - eventsMinDistance, 100);
+        scroller
+          .stop()
+          .animate({ scrollLeft: node.scrollLeft + dir * amount }, 300);
+      };
+      var updateArrows = function () {
+        var node = scroller.get(0);
+        if (!node) {
+          return;
+        }
+        timelineComponents["timelineNavigation"]
+          .find(".prev")
+          .toggleClass("inactive", node.scrollLeft <= 1);
+        timelineComponents["timelineNavigation"]
+          .find(".next")
+          .toggleClass(
+            "inactive",
+            node.scrollLeft + node.clientWidth >= node.scrollWidth - 1,
+          );
+      };
+      scroller.off("scroll.tlnav").on("scroll.tlnav", _.throttle(updateArrows, 100));
+      timelineComponents["timelineNavigation"].on("click", ".next", function (event) {
+        event.preventDefault();
+        pageScroll(1);
+      });
+      timelineComponents["timelineNavigation"].on("click", ".prev", function (event) {
+        event.preventDefault();
+        pageScroll(-1);
+      });
+      updateArrows();
       //detect click on the a single event - show new event content
       timelineComponents["eventsWrapper"].on("click", "a", function (event) {
         event.preventDefault();
@@ -293,6 +324,9 @@ var runTimeline = function () {
       Number(eventWidth.replace("px", "")) / 2;
     var scaleValue = eventLeft / totWidth;
     setTransformValue(filling.get(0), "scaleX", scaleValue);
+    //slide the green marker dot to the selected date - it rides the end of the
+    //filling-line, so the selection travels along the line (no flash/jump)
+    filling.siblings(".timeline-marker").css("left", eventLeft + "px");
   }
 
   // ORIGINAL FUNCTION
@@ -355,11 +389,34 @@ var runTimeline = function () {
     return totalWidth;
   }
 
+  //Size .events-content to the currently-selected day. A single synchronous
+  //measure is unreliable: exam-result cards use table-layout:fixed with cells
+  //that WRAP, and the final wrapped height isn't settled until fonts/images load
+  //and the browser reflows the just-shown slide (a slide measured while still
+  //hidden/animating can report short). So measure the full content height
+  //(scrollHeight beats a stale jQuery .height()) and re-fit a couple of times.
+  function fitEventsContent(eventsContent) {
+    var apply = function () {
+      var sel = eventsContent.find(".selected");
+      var el = sel.get(0);
+      if (!el) {
+        return;
+      }
+      //+24px buffer: the last panel's bottom margin/shadow collapses out of the
+      //measured height, so without it .events-content (overflow:hidden) clips the
+      //final panel's rounded bottom corners and drop shadow.
+      var full = Math.max(sel.height(), el.scrollHeight) + 24;
+      eventsContent.css("height", full + "px");
+    };
+    apply();
+    Meteor.setTimeout(apply, 60);
+    Meteor.setTimeout(apply, 350);
+  }
+
   function updateVisibleContent(event, eventsContent) {
     var eventDate = event.data("date"),
       visibleContent = eventsContent.find(".selected"),
-      selectedContent = eventsContent.find('[data-date="' + eventDate + '"]'),
-      selectedContentHeight = selectedContent.height();
+      selectedContent = eventsContent.find('[data-date="' + eventDate + '"]');
 
     if (selectedContent.index() > visibleContent.index()) {
       var classEnetering = "selected enter-right",
@@ -379,7 +436,25 @@ var runTimeline = function () {
           selectedContent.removeClass("enter-left enter-right");
         },
       );
-    eventsContent.css("height", selectedContentHeight + "px");
+    fitEventsContent(eventsContent);
+
+    //keep the date strip scrolled so the day being shown stays in view - e.g.
+    //when the user swipes the content to the next/prev day, scroll its date dot
+    //into the (horizontally-scrollable) strip. block:'nearest' avoids any
+    //vertical page jump.
+    var anchorEl = event && event.get && event.get(0);
+    if (anchorEl && anchorEl.scrollIntoView) {
+      try {
+        //smooth so the dates visibly slide to re-centre (not snap/replace)
+        anchorEl.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center",
+        });
+      } catch (e) {
+        // older browsers: ignore the options-object form
+      }
+    }
   }
 
   function updateOlderEvents(event) {

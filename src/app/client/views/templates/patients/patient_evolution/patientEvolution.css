@@ -30,3 +30,19 @@
 .evolution-pane .ibox-title .label {
   margin-top: 2px;
 }
+.evolution-pane .evo-exam-picker {
+  display: flex;
+  align-items: center;
+}
+.evolution-pane .evo-exam-label {
+  margin: 0 8px 0 0;
+  font-weight: 600;
+  font-size: 12px;
+  color: #676a6c;
+  white-space: nowrap;
+}
+.evolution-pane .evo-exam-select {
+  width: auto;
+  max-width: 240px;
+  display: inline-block;
+}

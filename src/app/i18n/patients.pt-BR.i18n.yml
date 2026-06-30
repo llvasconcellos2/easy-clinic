@@ -48,6 +48,10 @@ evolution_pa-elevated: Limítrofe
 evolution_pa-high: Elevada
 evolution_empty-title: Sem dados de evolução
 evolution_empty-text: Registre uma Triagem e Sinais Vitais no prontuário para acompanhar a evolução do paciente.
+evolution_exam-results: Resultados de Exames
+evolution_exam-select: 'Exame:'
+evolution_exam-reference: Referência
+evolution_exam-altered: Resultado alterado
 schemas:
   patients:
     name:

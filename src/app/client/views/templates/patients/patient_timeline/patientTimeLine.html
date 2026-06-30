@@ -10,6 +10,7 @@
 					</ol>
 
 					<span class="filling-line" aria-hidden="true"></span>
+					<span class="timeline-marker" aria-hidden="true"></span>
 				</div> <!-- .events -->
 			</div> <!-- .events-wrapper -->
 				
@@ -56,16 +57,14 @@
 													<th>{{_ 'exam-results_exam-name'}}</th>
 													<th>{{_ 'exam-results_result'}}</th>
 													<th>{{_ 'exam-results_reference'}}</th>
-													<th>{{_ 'exam-results_unit'}}</th>
 												</tr>
 											</thead>
 											<tbody>
 												{{#each exam.results}}
 													<tr class="{{#if isAltered}}exam-altered{{/if}}">
-														<td>{{examName}}</td>
-														<td>{{value}}{{#if isAltered}} <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{/if}}</td>
-														<td>{{referenceUsed}}</td>
-														<td>{{unit}}</td>
+														<td class="exam-cell-name">{{examName}}</td>
+														<td class="exam-cell-value">{{value}}{{#if unit}} <span class="text-muted exam-cell-unit">{{unit}}</span>{{/if}}{{#if isAltered}} <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{/if}}</td>
+														<td class="exam-cell-ref">{{referenceUsed}}</td>
 													</tr>
 												{{/each}}
 											</tbody>
