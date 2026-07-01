@@ -1,0 +1,426 @@
+<!doctype html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendor/jquery-datatables.css"
+    />
+    <link rel="stylesheet" type="text/css" href="vendor/fullcalendar.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/scheduler.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/chosen.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/jquery.qtip.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/toastr.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/datepicker3.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/summernote.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/sweetalert.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/clockpicker.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/form-builder.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/form-render.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="clinica-facil" />
+    <meta name="theme-color" content="#1ab394" />
+    <link rel="manifest" href="manifest.json" />
+    <title>Clínica Fácil | Sistema Online</title>
+    <style>
+      /* dashboard.css — inlined so no extra request */
+      .iniciar-consulta-btn {
+        margin-top: 10px;
+      }
+      .dash-kpi {
+        display: flex;
+        align-items: center;
+      }
+      .dash-kpi-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 22px;
+        margin-right: 14px;
+        flex: 0 0 52px;
+      }
+      .dash-kpi-icon.bg-blue {
+        background: #1c84c6;
+      }
+      .dash-kpi-icon.bg-green {
+        background: #1ab394;
+      }
+      .dash-kpi-icon.bg-teal {
+        background: #23c6c8;
+      }
+      .dash-kpi-icon.bg-yellow {
+        background: #f8ac59;
+      }
+      .dash-kpi-icon.bg-money {
+        background: #18a689;
+      }
+      @media (min-width: 1200px) {
+        .dash-col-5 {
+          width: 20% !important;
+          float: left;
+        }
+      }
+      .dash-col-5 {
+        position: relative;
+        min-height: 1px;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      .dash-kpi-label {
+        display: block;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        color: #9aa4ac;
+      }
+      .dash-kpi-value {
+        margin: 2px 0;
+        font-weight: 600;
+        color: #2f4050;
+      }
+      .dash-chart-wrap {
+        position: relative;
+        height: 280px;
+      }
+      .dash-agenda {
+        height: 366px;
+        overflow-y: auto;
+      }
+      .dash-chart-wrap.dash-chart-appts {
+        height: 330px;
+      }
+      /* patient_list.css */
+      #patients-table td,
+      #patients-table th {
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+      #patients-table_wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      #patients-table .profile-pic {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      /* schedule */
+      .fc-event {
+        cursor: pointer;
+      }
+      #scheduleEventForm .carousel {
+        overflow: hidden;
+      }
+      #scheduleEventForm .modal-footer .delete-btn {
+        float: left;
+      }
+      .schedule-form .status-group .btn-group {
+        flex-wrap: wrap;
+        display: flex;
+      }
+      .schedule-form .status-group .btn {
+        margin-bottom: 4px;
+      }
+      .cal-resource-pic {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #ccc;
+        margin-right: 6px;
+        vertical-align: middle;
+      }
+      /* reports */
+      .report-chart-wrap {
+        position: relative;
+        height: 260px;
+      }
+      .report-chart-tall {
+        height: 320px;
+      }
+      .prod-billing {
+        text-align: center;
+        padding: 20px;
+      }
+      .prod-kpi-label {
+        display: block;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        color: #9aa4ac;
+      }
+      .prod-kpi {
+        text-align: center;
+        padding: 20px;
+      }
+      .prod-kpi h2 {
+        font-size: 48px;
+        font-weight: 700;
+        margin: 8px 0 4px;
+      }
+      .prod-billing-value {
+        font-size: 42px;
+        font-weight: 700;
+        margin: 8px 0 4px;
+      }
+      .prod-blue {
+        border-top: 3px solid #1c84c6;
+      }
+      .prod-blue h2 {
+        color: #1c84c6;
+      }
+      .prod-teal {
+        border-top: 3px solid #1ab394;
+      }
+      .prod-teal h2 {
+        color: #1ab394;
+      }
+      .prod-red {
+        border-top: 3px solid #ed5565;
+      }
+      .prod-red h2 {
+        color: #ed5565;
+      }
+      .prod-yellow {
+        border-top: 3px solid #f8ac59;
+      }
+      .prod-yellow h2 {
+        color: #f8ac59;
+      }
+      /* patient form */
+      .patient-form .form-group {
+        margin-right: 10px;
+        margin-bottom: 12px;
+      }
+      .patient-form .form-group label {
+        display: block;
+      }
+      .patient-form .form-group input,
+      .patient-form .form-group select,
+      .patient-form .form-group textarea {
+        min-width: 150px;
+      }
+      .patient-form .patient-form-buttons {
+        display: block;
+        width: 100%;
+        margin-top: 12px;
+      }
+      .patient-pic {
+        max-width: 200px;
+        max-height: 200px;
+        border-radius: 4px;
+      }
+      /* btn-exam-results — accent colour not in compiled styles.css */
+      .btn-exam-results {
+        background-color: #8e44ad;
+        border-color: #8e44ad;
+        color: #fff;
+      }
+      .btn-exam-results:hover,
+      .btn-exam-results:focus,
+      .btn-exam-results:active {
+        background-color: #7d3c98;
+        border-color: #7d3c98;
+        color: #fff;
+      }
+      /* login splash — matches blankLayout + .loginscreen from original app */
+      #login-splash {
+        position: fixed;
+        inset: 0;
+        background: #f3f3f4;
+        z-index: 9999;
+        overflow-y: auto;
+      }
+      /* styles.css uses background-image for .loginscreen .logo; override so the <img> shows */
+      #login-splash .loginscreen .logo {
+        height: auto;
+        background: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #login-splash .loginscreen .logo img {
+        max-height: 21em;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Login splash (blankLayout + login template) -->
+    <div id="login-splash">
+      <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+          <div class="login-logo-wrapper">
+            <div>
+              <div class="logo">
+                <img src="images/logo.svg" alt="Clínica Fácil" />
+              </div>
+            </div>
+            <h3>Bem Vindo a Clínica Fácil</h3>
+            <p>Desenvolvemos esse sistema para melhor atendê-lo.</p>
+          </div>
+          <div class="at-form">
+            <div class="at-title"><h3>Entrar</h3></div>
+            <div
+              id="login-alert"
+              class="alert alert-danger"
+              style="display: none"
+            >
+              Usuário ou senha incorretos.
+            </div>
+            <div class="at-pwd-form">
+              <form
+                role="form"
+                id="at-pwd-form"
+                novalidate
+                action="#"
+                method="POST"
+                autocomplete="off"
+              >
+                <fieldset>
+                  <div class="at-input form-group has-feedback">
+                    <label class="control-label sr-only" for="login-email"
+                      >Email</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="login-email"
+                      name="login-email"
+                      placeholder="Email"
+                      autocapitalize="none"
+                      autocorrect="off"
+                      autocomplete="off"
+                      value="leo.lima.web@gmail.com"
+                    />
+                    <span class="help-block hide"></span>
+                  </div>
+                  <div class="at-input form-group has-feedback">
+                    <label class="control-label sr-only" for="login-password"
+                      >Senha</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="login-password"
+                      name="login-password"
+                      placeholder="Senha"
+                      autocapitalize="none"
+                      autocorrect="off"
+                      autocomplete="new-password"
+                      value="123456"
+                    />
+                    <span class="help-block hide"></span>
+                  </div>
+                  <div class="at-pwd-link">
+                    <p>
+                      <a href="#" class="at-link at-pwd">Esqueceu sua senha?</a>
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    class="at-btn btn btn-lg btn-block btn-primary"
+                    id="login-btn"
+                  >
+                    <span class="ladda-label">Entrar</span>
+                  </button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <p class="m-t">
+            <small
+              >Desenvolvido por
+              <a
+                href="https://leonardo-vasconcellos.vercel.app/"
+                target="_blank"
+                rel="noopener"
+                >Leonardo LV</a
+              >
+              &copy; 2016-2017</small
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- App mount point -->
+    <div id="app" style="display: none"></div>
+
+    <!-- mainLayout (Handlebars). Frame partials (navigation/topNavbar/footer/pageHeading)
+         are registered by shim.js. Content is rendered by router.js into #page-content. -->
+    <script id="tpl-mainLayout" type="text/x-handlebars-template">
+      {{#if currentUser}}
+      <div id="wrapper">
+        {{> navigation }}
+        <div id="page-wrapper" class="gray-bg">
+          {{> topNavbar }}
+          {{#if isReady}}
+            <div id="page-content"></div>
+          {{else}}
+            {{> loading }}
+          {{/if}}
+          {{> footer }}
+        </div>
+      </div>
+      {{/if}}
+    </script>
+
+    <!-- Vendor (versions matched to original app) -->
+    <script src="vendor/jquery-1.11.2.min.js"></script>
+    <script src="vendor/bootstrap-3.3.6.min.js"></script>
+    <script src="vendor/jquery.metisMenu.js"></script>
+    <script src="vendor/handlebars-4.0.5.min.js"></script>
+    <script src="vendor/moment-with-locales.min.js"></script>
+    <script src="vendor/Chart.min.js"></script>
+    <script src="vendor/jquery-datatables.js"></script>
+    <script src="vendor/jquery.highlight.js"></script>
+    <script src="vendor/dataTables.searchHighlight.min.js"></script>
+    <script src="vendor/accent-neutralize.js"></script>
+    <script src="vendor/fullcalendar.js"></script>
+    <script src="vendor/locale-all.js"></script>
+    <script src="vendor/scheduler.js"></script>
+    <script src="vendor/chosen.jquery.js"></script>
+    <script src="vendor/jquery.qtip.js"></script>
+    <script src="vendor/toastr.min.js"></script>
+    <script src="vendor/bootstrap-datepicker.js"></script>
+    <script src="vendor/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="vendor/summernote.js"></script>
+    <script src="vendor/sweetalert.min.js"></script>
+    <script src="vendor/clockpicker.js"></script>
+    <script src="vendor/form-builder.js"></script>
+    <script src="vendor/form-render.js"></script>
+    <script src="vendor/papaparse.js"></script>
+
+    <!-- rip shim (load order: store → persistence → data-source → methods → shim → router) -->
+    <script src="shim/store.js"></script>
+    <script src="shim/persistence.js"></script>
+    <script src="shim/data-source.js"></script>
+    <script src="shim/methods.js"></script>
+    <script src="shim/shim.js"></script>
+    <script src="shim/router.js"></script>
+
+    <!-- PWA: register service worker for offline support -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("sw.js").then(function (reg) {
+            console.log("[sw] registered, scope:", reg.scope);
+          }).catch(function (e) {
+            console.warn("[sw] registration failed:", e);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

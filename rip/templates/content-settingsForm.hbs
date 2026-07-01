@@ -1,0 +1,69 @@
+{{> pageHeading title='settings_settings' }}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12" id="tablebox">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{_ 'settings_settings'}} <small class="m-l-sm">{{_ 'settings_manage'}}</small></h5>
+        </div>
+        <div class="ibox-content">
+          <form id="settingsForm" class="settings-form">
+            <div class="form-group">
+              <label class="control-label">{{_ 'settings_clinic-address'}}</label>
+              <textarea name="address" id="s-address" rows="3" class="form-control"></textarea>
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label class="control-label">{{_ 'settings_clinic-workhours-start'}}</label>
+              <input type="text" name="workHoursStart" id="s-wh-start" class="form-control" placeholder="06:00">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label class="control-label">{{_ 'settings_clinic-workhours-end'}}</label>
+              <input type="text" name="workHoursEnd" id="s-wh-end" class="form-control" placeholder="23:00">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label class="control-label">{{_ 'settings_slot-duration'}}</label>
+              <input type="number" name="slotDuration" id="s-slot" class="form-control" min="5" max="120" step="5">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label class="control-label">{{_ 'settings_appointment-value'}}</label>
+              <input type="number" name="appointmentValue" id="s-appt-val" class="form-control" min="0" step="1">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label class="control-label">{{_ 'settings_clinic-notifications'}}</label>
+              <input type="text" name="notifications" id="s-notif" class="form-control"
+                placeholder="{{_ 'settings_clinic-notifications-placeholder'}}">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-floppy-o"></i> {{_ 'common_save'}}
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="ibox-footer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Persistence / offline mode panel -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>Modo de dados <small class="m-l-sm">Armazenamento offline</small></h5>
+        </div>
+        <div class="ibox-content">
+          <div id="persist-status" class="m-b-md"></div>
+          <div id="persist-actions"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

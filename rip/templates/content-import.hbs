@@ -1,0 +1,77 @@
+{{> pageHeading title='patients_import' }}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{_ 'patients_import'}} <small class="m-l-sm">{{_ 'patients_import-subtitle'}}</small></h5>
+        </div>
+        <div class="ibox-content">
+
+          <!-- Format reference -->
+          <h4 class="page-header">Formato esperado
+            <small> — cabeçalho case-sensitive</small>
+          </h4>
+          <div class="table-responsive m-b-md">
+            <table class="table table-bordered table-hover" style="font-size:11px;white-space:nowrap">
+              <thead class="thead-default">
+                <tr>
+                  <th>name*</th><th>records</th><th>dateOfBirth</th><th>gender*</th>
+                  <th>CPF</th><th>mobile*</th><th>email</th><th>phone</th>
+                  <th>maritalStatus</th><th>occupation</th><th>streetAddress_1</th>
+                  <th>city</th><th>state</th><th>obs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>João Silva</td><td>20001</td><td>1985-06-15</td><td>M</td>
+                  <td>123.456.789-00</td><td>(48) 99999-0000</td><td>joao@mail.com</td>
+                  <td>(48) 3333-0000</td><td>married</td><td>Programador</td>
+                  <td>Rua das Flores, 10</td><td>Florianópolis</td><td>SC</td><td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Step 1: upload -->
+          <div id="import-step-upload">
+            <div class="form-group">
+              <label><i class="fa fa-upload"></i> Selecionar arquivo CSV</label>
+              <input type="file" id="import-csv-file" accept=".csv" class="form-control" style="max-width:360px">
+            </div>
+            <button type="button" class="btn btn-primary" id="import-parse-btn" disabled>
+              <i class="fa fa-search"></i> Verificar
+            </button>
+          </div>
+
+          <!-- Step 2: preview -->
+          <div id="import-step-preview" style="display:none">
+            <div class="alert alert-info" id="import-info-msg"></div>
+            <div id="import-errors-panel" class="alert alert-danger" style="display:none">
+              <strong><i class="fa fa-exclamation-triangle"></i> Erros encontrados:</strong>
+              <ul id="import-errors-list" class="m-t-sm"></ul>
+            </div>
+            <div class="table-responsive m-b-md" id="import-preview-wrap" style="max-height:300px;overflow-y:auto"></div>
+            <button type="button" class="btn btn-default m-r-sm" id="import-back-btn">
+              <i class="fa fa-arrow-left"></i> Voltar
+            </button>
+            <button type="button" class="btn btn-success" id="import-confirm-btn">
+              <i class="fa fa-check"></i> Importar
+            </button>
+          </div>
+
+          <!-- Step 3: done -->
+          <div id="import-step-done" style="display:none" class="text-center" style="padding:40px">
+            <i class="fa fa-check-circle fa-4x text-success m-b-md"></i>
+            <h3 id="import-done-msg"></h3>
+            <a href="#/patients" class="btn btn-primary m-t-md">
+              <i class="fa fa-users"></i> Ver Pacientes
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

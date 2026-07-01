@@ -1,0 +1,52 @@
+{{> pageHeading title='form-models_form-models' }}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="record-builder-tabs tabs-container">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#tab-1">
+              <h4>{{_ 'form-models_design'}}
+                <small class="m-l-sm">{{_ 'form-models_design-subtitle'}}</small>
+              </h4>
+            </a>
+          </li>
+          <li>
+            <a data-toggle="tab" href="#tab-2">
+              <h4>{{_ 'form-models_preview'}}
+                <small class="m-l-sm">{{_ 'form-models_preview-subtitle'}}</small>
+              </h4>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div id="tab-1" class="tab-pane active">
+            <div class="panel-body">
+              <form id="form-model-form" role="form">
+                <div class="form-group">
+                  <label class="control-label">{{_ 'form-models_name'}} *</label>
+                  <input type="text" name="name" id="fm-name" required maxlength="100" class="form-control" style="max-width:400px">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">{{_ 'form-models_description'}}</label>
+                  <textarea rows="3" name="description" id="fm-description" class="form-control"></textarea>
+                </div>
+                <hr>
+                <div>
+                  <label class="control-label">{{_ 'form-models_form-model'}}</label>
+                  <div id="record-builder"></div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="tab-2" class="tab-pane">
+            <div class="panel-body">
+              <form id="record-render"></form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

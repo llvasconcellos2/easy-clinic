@@ -1,0 +1,116 @@
+{{> pageHeading title='common_dashboard' }}
+
+<div class="wrapper wrapper-content">
+
+  <!-- KPI widgets -->
+  <div class="row">
+    <div class="col-sm-6 dash-col-5">
+      <div class="ibox">
+        <div class="ibox-content dash-kpi">
+          <span class="dash-kpi-icon bg-blue"><i class="fa fa-users"></i></span>
+          <div class="dash-kpi-body">
+            <span class="dash-kpi-label">{{_ 'dashboard_patients'}}</span>
+            <h2 class="dash-kpi-value" id="kpi-patients">—</h2>
+            <small class="text-muted">{{_ 'dashboard_patients-total'}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 dash-col-5">
+      <div class="ibox">
+        <div class="ibox-content dash-kpi">
+          <span class="dash-kpi-icon bg-green"><i class="fa fa-stethoscope"></i></span>
+          <div class="dash-kpi-body">
+            <span class="dash-kpi-label">{{_ 'dashboard_appointments'}}</span>
+            <h2 class="dash-kpi-value" id="kpi-appointments">—</h2>
+            <small class="text-muted">{{_ 'dashboard_appointments-month'}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 dash-col-5">
+      <div class="ibox">
+        <div class="ibox-content dash-kpi">
+          <span class="dash-kpi-icon bg-teal"><i class="fa fa-folder-open"></i></span>
+          <div class="dash-kpi-body">
+            <span class="dash-kpi-label">{{_ 'dashboard_records'}}</span>
+            <h2 class="dash-kpi-value" id="kpi-records">—</h2>
+            <small class="text-muted">{{_ 'dashboard_records-month'}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 dash-col-5">
+      <div class="ibox">
+        <div class="ibox-content dash-kpi">
+          <span class="dash-kpi-icon bg-yellow"><i class="fa fa-file-text"></i></span>
+          <div class="dash-kpi-body">
+            <span class="dash-kpi-label">{{_ 'dashboard_prescriptions'}}</span>
+            <h2 class="dash-kpi-value" id="kpi-prescriptions">—</h2>
+            <small class="text-muted">{{_ 'dashboard_prescriptions-total'}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 dash-col-5">
+      <div class="ibox">
+        <div class="ibox-content dash-kpi">
+          <span class="dash-kpi-icon bg-money"><i class="fa fa-money"></i></span>
+          <div class="dash-kpi-body">
+            <span class="dash-kpi-label">{{_ 'reports_billing-month'}}</span>
+            <h2 class="dash-kpi-value" id="kpi-billing">—</h2>
+            <small class="text-muted" id="kpi-billing-sub"></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- today's agenda + appointments-per-month chart -->
+  <div class="row animated fadeInRight">
+    <div class="col-lg-4">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{_ 'schedule_schedule'}} <small class="m-l-sm">{{_ 'schedule_timeline'}}</small></h5>
+        </div>
+        <div class="ibox-content inspinia-timeline dash-agenda" id="schedule-timeline">
+          <p class="text-muted">{{_ 'schedule_no-appointment-today'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5><i class="fa fa-bar-chart"></i> {{_ 'dashboard_appts-by-month'}}</h5>
+          <small class="pull-right text-muted">{{_ 'dashboard_last-12-months'}}</small>
+        </div>
+        <div class="ibox-content">
+          <div class="dash-chart-wrap dash-chart-appts"><canvas id="dash-appts"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- secondary charts -->
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="ibox">
+        <div class="ibox-title"><h5><i class="fa fa-pie-chart"></i> {{_ 'dashboard_records-by-type'}}</h5></div>
+        <div class="ibox-content"><div class="dash-chart-wrap"><canvas id="dash-records"></canvas></div></div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="ibox">
+        <div class="ibox-title"><h5><i class="fa fa-bar-chart"></i> {{_ 'dashboard_patients-by-age'}}</h5></div>
+        <div class="ibox-content"><div class="dash-chart-wrap"><canvas id="dash-age"></canvas></div></div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="ibox">
+        <div class="ibox-title"><h5><i class="fa fa-venus-mars"></i> {{_ 'dashboard_patients-by-gender'}}</h5></div>
+        <div class="ibox-content"><div class="dash-chart-wrap"><canvas id="dash-gender"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>

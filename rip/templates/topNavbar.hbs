@@ -1,0 +1,66 @@
+    <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <a id="navbar-minimalize" class="minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                <form role="search" class="navbar-form-custom" action="search_results">
+                    <div class="form-group">
+                        <input type="text" placeholder="{{_ 'common_search'}}..." class="form-control" name="top-search" id="top-search">
+                    </div>
+                </form>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="lang-switch-item">
+                    <div class="lang-switch" role="group" aria-label="{{_ 'common_language'}}">
+                        <a href="#" class="lang-flag {{langActive 'pt-BR'}}" data-lang="pt-BR" title="Português">
+                            <img src="/images/flags/32/Brazil.png" alt="Português" data-pin-nopin="true">
+                        </a>
+                        <a href="#" class="lang-flag {{langActive 'en'}}" data-lang="en" title="English">
+                            <img src="/images/flags/32/United-Kingdom.png" alt="English" data-pin-nopin="true">
+                        </a>
+                        <a href="#" class="lang-flag {{langActive 'es'}}" data-lang="es" title="Español">
+                            <img src="/images/flags/32/Spain.png" alt="Español" data-pin-nopin="true">
+                        </a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">{{eventsCount events}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        {{#each events}}
+                        <li>
+                            {{#if isInRole 'medical_doctor'}}
+                                <a href="{{pathFor route='patientEdit' _id=patient query='start_appointment=true&eventId='}}{{_id}}" title="{{_ 'patients_start-appointment'}}">
+                                    <div>
+                                        <span class="patient-gender-icon"><i class="fa fa-male"></i><i class="fa fa-female"></i></span> {{title}}
+                                        <span class="btn btn-sm btn-primary pull-right">
+                                            <i class="fa fa-play" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </a>
+                            {{/if}}
+                            {{#if isInRole 'nurse'}}
+                                <a href="{{pathFor route='patientEdit' _id=patient}}" title="{{_ 'patients_start-appointment'}}">
+                                    <div>
+                                        <span class="patient-gender-icon"><i class="fa fa-male"></i><i class="fa fa-female"></i></span> {{title}}
+                                        <span class="btn btn-sm btn-primary pull-right">
+                                            <i class="fa fa-play" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </a>
+                            {{/if}}
+                        </li>
+                        <li class="divider"></li>
+                        {{/each}}
+                    </ul>
+                </li>
+                <li>
+                    <a class="logout" href="{{pathFor 'logout'}}">
+                        <i class="fa fa-sign-out"></i> {{_ 'common_logout'}}
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+    </div>

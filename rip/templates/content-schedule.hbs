@@ -1,0 +1,94 @@
+{{> pageHeading title='schedule_schedule' }}
+
+<div class="wrapper wrapper-content">
+  <div class="row animated fadeInDown">
+    <div class="col-lg-12">
+      <div id="calendar"></div>
+      <div id="mobile-hint" style="display:none">{{_ 'schedule_long-press-to-add'}}</div>
+    </div>
+  </div>
+</div>
+
+<!-- Appointment modal -->
+<div class="modal inmodal" id="scheduleEventForm" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <div class="scheduleTitle"></div>
+      </div>
+      <div class="modal-body">
+        <div id="content-switcher" class="carousel slide" data-ride="carousel" data-interval="false">
+          <div class="carousel-inner" role="listbox">
+
+            <!-- Slide 1: appointment form -->
+            <div class="item active">
+              <form id="schedule-form" class="schedule-form" novalidate="novalidate">
+                <input type="hidden" name="eventId" />
+                <div class="row selectAddPacient">
+                  <div class="col-md-2">
+                    <a class="btn btn-default addPatient" href="#content-switcher" role="button" data-slide="next">
+                      <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  <div class="col-md-10">
+                    <div id="patient-form-group" class="form-group" data-required="true">
+                      <label for="patients">{{_ 'patients_patients'}}</label>
+                      <div class="select-wrapper">
+                        <select name="patients" data-placeholder="{{_ 'common_firstOption'}}" class="patients-chosen-select" tabindex="4">
+                          <option value="">{{_ 'common_firstOption'}}</option>
+                        </select>
+                      </div>
+                      <span class="help-block">{{_ 'common_field-required'}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group status-group" data-required="true">
+                  <label class="control-label">{{_ 'schedule_status'}}</label>
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-xs btn-info btn-outline"><input type="radio" name="status" value="scheduled" autocomplete="off"> {{_ 'schedule_status-scheduled'}}</label>
+                    <label class="btn btn-xs btn-info btn-outline"><input type="radio" name="status" value="waiting" autocomplete="off"> {{_ 'schedule_status-waiting'}}</label>
+                    <label class="btn btn-xs btn-info btn-outline"><input type="radio" name="status" value="attending" autocomplete="off"> {{_ 'schedule_status-attending'}}</label>
+                    <label class="btn btn-xs btn-info btn-outline"><input type="radio" name="status" value="finished" autocomplete="off"> {{_ 'schedule_status-finished'}}</label>
+                    <label class="btn btn-xs btn-info btn-outline"><input type="radio" name="status" value="no-show" autocomplete="off"> {{_ 'schedule_status-no-show'}}</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Slide 2: quick patient form -->
+            <div class="item">
+              <form id="quickPatientForm">
+                <div class="form-group"><label>{{_ 'patients_name'}}</label><input type="text" name="name" class="form-control" /></div>
+                <div class="form-group"><label>{{_ 'patients_gender'}}</label>
+                  <select name="gender" class="form-control">
+                    <option value="M">{{_ 'patients_gender-M'}}</option>
+                    <option value="F">{{_ 'patients_gender-F'}}</option>
+                  </select>
+                </div>
+                <div class="form-group"><label>{{_ 'patients_dateOfBirth'}}</label><input type="text" name="dateOfBirth" class="form-control" placeholder="DD/MM/YYYY" /></div>
+                <div class="form-group"><label>{{_ 'patients_mobile'}}</label><input type="tel" name="mobile" class="form-control" /></div>
+                <div class="form-group"><label>Email</label><input type="email" name="email" class="form-control" /></div>
+              </form>
+              <a class="pull-left btn btn-success" href="#content-switcher" role="button" data-slide="prev">
+                <i class="fa fa-chevron-left"></i> {{_ 'common_back'}}
+              </a>
+              <a href="#/patients/create" class="pull-right btn btn-primary">
+                <i class="fa fa-plus"></i> {{_ 'patients_full-patient-register'}}
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger delete-btn" type="button"><i class="fa fa-trash"></i></button>
+        <button type="button" class="btn btn-white cancel" data-dismiss="modal"><i class="fa fa-ban"></i> {{_ 'common_cancel'}}</button>
+        <button type="button" class="btn btn-primary save"><i class="fa fa-floppy-o"></i> {{_ 'common_save'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

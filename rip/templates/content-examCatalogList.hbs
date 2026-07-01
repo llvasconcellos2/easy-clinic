@@ -1,0 +1,22 @@
+{{> pageHeading title='exam-catalog_exam-catalog' }}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12" id="tablebox">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{_ 'exam-catalog_exam-catalog'}} <small class="m-l-sm">{{_ 'exam-catalog_create-form-title'}}</small></h5>
+          <button class="btn btn-sm btn-primary pull-right m-t-n-xs" id="btn-new-exam">
+            <strong><i class="fa fa-plus"></i> {{_ 'exam-catalog_new'}}</strong>
+          </button>
+        </div>
+        <div class="ibox-content">
+          <div class="table-responsive">
+            <table id="exam-catalog-table" class="table table-striped table-bordered table-hover dataTable"></table>
+          </div>
+        </div>
+        <div id="table-footer" class="ibox-footer"></div>
+      </div>
+    </div>
+  </div>
+</div>

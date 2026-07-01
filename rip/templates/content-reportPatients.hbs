@@ -1,0 +1,33 @@
+{{> pageHeading title='reports_patients' }}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="ibox">
+        <div class="ibox-title"><h5><i class="fa fa-bar-chart"></i> {{_ 'reports_patients-subtitle'}}</h5></div>
+        <div class="ibox-content"><div class="report-chart-wrap"><canvas id="rep-age"></canvas></div></div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="ibox">
+        <div class="ibox-title"><h5><i class="fa fa-venus-mars"></i> {{_ 'dashboard_gender'}}</h5></div>
+        <div class="ibox-content"><div class="report-chart-wrap"><canvas id="rep-gender"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12" id="tablebox">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{_ 'reports_patients'}} <small class="m-l-sm">{{_ 'reports_patients-subtitle'}}</small></h5>
+        </div>
+        <div class="ibox-content">
+          <div class="table-responsive">
+            <table id="report-patients-table" class="table table-striped table-bordered table-hover dataTable"></table>
+          </div>
+        </div>
+        <div id="table-footer" class="ibox-footer"></div>
+      </div>
+    </div>
+  </div>
+</div>

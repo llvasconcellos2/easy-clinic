@@ -1,0 +1,77 @@
+{{> pageHeading title='users_users' }}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row users">
+    <div class="col-sm-12" id="tablebox">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{_ 'users_users'}} <small class="m-l-sm">{{_ 'users_management'}}</small></h5>
+          <button class="btn btn-sm btn-primary pull-right m-t-n-xs new-user" id="new-user-btn">
+            <strong><i class="fa fa-plus" aria-hidden="true"></i> {{_ 'users_newuser'}}</strong>
+          </button>
+        </div>
+        <div class="ibox-content">
+          <div class="table-responsive">
+            <table id="users-table" class="table table-striped table-bordered table-hover dataTable"></table>
+          </div>
+        </div>
+        <div id="table-footer" class="ibox-footer"></div>
+      </div>
+    </div>
+    <div class="col-sm-0" id="users-formbox" style="display:none">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{_ 'users_edituser'}}</h5>
+        </div>
+        <div class="ibox-content">
+          <form id="user-form" role="form">
+            <div class="form-group">
+              <label>{{_ 'users_firstName'}}</label>
+              <input type="text" name="firstName" placeholder="{{_ 'users_firstNamePlaceholder'}}" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>{{_ 'users_lastName'}}</label>
+              <input type="text" name="lastName" placeholder="{{_ 'users_lastNamePlaceholder'}}" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>{{_ 'users_email'}}</label>
+              <input type="email" name="email" placeholder="{{_ 'users_emailPlaceholder'}}" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>{{_ 'users_password'}}</label>
+              <input type="password" name="password" placeholder="{{_ 'users_passwordPlaceholder'}}" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>{{_ 'users_group'}}</label>
+              <select name="group" class="form-control" id="user-form-group">
+                <option value="medical_doctor">{{_ 'groupMD'}}</option>
+                <option value="nurse">{{_ 'groupNurse'}}</option>
+                <option value="recepcionist">{{_ 'groupReception'}}</option>
+                <option value="administration">{{_ 'groupAdmin'}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="enabled" id="user-form-enabled">
+                {{_ 'common_enabled'}}
+              </label>
+              <label class="pull-right">
+                {{_ 'users_super-admin'}}
+                <input type="checkbox" name="super-admin" id="user-form-superadmin">
+              </label>
+            </div>
+            <div>
+              <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit">
+                <strong><i class="fa fa-floppy-o"></i> {{_ 'common_save'}}</strong>
+              </button>
+              <button class="btn btn-sm btn-white pull-right m-t-n-xs" type="button" id="user-form-cancel">
+                <strong><i class="fa fa-ban"></i> {{_ 'common_cancel'}}</strong>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="ibox-footer">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+{{> pageHeading title='exam-catalog_exam-catalog' }}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12" id="tablebox">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{_ 'exam-catalog_exam-catalog'}}
+            <small class="m-l-sm">{{_ 'exam-catalog_create-form-title'}}</small>
+          </h5>
+          <button class="btn btn-sm btn-primary pull-right m-t-n-xs" id="btn-new-exam-catalog">
+            <strong><i class="fa fa-plus"></i> {{_ 'exam-catalog_new'}}</strong>
+          </button>
+        </div>
+        <div class="ibox-content">
+          <form id="examCatalogForm" class="exam-catalog-form" novalidate>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">{{_ 'exam-catalog_name'}} *</label>
+                  <input type="text" name="name" id="ec-name" maxlength="100" required class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">{{_ 'exam-catalog_unit'}}</label>
+                  <input type="text" name="unit" id="ec-unit" maxlength="30" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <h4>{{_ 'exam-catalog_reference-rules'}}</h4>
+            <div id="reference-rules-list"></div>
+            <button type="button" class="btn btn-default btn-sm" id="add-rule-btn">
+              <i class="fa fa-plus"></i> {{_ 'exam-catalog_add-rule'}}
+            </button>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group text-right">
+              <button type="button" class="btn btn-danger delete-btn" id="ec-delete-btn" style="display:none">
+                <i class="fa fa-trash"></i>
+              </button>
+              <a href="#/exam-catalog" class="btn btn-white"><i class="fa fa-ban"></i> {{_ 'common_cancel'}}</a>
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-floppy-o"></i> {{_ 'common_save'}}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="rule-row-tpl" type="text/x-template">
+<div class="rule-row panel panel-default" data-idx="__IDX__">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label class="control-label small">{{_ 'exam-catalog_rule-gender'}}</label>
+          <select name="gender" class="form-control input-sm">
+            <option value="todos">{{_ 'exam-catalog_gender-all'}}</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label class="control-label small">{{_ 'exam-catalog_rule-age-min'}} (meses)</label>
+          <input type="number" name="ageMin" class="form-control input-sm" placeholder="0">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label class="control-label small">{{_ 'exam-catalog_rule-age-max'}} (meses)</label>
+          <input type="number" name="ageMax" class="form-control input-sm" placeholder="">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label class="control-label small">{{_ 'exam-catalog_rule-min'}}</label>
+          <input type="number" step="any" name="min" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label class="control-label small">{{_ 'exam-catalog_rule-max'}}</label>
+          <input type="number" step="any" name="max" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label class="control-label small">{{_ 'exam-catalog_rule-display-text'}}</label>
+          <div class="input-group input-group-sm">
+            <input type="text" name="displayText" class="form-control">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-danger remove-rule-btn"><i class="fa fa-minus"></i></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</script>

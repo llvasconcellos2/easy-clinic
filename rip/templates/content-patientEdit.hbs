@@ -1,0 +1,301 @@
+{{> pageHeading title='patients_patients' }}
+
+<div class="wrapper wrapper-content fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="tabs-container">
+
+        {{#if (isInRole 'super-admin,medical_doctor')}}
+        <button class="btn btn-sm btn-success pull-right m-t-n-xs start-appointment" id="btn-start-appointment" style="display:none">
+          <strong><i class="fa fa-play" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{_ 'patients_start-appointment'}}</strong>
+        </button>
+        {{/if}}
+        <button class="btn btn-sm btn-primary pull-right m-t-n-xs new-record">
+          <strong><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{_ 'patients_newpatient'}}</strong>
+        </button>
+
+        <ul class="nav nav-tabs patient-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#tab-1">
+              <h4>{{_ 'patients_data'}}</h4>
+              <small class="m-l-sm subtitle">{{_ 'patients_create-form-title'}}</small>
+            </a>
+          </li>
+          <li class="tab-records-nav" style="display:none">
+            <a data-toggle="tab" href="#records-tab">
+              <h4>{{_ 'patients_records'}}</h4>
+            </a>
+          </li>
+          <li class="tab-evolution-nav" style="display:none">
+            <a data-toggle="tab" href="#evolution-tab">
+              <h4>{{_ 'patients_evolution'}}</h4>
+            </a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <!-- Tab 1: Patient data form -->
+          <div id="tab-1" class="tab-pane active">
+            <div class="panel-body">
+              <form id="insertPatientForm" class="form-inline patient-form" novalidate="novalidate">
+                <input type="hidden" name="_id" />
+
+                <!-- Picture -->
+                <div class="form-group" style="float:left;width:220px;overflow:hidden">
+                  <label class="control-label">Picture</label>
+                  <input type="hidden" name="picture" id="patient-picture-id" />
+                  <div>
+                    <img class="patient-pic" id="patient-pic-img" src="images/default-user-image.png" style="max-width:200px;max-height:200px">
+                  </div>
+                  <label class="btn btn-default btn-file">
+                    <i class="fa fa-folder-open"></i> {{_ 'common_open'}}
+                    <input type="file" accept="image/*" style="display:none" id="patient-pic-file">
+                  </label>
+                </div>
+
+                <!-- Row 1: Nome, Prontuário, Data de Nascimento, Gênero -->
+                <div class="form-group" data-required="true">
+                  <label for="f-name" class="control-label">Nome</label>
+                  <input type="text" name="name" id="f-name" required maxlength="100" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-records" class="control-label">Prontuário</label>
+                  <input type="text" name="records" id="f-records" maxlength="30" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group" data-required="true">
+                  <label for="f-dob" class="control-label">Data de Nascimento</label>
+                  <div class="input-group date">
+                    <input type="text" placeholder="__/__/____" name="dateOfBirth" id="f-dob" required class="form-control">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  </div>
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group" data-required="true">
+                  <label for="f-gender" class="control-label">Gênero</label>
+                  <select name="gender" id="f-gender" required class="form-control">
+                    <option value="">Escolha Um</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                  </select>
+                  <span class="help-block"></span>
+                </div>
+
+                <!-- Row 2: Estado Civil, Cor, Naturalidade, Grau de Instrução, CPF -->
+                <div class="form-group">
+                  <label for="f-maritalStatus" class="control-label">Estado Civil</label>
+                  <select name="maritalStatus" id="f-maritalStatus" class="form-control">
+                    <option value="">Escolha Um</option>
+                    <option value="single">Solteiro(a)</option>
+                    <option value="married">Casado(a)</option>
+                    <option value="life_partner">União Estável</option>
+                    <option value="separated">Separado(a)</option>
+                    <option value="divorced">Divorciado(a)</option>
+                    <option value="widowed">Viúvo(a)</option>
+                  </select>
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-skinColor" class="control-label">Cor</label>
+                  <select name="skinColor" id="f-skinColor" class="form-control">
+                    <option value="">Escolha Um</option>
+                    <option value="white">Branco</option>
+                    <option value="brown">Mulato</option>
+                    <option value="black">Negro</option>
+                    <option value="mixed">Mestiço</option>
+                    <option value="other">Outro</option>
+                  </select>
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-placeOfBirth" class="control-label">Naturalidade</label>
+                  <input type="text" name="placeOfBirth" id="f-placeOfBirth" maxlength="100" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-literacy" class="control-label">Grau de Instrução</label>
+                  <select name="literacy" id="f-literacy" class="form-control">
+                    <option value="">Escolha Um</option>
+                    <option value="illiterate">Analfabeto</option>
+                    <option value="primary_school">Ensino Fundamental</option>
+                    <option value="high_school">Ensino Médio</option>
+                    <option value="graduated">Graduado</option>
+                    <option value="master">Mestre</option>
+                    <option value="doctor">Doutor</option>
+                    <option value="phd">PhD</option>
+                  </select>
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-cpf" class="control-label">CPF</label>
+                  <input type="text" name="CPF" id="f-cpf" class="form-control" placeholder="000.000.000-00">
+                  <span class="help-block"></span>
+                </div>
+
+                <!-- Row 3: RG, Titular CPF, Nome do Pai, Nome da Mãe -->
+                <div class="form-group">
+                  <label for="f-rg" class="control-label">RG</label>
+                  <input type="text" name="RG" id="f-rg" maxlength="20" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-titularCPF" class="control-label">Titular CPF</label>
+                  <input type="text" name="titularCPF" id="f-titularCPF" class="form-control" placeholder="000.000.000-00">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-fathersName" class="control-label">Nome do Pai</label>
+                  <input type="text" name="fathersName" id="f-fathersName" maxlength="100" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-mothersName" class="control-label">Nome da Mãe</label>
+                  <input type="text" name="mothersName" id="f-mothersName" maxlength="100" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+
+                <!-- Row 4: Profissão, Indicado Por, Data de Retorno, Email -->
+                <div class="form-group">
+                  <label for="f-occupation" class="control-label">Profissão</label>
+                  <input type="text" name="occupation" id="f-occupation" maxlength="100" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-recommendedBy" class="control-label">Indicado Por</label>
+                  <input type="text" name="recommendedBy" id="f-recommendedBy" maxlength="100" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-returnDate" class="control-label">Data de Retorno</label>
+                  <div class="input-group date">
+                    <input type="text" placeholder="__/__/____" name="returnDate" id="f-returnDate" class="form-control">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  </div>
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-email" class="control-label">E-mail</label>
+                  <input type="email" name="email" id="f-email" maxlength="255" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+
+                <!-- Row 5: Telefone, Celular -->
+                <div class="form-group">
+                  <label for="f-phone" class="control-label">Telefone</label>
+                  <input type="text" name="phone" id="f-phone" placeholder="(__) ____-____" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group" data-required="true">
+                  <label for="f-mobile" class="control-label">Celular</label>
+                  <input type="text" name="mobile" id="f-mobile" required placeholder="(__) _____-____" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+
+                <!-- Address section -->
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label for="f-zip" class="control-label">CEP</label>
+                  <input type="text" name="zip" id="f-zip" placeholder="00000-000" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-street1" class="control-label">Endereço</label>
+                  <input type="text" name="streetAddress_1" id="f-street1" maxlength="255" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-street2" class="control-label">Complemento</label>
+                  <input type="text" name="streetAddress_2" id="f-street2" maxlength="255" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-bairro" class="control-label">Bairro</label>
+                  <input type="text" name="bairro" id="f-bairro" maxlength="255" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-city" class="control-label">Cidade</label>
+                  <input type="text" name="city" id="f-city" maxlength="255" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                  <label for="f-state" class="control-label">Estado</label>
+                  <input type="text" name="state" id="f-state" maxlength="2" class="form-control">
+                  <span class="help-block"></span>
+                </div>
+
+                <!-- Observations -->
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label for="f-obs" class="control-label">Observações</label>
+                  <textarea name="obs" id="f-obs" rows="5" class="form-control"></textarea>
+                  <span class="help-block"></span>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-group patient-form-buttons">
+                  <a href="#/patients" class="btn btn-white">
+                    <i class="fa fa-ban"></i> {{_ 'common_cancel'}}
+                  </a>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-floppy-o"></i> {{_ 'common_save'}}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Tab 2: Patient records — FAB + empty state (JS replaces with timeline when data exists) -->
+          <div id="records-tab" class="tab-pane">
+            <div class="btn-group dropup floating-action-button">
+              <button class="btn btn-primary btn-circle btn-lg btn-raised dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="{{_ 'patients_add-to-records'}}">
+                <i class="fa fa-plus"></i>
+              </button>
+              <ul class="dropdown-menu" data-dropdown-in="bounceInUp" data-dropdown-out="bounceOutDown">
+                <button id="patient-add-form-btn" class="btn btn-success btn-circle btn-lg btn-raised" type="button" data-tooltip="{{_ 'patients_add-form'}}"><i class="fa fa-id-card"></i></button>
+                <button id="patient-add-prescription-btn" class="btn btn-info btn-circle btn-lg btn-raised" type="button" data-tooltip="{{_ 'patients_add-prescription'}}"><i class="fa fa-file-text"></i></button>
+                <button id="patient-add-certificate-btn" class="btn btn-warning btn-circle btn-lg btn-raised" type="button" data-tooltip="{{_ 'patients_add-certificate'}}"><i class="fa fa-file-text-o"></i></button>
+                <button id="patient-add-exam-btn" class="btn btn-danger btn-circle btn-lg btn-raised" type="button" data-tooltip="{{_ 'patients_add-exam-request'}}"><i class="fa fa-eye"></i></button>
+                <button id="patient-add-exam-results-btn" class="btn btn-exam-results btn-circle btn-lg btn-raised" type="button" data-tooltip="{{_ 'patients_add-exam-results'}}"><i class="fa fa-flask"></i></button>
+              </ul>
+            </div>
+            <div id="records-tab-content">
+              <div class="records-empty-state">
+                <div class="records-empty-icon"><i class="fa fa-folder-open-o"></i></div>
+                <h3>{{_ 'patients_records-empty-title'}}</h3>
+                <p class="text-muted">{{_ 'patients_records-empty-text'}}</p>
+                <div class="records-empty-tutorial">
+                  <p class="records-empty-hint">
+                    {{_ 'patients_records-empty-hint'}}
+                    <span class="records-empty-fab"><i class="fa fa-plus"></i></span>
+                  </p>
+                  <ul class="records-empty-options">
+                    <li><span class="btn btn-success btn-circle"><i class="fa fa-id-card"></i></span><span class="records-empty-option-label">{{_ 'patients_add-form'}}</span></li>
+                    <li><span class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></span><span class="records-empty-option-label">{{_ 'patients_add-prescription'}}</span></li>
+                    <li><span class="btn btn-warning btn-circle"><i class="fa fa-file-text-o"></i></span><span class="records-empty-option-label">{{_ 'patients_add-certificate'}}</span></li>
+                    <li><span class="btn btn-danger btn-circle"><i class="fa fa-eye"></i></span><span class="records-empty-option-label">{{_ 'patients_add-exam-request'}}</span></li>
+                    <li><span class="btn btn-exam-results btn-circle"><i class="fa fa-flask"></i></span><span class="records-empty-option-label">{{_ 'patients_add-exam-results'}}</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Evolution — empty state (JS replaces with charts when vitals data exists) -->
+          <div id="evolution-tab" class="tab-pane">
+            <div id="evolution-tab-content">
+              <div class="panel-body">
+                <div class="records-empty-state">
+                  <div class="records-empty-icon"><i class="fa fa-line-chart"></i></div>
+                  <h3>{{_ 'evolution_empty-title'}}</h3>
+                  <p class="text-muted">{{_ 'evolution_empty-text'}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

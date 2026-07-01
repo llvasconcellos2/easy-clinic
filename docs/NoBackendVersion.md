@@ -287,5 +287,124 @@ Start where the **full app frame** already lives; do login last (it's just a spl
     (store → data-source → methods → shim → router).
   - Playwright check confirms: zero errors, frame intact, `contentText` = "Pacientes 100 Total cadastrado"
     (live from JSON data). Charts render via Chart.js in the screenshot.
-- **Next:** patient list (DataTables), patient form (AutoForm DOM copy + form-binder), then remaining
-  CRUD pages (settings, specialties, drugs, icd10, doctors, exam-catalog, document-models, form-models).
+- **All primary routes DONE** (templates + JS inits wired in `_afterRender`):
+  - Patient list (DataTables + Gravatar), patient create/edit forms (form-binder + datepicker + file upload preview).
+  - Patient records tab: `cd-horizontal-timeline` port; FAB with 5 sub-buttons + mini-tutorial empty state.
+  - Patient evolution tab: 4 Chart.js line charts (IMC, weight, BP, heart rate) + optional exam results chart.
+  - All reference/CRUD lists: drugs, ICD-10, specialties, doctors, exam-catalog, document-models, form-models (DataTables).
+  - CRUD create/edit forms for **all 6 sub-route pairs** (added 2026-07-01):
+    - Specialty: single-field form, insert/update/delete + toastr feedback.
+    - Exam catalog: name/unit + dynamic reference-rules rows (add/remove), insert/update/delete.
+    - Drug: all schema fields + **Summernote** rich-text editor on `html` field; vendored `summernote 0.8.1` from Docker package cache.
+    - Doctor: Summernote signature editor, Chosen multi-select specialties + color, 7-day **workHours grid** with clockpicker time slots (add/remove per day).
+    - Document model: Summernote model editor + Chosen type select + placeholder help text.
+    - Form model: **formBuilder** drag-drop builder + formRender preview tab; vendored `form-builder.js/css` + `form-render.js/css` from `src/app/client/plugins/formBuilder/`.
+  - Vendored into `rip/vendor/`: `summernote.js/css`, `sweetalert.min.js/css`, `clockpicker.js/css`, `form-builder.js/css`, `form-render.js/css`, `papaparse.js`.
+  - Settings form: fills from `Settings.findOne()`, saves back to store.
+  - Reports (appointments/patients/production): DataTables + Chart.js demographic charts.
+  - Schedule: FullCalendar Scheduler timeline + appointment create/edit modal + doctor resources.
+  - Users: DataTable + inline edit panel (create/update user, group/role selection).
+  - **Import**: rewritten with PapaParse CSV flow — file upload → parse + validate required fields → preview table → confirm → `Patients.insert` per row.
+  - Logout: 2-second delay showing "Saindo…" then fade to login splash.
+- **CSS asset audit + router template bug fixed** (2026-07-01):
+  - Surveyed every `url()` reference in `styles.css` and all `rip/vendor/*.css` files.
+  - Critical assets confirmed present: `chosen-sprite.png` + `@2x` in both `rip/vendor/` (for `chosen.css`) and `rip/` (for `styles.css`); `green.png` + `@2x` in `rip/` (iCheck); Summernote fonts in `rip/vendor/font/` and `rip/packages/summernote_summernote/dist/font/`.
+  - Remaining 404s are non-critical: `img/video-play.png` etc. (blueimp Gallery — not used), `images/animated-overlay.gif` (jQuery UI progressbar — not used), `images/ui-bg_*.png` (jQuery UI theming — overridden by Bootstrap/INSPINIA). These won't affect the visible clinic UI.
+  - **Router bug fixed**: create/edit form routes (`specialtyCreate`, `examCatalogCreate`, `drugCreate`, `drugEdit`, `doctorEdit`, `documentModelCreate`, `documentModelEdit`, `formModelsCreate`, `formModelsEdit`) were looking for `content-<routeName>.hbs` but the shared templates are named `content-<resource>Form.hbs`. Fixed by adding a `template` override field to ROUTES entries and updating `matchRoute`/`renderContent` to use it. The route name is preserved for `_afterRender` dispatch.
+  - Added missing i18n key `document-models_description` → `"Descrição"` to `pt-BR.json`.
+  - Summernote `lang: "pt-BR"` falls back silently to English toolbar labels (locale not bundled in vendored JS) — cosmetic only, editor is functional.
+- **PWA + IndexedDB persistence DONE** (2026-07-01):
+  - `rip/manifest.json` — standard PWA web-app manifest (`name`, `short_name`, `start_url`, `display: standalone`, `theme_color: #1ab394`, `background_color: #f3f3f4`, SVG icon reference).
+  - `rip/sw.js` — cache-first service worker; precaches all app-shell files (index.html, styles.css, vendor/*, shim/*, templates/*.hbs, data/*.json, data/i18n/pt-BR.json, fonts, sprites); cache busted by `CACHE_NAME` version string; cross-origin requests (Gravatar) bypass the cache.
+  - `rip/shim/persistence.js` — IndexedDB adapter:
+    - **In-memory mode** (default): no-op; app behaves as before.
+    - **Persist mode** (`?persist=1` once, or Settings page toggle): on first visit seeds IDB from JSON fixtures; on subsequent visits loads from IDB (mutations survive reload); Store.onChange → debounced write-through (300 ms); `navigator.storage.persist()` called to prevent browser eviction; seed version key (`SEED_VERSION = "1"`) — bump to force a reseed wipe.
+    - `Persistence.reset()` — clears all IDB stores + reloads (re-seeds from JSON).
+    - `Persistence.enable()` / `Persistence.disable()` — toggle mode + reload.
+  - `rip/shim/data-source.js` — one-line change: calls `Persistence.afterLoad(fire)` instead of `fire()` directly, so IDB hydration completes before `Store.onReady` fires.
+  - `rip/index.html` — added `<link rel="manifest">`, `theme-color` meta, `persistence.js` in load order (before `data-source.js`), and SW registration snippet after `router.js`.
+  - `rip/templates/content-settingsForm.hbs` — added "Modo de dados" ibox panel: shows active/demo status alert; buttons to enable/disable persist mode; in persist mode, a SweetAlert-confirmed "Restaurar dados originais" button that calls `Persistence.reset()`.
+
+---
+
+## Current state — what still needs to be done
+
+### Implementation complete
+
+All features listed in the workstreams are implemented:
+
+- App frame, vendor assets, i18n ✓
+- Store, router, data pipeline ✓
+- All 25 routes (dashboard, patients, schedule, doctors, drugs, ICD-10, specialties, exam-catalog, document-models, form-models, reports, settings, users, import, logout) ✓
+- All 6 CRUD form pairs (specialty, exam-catalog, drug, doctor, document-model, form-model) ✓
+- PWA manifest + service worker ✓
+- IndexedDB persistence adapter ✓
+
+### Must verify (browser test)
+
+- All 6 CRUD form pairs: navigate to create URL, fill form, save (store persists), navigate to edit URL, check data pre-fills, save update. Also: delete button triggers swal, confirmed delete removes from store and redirects to list.
+  - Specialty: `#/specialties/create`, `#/specialties/:id`
+  - Exam catalog: `#/exam-catalog/create`, `#/exam-catalog/:id`
+  - Drug: `#/drugs/create`, `#/drugs/:id` — verify Summernote loads without console errors
+  - Doctor: `#/doctors/:id` — verify Summernote signature, Chosen specialty/color selects, workHours clockpicker grid (add/remove slots, day toggle)
+  - Document model: `#/document-models/create`, `#/document-models/:id` — verify Chosen type select + Summernote model editor
+  - Form model: `#/form-models/create`, `#/form-models/:id` — verify formBuilder drag-drop renders, preview tab shows rendered form, save/delete work
+- Schedule: event create + edit modal, status transitions (to-confirm → scheduled → attending → finished etc.), doctor resource rows display
+- Import (`#/import`): select CSV file → parse → preview table shows rows → confirm → patients appear in patient list
+- Users (`#/users`): inline edit panel opens, save updates store entry
+
+### Not yet implemented
+
+- *(All primary features implemented — see progress log above.)*
+- **Optional polish**: SW `CACHE_NAME` bump when vendor/shim files change; PNG icon assets (192×192, 512×512) for better PWA install-banner support on Android.
+
+---
+
+## Technical handoff — key facts for the next session
+
+### How the router works now (after 2026-07-01 fix)
+
+`rip/shim/router.js` — ROUTES entries can have an optional `template` field. If present, that file name is used for the `.hbs` load; the route `name` is always used for `_afterRender` dispatch and `FlowRouter.current()`.
+
+```js
+// example
+{ path: "specialties/create", name: "specialtyCreate", template: "specialtyForm" }
+// loads: rip/templates/content-specialtyForm.hbs
+// fires: _afterRender("specialtyCreate", {}, {})
+```
+
+`renderContent(templateName, routeName, params, query)` — 4-arg signature. `navigate()` calls it as `renderContent(matched.template, matched.name, matched.params, query)`.
+
+All CRUD create/edit form pairs share a single `.hbs` template (named `content-<resource>Form.hbs`). The JS init reads `FlowRouter.getParam('id')` to distinguish create vs. edit mode. Patients are the exception — they keep separate `content-patientCreate.hbs` / `content-patientEdit.hbs`.
+
+### Verification method
+
+Start the static server (`python -m http.server 8081` from `rip/`) and open `http://localhost:8081`. Login is fake — click *Entrar* (pre-filled `leo.lima.web@gmail.com` / `123456`). Navigate via the sidebar or by typing hash URLs directly.
+
+To diff against the real app, start Docker (`docker compose up -d`) and compare at `http://localhost:3000`.
+
+### Known gotchas
+
+- **Summernote pt-BR locale**: not bundled in `rip/vendor/summernote.js`. `lang: "pt-BR"` silently falls back to English toolbar labels. The editor is functional; labels are just in English.
+- **formBuilder instance**: `$.fn.formBuilder()` returns the jQuery collection (`.each()` return). To get the formBuilder instance, use `$(el).data('formBuilder')` — this is what the code does. `formBuilder.actions.getData()` returns the field array; `formBuilder.formData` is the JSON string.
+- **Doctor form is edit-only**: no `doctorCreate` route — doctors are created via the Users form (`#/users`). `initDoctorForm(id)` redirects to `doctorList` immediately if called with no id.
+- **Chosen + set value order**: set native `<select>` value first (before Chosen init), then call `.chosen()`. Chosen reads the initial selected state during init. After init, use `.trigger("chosen:updated")` if you change the value programmatically.
+- **iCheck images** (`green.png`, `green@2x.png`): must be at `rip/green.png` (relative to `styles.css`). These are already in place.
+- **Summernote fonts**: needed at two paths — `rip/vendor/font/summernote.*` (for `vendor/summernote.css`) and `rip/packages/summernote_summernote/dist/font/summernote.*` (for `styles.css` Meteor-style path). Both already copied.
+- **`preprocess()` in shim.js**: converts `{{#if helper arg}}` → `{{#if (helper arg)}}` so Handlebars 4's subexpression syntax is satisfied. Also strips `{{>` partials that aren't registered (silently drops unknown partials).
+
+### File map — what lives where
+
+| Concern | File |
+| --- | --- |
+| Route table + FlowRouter surface | `rip/shim/router.js` |
+| All page init functions (`initDrugForm`, etc.) | `rip/shim/shim.js` |
+| In-memory store (collections) | `rip/shim/store.js` |
+| Data load from JSON files | `rip/shim/data-source.js` |
+| Local method impls (`dashboardStats`, etc.) | `rip/shim/methods.js` |
+| i18n dictionary (pt-BR) | `rip/data/i18n/pt-BR.json` |
+| Handlebars page templates | `rip/templates/content-*.hbs` |
+| Shared partials (nav, topNavbar, footer, etc.) | `rip/templates/*.hbs` (non-content) |
+| Vendor JS/CSS | `rip/vendor/` |
+| Summernote fonts | `rip/vendor/font/` + `rip/packages/summernote_summernote/dist/font/` |
+| Chosen + iCheck sprites | `rip/vendor/chosen-sprite*.png`, `rip/green*.png`, `rip/chosen-sprite*.png` |

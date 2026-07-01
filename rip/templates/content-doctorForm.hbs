@@ -1,0 +1,68 @@
+{{> pageHeading title='users_doctors' }}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12" id="tablebox">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{_ 'users_doctors'}}
+            <small class="m-l-sm" id="doctor-form-title"></small>
+          </h5>
+        </div>
+        <form id="doctor-form" role="form">
+          <div class="ibox-content">
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{_ 'specialties_medical-specialties'}}</h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label class="control-label">{{_ 'doctors_signature'}}</label>
+                  <textarea rows="5" name="signature" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">CRM</label>
+                  <input type="text" name="CRM" id="CRM" maxlength="20" class="form-control" style="max-width:200px">
+                </div>
+                <div class="form-group">
+                  <label>{{_ 'specialties_specialties'}}</label>
+                  <select name="specialties" id="doctor-specialties" class="chosen-select form-control" multiple data-placeholder="{{_ 'common_firstOption'}}">
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>{{_ 'specialties_color'}}</label>
+                  <select name="color" id="doctor-color" class="chosen-select form-control" data-placeholder="{{_ 'common_firstOption'}}">
+                    <option value=""></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{_ 'doctors_work-hours'}}</h3>
+              </div>
+              <div class="panel-body">
+                <div class="work-hours" id="work-hours-grid">
+                  <!-- rendered by initDoctorForm -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div id="table-footer" class="ibox-footer">
+            <div class="form-group">
+              <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit">
+                <strong><i class="fa fa-floppy-o"></i> {{_ 'common_save'}}</strong>
+              </button>
+              <button class="btn btn-sm btn-white pull-right m-t-n-xs cancel" type="button">
+                <strong><i class="fa fa-ban"></i> {{_ 'common_cancel'}}</strong>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
