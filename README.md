@@ -62,7 +62,7 @@ Easy Clinic is a complete medical clinic management platform — patient records
 
 <!-- END INTRO -->
 
-Easy Clinic is a complete clinic management platform developed for Brazilian medical practices. It covers every operational dimension of a small-to-medium clinic: patient registration with photo and CPF validation, a FullCalendar-based appointment scheduler with drag-and-drop and multi-doctor resource views, a full patient clinical record system with a timeline of visits, and a document engine for generating prescriptions, medical certificates, and exam requests from reusable templates.
+Easy Clinic is a complete clinic management platform developed for Brazilian medical practices. It covers every operational dimension of a small-to-medium clinic: patient registration with photo and CPF validation, a calendar appointment scheduler with drag-and-drop and multi-doctor resource views, a full patient clinical record system with a timeline of visits, and a document engine for generating prescriptions, medical certificates, and exam requests from reusable templates.
 
 The clinical record module goes beyond simple note-taking. Doctors can design custom intake forms using a visual drag-and-drop form builder, order exams from a self-learning catalog that infers reference ranges from free-text entries and filters them by patient gender and age, and track patient evolution over time — BMI, weight, blood pressure, SpO₂, and heart rate — with trend charts rendered via Chart.js.
 
@@ -265,16 +265,15 @@ The free edition is a static PWA — no server, no database, no install. It runs
 
 **Frameworks & Libraries**
 
-|                                                                                                              | Framework / Library      | Version |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------ | ------- |
-|                                                                                                              | Meteor                   | 1.4.1.3 |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="20" />     | MongoDB                  | 3.2     |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" width="20" /> | Bootstrap                | 3.x     |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" width="20" />       | jQuery                   | 1.11.x  |
-|                                                                                                              | FullCalendar + Scheduler | 2.x     |
-|                                                                                                              | Chart.js                 | 2.x     |
-|                                                                                                              | Handlebars               | 4.0.x   |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="20" />       | Docker                   | —       |
+|                                                                                                                | Framework / Library | Version |
+| -------------------------------------------------------------------------------------------------------------- | ------------------- | ------- |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/meteor/meteor-original.svg" width="20" />         | Meteor              | 1.4.1.3 |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="20" />       | MongoDB             | 3.2     |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" width="20" />   | Bootstrap           | 3.x     |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" width="20" />         | jQuery              | 1.11.x  |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chartjs/chartjs-original.svg" width="20" />       | Chart.js            | 2.x     |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/handlebars/handlebars-original.svg" width="20" /> | Handlebars          | 4.0.x   |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="20" />         | Docker              | —       |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
