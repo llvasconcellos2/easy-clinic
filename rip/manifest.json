@@ -3,12 +3,26 @@
   "short_name": "Clí. Fácil",
   "description": "Sistema de gestão de clínica médica — versão estática offline",
   "start_url": "./index.html",
+  "id": "/index.html",
   "display": "standalone",
+  "display_override": ["window-controls-overlay"],
   "orientation": "any",
-  "theme_color": "#f3f3f4",
+  "theme_color": "#273a4a",
   "background_color": "#f3f3f4",
   "lang": "pt-BR",
    "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png?v=20260702",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png?v=20260702",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/web-app-manifest-192x192.png?v=20260702",
       "sizes": "192x192",
@@ -20,6 +34,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png?v=20260702",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Lista de pacientes — Clínica Fácil no desktop"
+    },
+    {
+      "src": "/screenshot-mobile.png?v=20260702",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Lista de pacientes — Clínica Fácil no celular"
     }
   ]
 }

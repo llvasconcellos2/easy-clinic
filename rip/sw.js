@@ -5,7 +5,7 @@
  * Bump CACHE_NAME whenever vendor/shim/template files change to force a fresh install.
  */
 
-var CACHE_NAME = "clinica-facil-rip-v2"; // v2: store/user-id/date fixes + jquery-ui
+var CACHE_NAME = "clinica-facil-rip-v3"; // v3: PWA manifest fixes + WCO title bar
 
 var PRECACHE_URLS = [
   // App shell
@@ -143,6 +143,9 @@ var PRECACHE_URLS = [
   "./images/logo.svg",
   "./images/default-user-image.png",
   "./images/drugs.png",
+
+  // PWA icons / title-bar logo
+  "./favicon.svg",
 ];
 
 // ---------------------------------------------------------------------------

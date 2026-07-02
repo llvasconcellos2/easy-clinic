@@ -37,7 +37,7 @@
       href="/apple-touch-icon.png?v=20260702"
     />
     <meta name="apple-mobile-web-app-title" content="Clínica Fácil" />
-    <meta name="theme-color" content="#1ab394" />
+    <meta name="theme-color" content="#273a4a" />
     <link rel="manifest" href="manifest.json" />
     <title>Clínica Fácil | Sistema Online</title>
     <style>
@@ -268,9 +268,68 @@
         height: auto;
         width: auto;
       }
+      /* ---- PWA Window Controls Overlay title bar ----
+         Hidden by default; only takes over the OS title bar when the installed
+         app runs with display_override: ["window-controls-overlay"]. */
+      #app-titlebar {
+        display: none;
+      }
+      @media (display-mode: window-controls-overlay) {
+        #app-titlebar {
+          /* Sit inside the area the OS leaves free (excludes the min/max/close
+             buttons); env() falls back gracefully if WCO isn't actually active. */
+          position: fixed;
+          top: env(titlebar-area-y, 0);
+          left: env(titlebar-area-x, 0);
+          width: env(titlebar-area-width, 100%);
+          height: env(titlebar-area-height, 33px);
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 0 12px;
+          box-sizing: border-box;
+          background: #273a4a;
+          color: #fff;
+          font-size: 13px;
+          font-weight: 600;
+          z-index: 10000;
+          /* The strip itself is the window-drag handle. */
+          -webkit-app-region: drag;
+          app-region: drag;
+          user-select: none;
+        }
+        #app-titlebar .app-titlebar-logo {
+          width: 18px;
+          height: 18px;
+          border-radius: 3px;
+          background: #fff;
+          padding: 1px;
+        }
+        /* Push the whole app (and the login splash) below the title-bar strip so
+           nothing renders under the OS window-control buttons. */
+        #login-splash,
+        #wrapper {
+          margin-top: env(titlebar-area-height, 33px);
+        }
+        /* Any interactive control that happens to overlap the strip must opt out
+           of dragging so it stays clickable. */
+        #app-titlebar a,
+        #app-titlebar button,
+        #app-titlebar input {
+          -webkit-app-region: no-drag;
+          app-region: no-drag;
+        }
+      }
     </style>
   </head>
   <body>
+    <!-- PWA Window Controls Overlay title bar (only visible when the app is
+         installed and WCO is active — see @media (display-mode: window-controls-overlay)) -->
+    <div id="app-titlebar">
+      <img class="app-titlebar-logo" src="/favicon.svg" alt="" aria-hidden="true" />
+      <span class="app-titlebar-title">Clínica Fácil</span>
+    </div>
+
     <!-- Login splash (blankLayout + login template) -->
     <div id="login-splash">
       <div class="middle-box text-center loginscreen animated fadeInDown">
