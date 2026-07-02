@@ -1529,13 +1529,13 @@
   function showUserForm() {
     var $tb = $("#tablebox"), $fb = $("#users-formbox");
     $tb.removeClass("col-sm-12").addClass("col-sm-8");
-    $fb.addClass("col-sm-4").show();
+    $fb.removeClass("col-sm-0").addClass("col-sm-4").show();
   }
 
   function hideUserForm() {
     var $tb = $("#tablebox"), $fb = $("#users-formbox");
     $tb.removeClass("col-sm-8").addClass("col-sm-12");
-    $fb.removeClass("col-sm-4").hide();
+    $fb.removeClass("col-sm-4").addClass("col-sm-0").hide();
     $("#user-form")[0] && $("#user-form")[0].reset();
   }
 
