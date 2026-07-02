@@ -17,7 +17,8 @@
   "use strict";
 
   var LS_KEY       = "rip-persist";
-  var SEED_VERSION = "1";            // bump this string to force a reseed wipe
+  var SEED_VERSION = "2";            // bump this string to force a reseed wipe
+                                     // v2: store string-selector fix — data persisted by v1 may be corrupted
   var DB_NAME      = "clinica-facil-rip";
   var DB_VER       = 1;
 

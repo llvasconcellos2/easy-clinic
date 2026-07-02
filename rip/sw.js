@@ -5,7 +5,7 @@
  * Bump CACHE_NAME whenever vendor/shim/template files change to force a fresh install.
  */
 
-var CACHE_NAME = "clinica-facil-rip-v1";
+var CACHE_NAME = "clinica-facil-rip-v2"; // v2: store/user-id/date fixes + jquery-ui
 
 var PRECACHE_URLS = [
   // App shell
@@ -23,6 +23,7 @@ var PRECACHE_URLS = [
 
   // Vendor JS
   "./vendor/jquery-1.11.2.min.js",
+  "./vendor/jquery-ui.min.js",
   "./vendor/bootstrap-3.3.6.min.js",
   "./vendor/jquery.metisMenu.js",
   "./vendor/handlebars-4.0.5.min.js",
@@ -59,6 +60,7 @@ var PRECACHE_URLS = [
   "./vendor/summernote.css",
   "./vendor/sweetalert.css",
   "./vendor/clockpicker.css",
+  "./vendor/jquery-ui.min.css",
   "./vendor/form-builder.css",
   "./vendor/form-render.css",
 

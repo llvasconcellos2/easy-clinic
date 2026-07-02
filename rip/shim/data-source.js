@@ -81,8 +81,104 @@
       .catch(function (e) { console.warn("[data-source] failed to load", item.name, e); });
   });
 
+  // ---------------------------------------------------------------------------
+  // Demo freshness: the JSON fixtures are a frozen export, so "today"-dependent
+  // views (dashboard agenda, schedule default view) go stale within days.
+  // 1) Shift every time-series collection forward by a uniform whole-day delta
+  //    so the newest schedule event lands on today (preserves chronology and
+  //    times of day).
+  // 2) Fill today's calendar to ~80% of each doctor's work-hour slots with
+  //    generated appointments (tagged _demo:true).
+  // Runs before Persistence.afterLoad: in persist mode the shifted+filled data
+  // is what gets seeded into IDB on first visit; IDB overlays (user edits on
+  // later visits) are never re-shifted.
+  // ---------------------------------------------------------------------------
+  var FILL_RATE = 0.8;
+
+  function demoRefresh() {
+    var scheduleDocs = global.Schedule._docs;
+    if (!scheduleDocs.length) return;
+
+    // 1) uniform whole-day shift so max(schedule.start) == today
+    var maxStart = null;
+    scheduleDocs.forEach(function (ev) {
+      if (ev.start instanceof Date && (!maxStart || ev.start > maxStart)) maxStart = ev.start;
+    });
+    var startOfDay = function (d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); };
+    var dayDelta = startOfDay(new Date()).getTime() - startOfDay(maxStart).getTime();
+    if (dayDelta > 0) {
+      var shift = function (docs, fields) {
+        docs.forEach(function (doc) {
+          fields.forEach(function (f) {
+            if (doc[f] instanceof Date) doc[f] = new Date(doc[f].getTime() + dayDelta);
+          });
+        });
+      };
+      shift(scheduleDocs, ["start", "end"]);
+      shift(global.Appointments._docs, ["start", "end"]);
+      shift(global.PatientRecords._docs, ["date"]);
+      shift(global.PatientExams._docs, ["date"]);
+      console.log("[data-source] shifted fixture dates forward by " + (dayDelta / 86400000) + " day(s)");
+    }
+
+    // 2) fill today's slots (~FILL_RATE) for every doctor
+    var settings = global.Settings._docs[0] || {};
+    var slotMins = settings.slotDuration || 20;
+    var patients = global.Patients._docs;
+    if (!patients.length) return;
+    var now = new Date();
+    var today = startOfDay(now);
+    var weekday = today.getDay();
+    var randomId = function () {
+      return Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+    };
+    var occupied = function (resourceId, slotStart, slotEnd) {
+      return scheduleDocs.some(function (ev) {
+        return ev.resourceId === resourceId && ev.start < slotEnd && ev.end > slotStart;
+      });
+    };
+    var added = 0;
+    global.Users._docs.forEach(function (doc) {
+      if (!doc.profile || doc.profile.group !== "medical_doctor") return;
+      var dayHours = doc.workHours && doc.workHours[weekday];
+      if (!dayHours || !dayHours.length) return;
+      var waitingPlaced = false;
+      dayHours.forEach(function (interval) {
+        var hm = function (s) {
+          var p = String(s || "").split(":");
+          return new Date(today.getFullYear(), today.getMonth(), today.getDate(), +p[0] || 0, +p[1] || 0);
+        };
+        for (var t = hm(interval.start); t < hm(interval.end); t = new Date(t.getTime() + slotMins * 60000)) {
+          var slotEnd = new Date(t.getTime() + slotMins * 60000);
+          if (Math.random() >= FILL_RATE) continue;
+          if (occupied(doc._id, t, slotEnd)) continue;
+          var pat = patients[Math.floor(Math.random() * patients.length)];
+          var status;
+          if (slotEnd <= now) status = "finished";
+          else if (t <= now) status = "attending";
+          else if (!waitingPlaced) { status = "waiting"; waitingPlaced = true; }
+          else status = "scheduled";
+          scheduleDocs.push({
+            _id: randomId(),
+            resourceId: doc._id,
+            start: t,
+            end: slotEnd,
+            title: pat.name,
+            constraint: "available_hours",
+            status: status,
+            patient: pat._id,
+            _demo: true,
+          });
+          added++;
+        }
+      });
+    });
+    if (added) console.log("[data-source] generated " + added + " demo appointments for today");
+  }
+
   Promise.all(promises).then(function () {
     console.log("[data-source] all collections loaded");
+    try { demoRefresh(); } catch (e) { console.error("[data-source] demoRefresh failed", e); }
     // Let persistence.js overlay IDB data (or seed IDB) before firing Store.onReady.
     // If persistence.js isn't loaded (shouldn't happen), fall through immediately.
     if (global.Persistence) {

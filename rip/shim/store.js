@@ -137,6 +137,7 @@
   };
 
   Collection.prototype.find = function (sel, opts) {
+    if (typeof sel === "string") sel = { _id: sel };
     opts = opts || {};
     var docs = this._docs.filter(function (d) { return matchSelector(d, sel); });
     if (opts.sort) {
@@ -162,6 +163,7 @@
   };
 
   Collection.prototype.update = function (sel, modifier) {
+    if (typeof sel === "string") sel = { _id: sel };
     var updated = 0;
     this._docs = this._docs.map(function (doc) {
       if (!matchSelector(doc, sel)) return doc;
@@ -195,6 +197,7 @@
   };
 
   Collection.prototype.remove = function (sel) {
+    if (typeof sel === "string") sel = { _id: sel };
     var before = this._docs.length;
     this._docs = this._docs.filter(function (d) { return !matchSelector(d, sel); });
     var removed = before - this._docs.length;
@@ -203,6 +206,7 @@
   };
 
   Collection.prototype.upsert = function (sel, modifier) {
+    if (typeof sel === "string") sel = { _id: sel };
     var existing = this.findOne(sel);
     if (existing) return this.update(sel, modifier);
     var doc = Object.assign({}, sel);

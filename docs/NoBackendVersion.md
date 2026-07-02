@@ -321,42 +321,62 @@ Start where the **full app frame** already lives; do login last (it's just a spl
     - **Persist mode** (`?persist=1` once, or Settings page toggle): on first visit seeds IDB from JSON fixtures; on subsequent visits loads from IDB (mutations survive reload); Store.onChange → debounced write-through (300 ms); `navigator.storage.persist()` called to prevent browser eviction; seed version key (`SEED_VERSION = "1"`) — bump to force a reseed wipe.
     - `Persistence.reset()` — clears all IDB stores + reloads (re-seeds from JSON).
     - `Persistence.enable()` / `Persistence.disable()` — toggle mode + reload.
+- **Full browser verification + 6 defects fixed** (2026-07-02). Playwright sweep of all 27 routes +
+  15 interaction flows (new scripts `src/scripts/verify-rip-routes.js`, `verify-rip-flows.js`,
+  `check-rip-data.js`). Defects found and fixed:
+  1. **Store string-selector bug (critical)**: `update`/`remove`/`find` didn't normalize string ids and
+     `matchSelector` matched everything for non-object selectors → editing one doc renamed **all** docs,
+     deleting one **wiped the collection**. Fixed in `store.js` (`if (typeof sel === "string") sel = {_id: sel}`).
+  2. **Fake user id mismatch**: `currentUser._id` was `"doctor-leo"` but all data keys off the real
+     seeded doctor `QTWAByLcNDWsZLDzN` → dashboard agenda could never match. Fixed in `shim.js`.
+  3. **New schedule events stored string dates**: calendar `select` inserted `start.format()`; the
+     original relied on SimpleSchema autoConvert. String-vs-Date `$gte` compares as NaN → new
+     appointments never appeared on the dashboard (the user-reported bug, together with #2).
+     Fixed: `start.toDate()`/`end.toDate()`.
+  4. **Orphan schedule→patient refs** (broken in Mongo itself by the anonymization scripts): repaired
+     via new `src/scripts/12-fix-schedule-refs.js` + fresh `src/scripts/export-rip-data.sh` re-export.
+  5. **formBuilder dead** (`$sortableFields.sortable is not a function`): jQuery UI was never vendored.
+     Copied `jquery-ui.min.js/css` from `src/app/client/plugins/jquery-ui/` into `rip/vendor/`,
+     included before `form-builder.js`, added to SW precache.
+  6. **Stale fixture dates**: added `demoRefresh()` in `data-source.js` — shifts all time-series
+     collections forward by a uniform whole-day delta (newest schedule event = today) and fills
+     today's calendar to ~80% of every doctor's work-hour slots (`_demo: true` events). Runs each
+     demo-mode load; in persist mode only at JSON seed. `SEED_VERSION` bumped to "2" (v1 IDB data may
+     be corrupted by defect #1) and SW `CACHE_NAME` to v2.
   - `rip/shim/data-source.js` — one-line change: calls `Persistence.afterLoad(fire)` instead of `fire()` directly, so IDB hydration completes before `Store.onReady` fires.
   - `rip/index.html` — added `<link rel="manifest">`, `theme-color` meta, `persistence.js` in load order (before `data-source.js`), and SW registration snippet after `router.js`.
   - `rip/templates/content-settingsForm.hbs` — added "Modo de dados" ibox panel: shows active/demo status alert; buttons to enable/disable persist mode; in persist mode, a SweetAlert-confirmed "Restaurar dados originais" button that calls `Persistence.reset()`.
 
 ---
 
-## Current state — what still needs to be done
+## Current state — verified working (2026-07-02)
 
-### Implementation complete
+The full build was browser-verified with Playwright (route sweep + interaction flows) and all
+defects found were fixed the same day (see progress log). Current status:
 
-All features listed in the workstreams are implemented:
+- **All 27 routes render** with data, zero console/page errors, zero inline error boxes.
+- **All interaction flows pass**: specialty CRUD (create/prefill/update/delete affect exactly one
+  doc), schedule modal + status transitions, users edit panel, CSV import preview, patient create,
+  deep-linking a hash before login, `?persist=1` seeding.
+- **The user-reported bug is fixed and covered by a regression test**: creating an appointment on
+  the schedule for the logged-in doctor today now appears on the dashboard agenda.
+- Demo freshness is automatic: `data-source.js` `demoRefresh()` shifts all fixture dates forward at
+  load so the newest schedule event lands on today, then fills today's calendar to ~80% of every
+  doctor's work-hour slots (generated events tagged `_demo: true`).
 
-- App frame, vendor assets, i18n ✓
-- Store, router, data pipeline ✓
-- All 25 routes (dashboard, patients, schedule, doctors, drugs, ICD-10, specialties, exam-catalog, document-models, form-models, reports, settings, users, import, logout) ✓
-- All 6 CRUD form pairs (specialty, exam-catalog, drug, doctor, document-model, form-model) ✓
-- PWA manifest + service worker ✓
-- IndexedDB persistence adapter ✓
+### Verification tooling (run with the static server on :8081)
 
-### Must verify (browser test)
+- `node src/scripts/check-rip-data.js` — fixture referential integrity + date freshness.
+- `node src/scripts/verify-rip-routes.js` — render sweep of every route.
+- `node src/scripts/verify-rip-flows.js` — interaction/regression flows (15 checks).
+- `sh src/scripts/export-rip-data.sh` — re-export all 14 collections from Docker mongo (run
+  `src/scripts/12-fix-schedule-refs.js` first if patients were re-anonymized).
 
-- All 6 CRUD form pairs: navigate to create URL, fill form, save (store persists), navigate to edit URL, check data pre-fills, save update. Also: delete button triggers swal, confirmed delete removes from store and redirects to list.
-  - Specialty: `#/specialties/create`, `#/specialties/:id`
-  - Exam catalog: `#/exam-catalog/create`, `#/exam-catalog/:id`
-  - Drug: `#/drugs/create`, `#/drugs/:id` — verify Summernote loads without console errors
-  - Doctor: `#/doctors/:id` — verify Summernote signature, Chosen specialty/color selects, workHours clockpicker grid (add/remove slots, day toggle)
-  - Document model: `#/document-models/create`, `#/document-models/:id` — verify Chosen type select + Summernote model editor
-  - Form model: `#/form-models/create`, `#/form-models/:id` — verify formBuilder drag-drop renders, preview tab shows rendered form, save/delete work
-- Schedule: event create + edit modal, status transitions (to-confirm → scheduled → attending → finished etc.), doctor resource rows display
-- Import (`#/import`): select CSV file → parse → preview table shows rows → confirm → patients appear in patient list
-- Users (`#/users`): inline edit panel opens, save updates store entry
+### Remaining polish (optional)
 
-### Not yet implemented
-
-- *(All primary features implemented — see progress log above.)*
-- **Optional polish**: SW `CACHE_NAME` bump when vendor/shim files change; PNG icon assets (192×192, 512×512) for better PWA install-banner support on Android.
+- Summernote pt-BR locale not bundled — toolbar labels fall back to English (cosmetic).
+- Import confirm step inserts patients (parse+preview verified; final insert exercised only manually).
+- PNG icon assets (192×192, 512×512) for better PWA install-banner support on Android.
 
 ---
 

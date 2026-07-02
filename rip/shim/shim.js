@@ -53,7 +53,8 @@
   // Fake current user (the seeded super-admin doctor) + auth/roles stubs
   // ---------------------------------------------------------------------------
   var currentUser = {
-    _id: "doctor-leo",
+    // must be the seeded doctor's real _id — Schedule.resourceId and users.json key off it
+    _id: "QTWAByLcNDWsZLDzN",
     profile: { firstName: "Leonardo", lastName: "Lima de Vasconcellos", group: "medical_doctor", language: "pt-BR" },
     emails: [{ address: "leo.lima.web@gmail.com", verified: true }],
     roles: ["default", "medical_doctor", "super-admin"]
@@ -2254,8 +2255,9 @@
         if (!resource) { $cal.fullCalendar("unselect"); return; }
         var newId = Schedule.insert({
           resourceId: resource.id,
-          start:  start.format(),
-          end:    end.format(),
+          // real Dates — the original relied on SimpleSchema autoConvert; the store has no schema
+          start:  start.toDate(),
+          end:    end.toDate(),
           title:  "to-confirm",
           status: "to-confirm",
         });
